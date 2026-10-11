@@ -21,7 +21,7 @@ dans le style des carrousels du jour 3. Il bouge, fait des gestes et des bulles,
 
 ## Fabriquer
 1. Contrôle visuel rapide : `python3 build.py script.json sortie.mp4 --test 2,10,25`, puis regarder les captures.
-2. Avec voix off, une voix par scène dans l'ordre : `python3 build.py script.json sortie.mp4 --voix v1.mp3 v2.mp3 …`
+2. Avec voix off : `python3 build.py script.json sortie.mp4 --voix-unique voix.mp3` (UNE voix pour toute la vidéo, 14 crédits vidIQ ; découpe automatique entre les scènes). Variante : `--voix v1.mp3 v2.mp3 …` (une par scène, plus cher).
 3. Sans voix (musique seule) : `python3 build.py script.json sortie.mp4`
 Un rendu prend environ 1 minute pour 10 secondes de vidéo.
 

@@ -85,6 +85,31 @@ def main():
         open(liste, 'w').write(''.join("file '%s'\n" % m for m in morceaux))
         voix_finale = os.path.join(tmp, 'voix.wav')
         subprocess.run(['ffmpeg', '-v', 'error', '-y', '-f', 'concat', '-safe', '0', '-i', liste, voix_finale], check=True)
+    elif '--voix-unique' in args:
+        # UNE seule voix pour toute la video (economise les credits vidIQ) : on coupe entre les scenes
+        # au silence le plus proche de l'estimation proportionnelle au nombre de caracteres de chaque scene.
+        v = args[args.index('--voix-unique') + 1]
+        dv = duree(v)
+        out = subprocess.run(['ffmpeg', '-v', 'info', '-i', v, '-af', 'silencedetect=noise=-35dB:d=0.18', '-f', 'null', '-'],
+                             capture_output=True, text=True).stderr
+        debuts = [float(x) for x in re.findall(r'silence_start: ([\d.]+)', out)]
+        fins = [float(x) for x in re.findall(r'silence_end: ([\d.]+)', out)]
+        silences = [(a + b) / 2 for a, b in zip(debuts, fins)]
+        longueurs = [max(1, len(str(sc.get('voix', '')))) for sc in S['scenes']]
+        tot = float(sum(longueurs))
+        coupes, cumul = [], 0.0
+        for L in longueurs[:-1]:
+            cumul += L
+            estime = dv * cumul / tot
+            proches = [s for s in silences if abs(s - estime) <= 1.5 and (not coupes or s > coupes[-1] + 1.0)]
+            coupes.append(min(proches, key=lambda s: abs(s - estime)) if proches else estime)
+        bornes = [0.0] + coupes + [dv + 0.6]
+        for k, sc in enumerate(S['scenes']):
+            sc['s'], sc['e'] = round(bornes[k], 2), round(bornes[k + 1], 2)
+        S['total'] = round(bornes[-1], 2)
+        print('decoupe des scenes (s) :', [round(b, 1) for b in bornes])
+        voix_finale = os.path.join(tmp, 'voix.wav')
+        subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', v, '-af', 'apad=pad_dur=0.6', '-ar', '44100', '-ac', '2', voix_finale], check=True)
     elif S.get('voix_globale') and all('s' in sc for sc in S['scenes']):
         voix_finale = os.path.join(ICI, S['voix_globale']) if not os.path.isabs(S['voix_globale']) else S['voix_globale']
         S['total'] = S.get('total') or S['scenes'][-1]['e']
