@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#0b0b0b}
+#stage{position:relative;width:1080px;height:1920px;overflow:hidden;font-family:'Inter Display','Inter',sans-serif;color:#f4f4f2;
+ background:radial-gradient(900px 900px at 78% 30%, #5b1f0f 0%, #2a120a 45%, #0b0b0b 80%), #0b0b0b}
+#glow2{position:absolute;inset:0;background:radial-gradient(700px 600px at 10% 85%, rgba(60,40,10,.55), transparent 70%)}
+.logo{position:absolute;left:80px;top:90px;font-weight:900;font-size:54px;letter-spacing:.5px}
+.logo b{color:#ff5a1f}
+.foot{position:absolute;left:80px;bottom:80px;font-size:38px;color:#bdb6b0;font-weight:500}
+.bar{position:absolute;left:0;right:0;bottom:0;height:16px;background:linear-gradient(90deg,#ff4d1f,#ffb21a)}
+.prog{position:absolute;left:0;bottom:16px;height:6px;background:#ffb21a;opacity:.6}
+.scene{position:absolute;left:80px;right:80px;top:250px;opacity:0}
+.big{font-weight:900;font-size:132px;line-height:.95;letter-spacing:-2px;text-transform:uppercase}
+.mid{font-weight:900;font-size:86px;line-height:1;letter-spacing:-1px;text-transform:uppercase}
+.grad{background:linear-gradient(90deg,#ff4d1f,#ffb21a);-webkit-background-clip:text;background-clip:text;color:transparent}
+.out{color:transparent;-webkit-text-stroke:3px #f4f4f2}
+.sub{font-size:46px;line-height:1.3;color:#e8e2dc;font-weight:500;margin-top:34px;max-width:900px}
+.sub strong{color:#fff;font-weight:800}
+.pill{display:inline-block;background:#2b2b2e;color:#ff7a5c;font-weight:800;font-size:40px;letter-spacing:2px;padding:16px 32px;border-radius:40px;margin-bottom:40px}
+.card{background:rgba(30,30,32,.85);border:2px solid rgba(255,255,255,.08);border-radius:28px;padding:28px 36px;margin-top:24px;font-size:44px;line-height:1.3;font-weight:600}
+.card .lab{display:block;font-size:30px;letter-spacing:3px;font-weight:800;color:#ff7a5c;margin-bottom:10px}
+.card.ex{border-color:rgba(70,200,110,.35);background:rgba(16,40,24,.85)}
+.card.ex .lab{color:#5fd38a}
+.num{font-weight:900;font-size:130px;line-height:1;color:transparent;-webkit-text-stroke:4px #ff5a1f;margin-bottom:10px}
+.chk{font-size:52px;font-weight:700;margin-top:22px}
+.bubble{position:absolute;background:#fff;color:#111;font-weight:900;font-size:46px;padding:22px 34px;border-radius:34px;opacity:0;white-space:nowrap}
+.bubble:after{content:"";position:absolute;right:-30px;top:50%;margin-top:-16px;border:16px solid transparent;border-left:22px solid #fff}
+#coach{position:absolute;left:500px;top:1000px;width:520px;height:910px;transform-origin:50% 100%}
+</style></head>
+<body><div id="stage">
+<div id="glow2"></div>
+<div class="logo">OPTI<b>MUSCLE</b></div>
+
+<div id="scenes"></div>
+
+<div class="bubble" id="bub"></div>
+
+<svg id="coach" viewBox="0 0 400 700" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="200" cy="688" rx="120" ry="12" fill="rgba(0,0,0,.45)"/>
+  <g id="body">
+    <!-- legs -->
+    <g id="legs">
+      <path d="M138 470 L146 655 L196 655 L198 470 Z" fill="#1d1d24"/>
+      <path d="M202 470 L204 655 L254 655 L262 470 Z" fill="#1d1d24"/>
+      <rect x="128" y="650" width="74" height="26" rx="12" fill="#f3f3f3"/><rect x="128" y="670" width="74" height="8" rx="4" fill="#ff5a1f"/>
+      <rect x="198" y="650" width="74" height="26" rx="12" fill="#f3f3f3"/><rect x="198" y="670" width="74" height="8" rx="4" fill="#ff5a1f"/>
+    </g>
+    <g id="upper">
+      <!-- torso -->
+      <path d="M110 300 Q112 268 150 258 L250 258 Q288 268 290 300 L298 486 L102 486 Z" fill="#ff5a1f"/>
+      <path d="M160 258 Q200 286 240 258 L240 270 Q200 300 160 270 Z" fill="#d9441a"/>
+      <rect x="168" y="350" width="64" height="40" rx="5" fill="#e3471b"/>
+      <text x="200" y="381" text-anchor="middle" font-family="Inter Display, Inter, sans-serif" font-weight="900" font-size="26" fill="#111">OPTI</text>
+      <!-- arms: shoulders at (128,300) left, (272,300) right -->
+      <g id="armL" transform="translate(126,298)">
+        <g class="ua"><line x1="0" y1="0" x2="0" y2="100" stroke="#ff5a1f" stroke-width="44" stroke-linecap="round"/>
+          <g class="fa" transform="translate(0,100)"><line x1="0" y1="0" x2="0" y2="88" stroke="#e8501c" stroke-width="40" stroke-linecap="round"/>
+            <g class="hand" transform="translate(0,96)"><circle r="24" fill="#c98a5e"/><rect class="finger" x="-6" y="10" width="12" height="34" rx="6" fill="#c98a5e" opacity="0"/><rect class="thumb" x="-30" y="-14" width="12" height="30" rx="6" fill="#c98a5e" opacity="0"/></g>
+          </g></g>
+      </g>
+      <g id="armR" transform="translate(274,298)">
+        <g class="ua"><line x1="0" y1="0" x2="0" y2="100" stroke="#ff5a1f" stroke-width="44" stroke-linecap="round"/>
+          <g class="fa" transform="translate(0,100)"><line x1="0" y1="0" x2="0" y2="88" stroke="#e8501c" stroke-width="40" stroke-linecap="round"/>
+            <g class="hand" transform="translate(0,96)"><circle r="24" fill="#c98a5e"/><rect class="finger" x="-6" y="10" width="12" height="34" rx="6" fill="#c98a5e" opacity="0"/><rect class="thumb" x="18" y="-14" width="12" height="30" rx="6" fill="#c98a5e" opacity="0"/></g>
+          </g></g>
+      </g>
+      <!-- head -->
+      <g id="head" transform="translate(200,170)">
+        <rect x="-26" y="70" width="52" height="30" fill="#b9784f"/>
+        <circle cx="-92" cy="12" r="18" fill="#b9784f"/><circle cx="92" cy="12" r="18" fill="#b9784f"/>
+        <circle cx="0" cy="0" r="92" fill="#c98a5e"/>
+        <path d="M-90 -14 Q-92 -100 0 -102 Q92 -100 90 -14 Q60 -60 0 -62 Q-60 -60 -90 -14 Z" fill="#111"/>
+        <rect x="-94" y="-40" width="188" height="22" rx="11" fill="#ffc21a"/>
+        <g id="brows"><rect id="browL" x="-52" y="-6" width="34" height="8" rx="4" fill="#111"/><rect id="browR" x="18" y="-6" width="34" height="8" rx="4" fill="#111"/></g>
+        <g id="eyes"><ellipse id="eyeL" cx="-34" cy="16" rx="9" ry="10" fill="#111"/><ellipse id="eyeR" cx="34" cy="16" rx="9" ry="10" fill="#111"/></g>
+        <path d="M-4 30 Q0 40 6 32" stroke="#9c5f3b" stroke-width="4" fill="none"/>
+        <path id="smile" d="M-24 52 Q0 70 24 52" stroke="#4a2414" stroke-width="7" fill="none" stroke-linecap="round"/>
+        <ellipse id="mouth" cx="0" cy="58" rx="16" ry="12" fill="#4a1a10" opacity="0"/>
+      </g>
+    </g>
+  </g>
+</svg>
+
+<div class="foot">@optimuscle20</div>
+<div class="prog" id="prog"></div>
+<div class="bar"></div>
+</div>
+
+<script>
+let TOTAL = 10;
+const clamp = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x));
+const ease = x => 1 - Math.pow(1 - clamp(x), 3);
+const smooth = x => { x = clamp(x); return x * x * (3 - 2 * x); };
+const lerp = (a, b, k) => a + (b - a) * k;
+
+// Poses: [outwardUpper, bendForearm] for L and R (outward positive, bend toward body positive)
+const P = {
+  rest:    { L: [12, 8],   R: [12, 8] },
+  cross:   { L: [18, 118], R: [18, 112] },
+  explain: { L: [28, 92],  R: [28, 92] },
+  shrug:   { L: [40, -75], R: [40, -75] },
+  pointUL: { L: [128, -12], R: [14, 10] },
+  pointUp: { L: [14, 10],  R: [165, 0] },
+  wag:     { L: [14, 10],  R: [28, 150] },
+  count:   { L: [24, 100], R: [150, -5] },
+  wave:    { L: [14, 10],  R: [150, 0] },
+  thumbs:  { L: [14, 10],  R: [35, 120] },
+  hips:    { L: [42, 140], R: [42, 140] }
+};
+// Coach timeline: [start, pose, talk, osc, hand, bubble] -- fourni par init()
+let TL = [[0, "explain", true, "bob", "", ""]];
+
+let scenes = [];
+const esc = s => String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+// Petit balisage autorise dans les textes : **gras** -> <strong>, | -> retour a la ligne
+const fmt = s => esc(s).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\|/g, '<br>');
+function init(S) {
+  TOTAL = S.total; TL = S.coach && S.coach.length ? S.coach : TL;
+  const box = document.getElementById('scenes'); box.innerHTML = '';
+  for (const sc of S.scenes) {
+    const d = document.createElement('div'); d.className = 'scene'; d.dataset.s = sc.s; d.dataset.e = sc.e;
+    let h = '';
+    for (const it of sc.items) {
+      const cls = it.t; const at = ' data-in="' + (it.in || 0) + '"';
+      if (/^card/.test(cls)) h += '<div class="' + cls + '"' + at + '><span class="lab">' + esc(it.lab || '') + '</span>' + fmt(it.txt) + '</div>';
+      else h += '<div class="' + cls + '"' + at + '>' + fmt(it.txt) + '</div>';
+    }
+    d.innerHTML = h; box.appendChild(d);
+  }
+  scenes = [...document.querySelectorAll('.scene')].map(el => ({
+    el, s: +el.dataset.s, e: +el.dataset.e,
+    kids: [...el.querySelectorAll('[data-in]')].map(k => ({ k, i: +k.dataset.in }))
+  }));
+  window.TOTAL = TOTAL; render(0);
+}
+window.init = init;
+const $ = id => document.getElementById(id);
+const arms = { L: $('armL'), R: $('armR') };
+const bub = $('bub');
+
+function setArm(side, up, bend, hand) {
+  const sg = side === 'R' ? -1 : 1; // outward: left arm rotates +, right arm rotates -
+  const a = arms[side];
+  a.querySelector('.ua').setAttribute('transform', `rotate(${sg * up})`);
+  a.querySelector('.fa').setAttribute('transform', `translate(0,100) rotate(${-sg * bend})`);
+  a.querySelector('.finger').setAttribute('opacity', hand === 'finger' ? 1 : 0);
+  a.querySelector('.thumb').setAttribute('opacity', hand === 'thumb' ? 1 : 0);
+}
+
+function render(t) {
+  const fi = Math.floor(t * 30); const amp = (window.AMP && window.AMP[fi]) || 0;
+  // scenes
+  for (const sc of scenes) {
+    const fin = sc.s === 0 ? 1 : smooth((t - sc.s) / 0.3);
+    const fout = sc.e >= TOTAL ? 1 : 1 - smooth((t - (sc.e - 0.3)) / 0.3);
+    const v = clamp(Math.min(fin, fout));
+    sc.el.style.opacity = v;
+    sc.el.style.transform = `translateY(${(1 - fout) * -30}px)`;
+    for (const { k, i } of sc.kids) {
+      const p = ease((t - sc.s - i) / 0.45);
+      k.style.opacity = p;
+      k.style.transform = `translateY(${(1 - p) * 50}px) scale(${0.94 + 0.06 * p})`;
+      k.style.transformOrigin = 'left center';
+    }
+  }
+  // coach timeline
+  let idx = 0; for (let j = 0; j < TL.length; j++) if (t >= TL[j][0]) idx = j;
+  const cur = TL[idx], prev = TL[Math.max(0, idx - 1)];
+  const k = idx === 0 ? 1 : smooth((t - cur[0]) / 0.35);
+  const pc = P[cur[1]], pp = P[prev[1]];
+  const lt = t - cur[0];
+  let rUp = lerp(pp.R[0], pc.R[0], k), rB = lerp(pp.R[1], pc.R[1], k);
+  let lUp = lerp(pp.L[0], pc.L[0], k), lB = lerp(pp.L[1], pc.L[1], k);
+  const osc = cur[3];
+  if (osc === 'wag') rB += Math.sin(lt * 14) * 14;
+  if (osc === 'wave') rB += Math.sin(lt * 9) * 28;
+  if (osc === 'bob') { rB += Math.sin(lt * 5) * 6; lB += Math.sin(lt * 5 + 1.5) * 6; }
+  if (cur[1] === 'count') rUp += Math.sin(lt * 6) * 5;
+  setArm('L', lUp, lB, cur[1] === 'pointUL' ? cur[4] : '');
+  setArm('R', rUp, rB, cur[1] !== 'pointUL' ? cur[4] : '');
+  // body motion
+  const talking = cur[2];
+  const bounce = Math.abs(Math.sin(t * Math.PI * 1.6)) * (amp > 0.15 ? 9 : 4);
+  const sway = Math.sin(t * 1.3) * 1.5;
+  $('upper').setAttribute('transform', `translate(0,${-bounce * 0.6}) rotate(${sway} 200 480)`);
+  const tilt = (osc === 'wag' ? Math.sin(lt * 7) * 6 : Math.sin(t * 2.1) * 3) + (cur[1] === 'shrug' ? 6 : 0);
+  $('head').setAttribute('transform', `translate(200,${170 - bounce * 0.3}) rotate(${tilt})`);
+  // mouth
+  const open = amp > 0.22;
+  $('mouth').setAttribute('opacity', open ? 1 : 0);
+  $('mouth').setAttribute('ry', open ? 7 + 12 * Math.min(1, amp) : 10);
+  $('smile').setAttribute('opacity', open ? 0 : 1);
+  // eyes blink
+  const bl = (t % 3.1) < 0.12;
+  $('eyeL').setAttribute('ry', bl ? 1.5 : 10); $('eyeR').setAttribute('ry', bl ? 1.5 : 10);
+  // brows expression
+  const frown = (osc === 'wag') ? 1 : 0;
+  $('browL').setAttribute('transform', `rotate(${frown ? 14 : (cur[1]==='shrug' ? -10 : 0)} -35 -2)`);
+  $('browR').setAttribute('transform', `rotate(${frown ? -14 : (cur[1]==='shrug' ? 10 : 0)} 35 -2)`);
+  // whole coach entrance
+  const ent = ease(t / 0.6);
+  $('coach').style.transform = `translateX(${(1 - ent) * 300}px) scale(${1 + Math.sin(t*3)*0.004})`;
+  // bubble
+  const txt = cur[5];
+  if (txt) {
+    const bp = ease(lt / 0.3) * (1 - smooth((lt - 1.7) / 0.3));
+    bub.textContent = txt; bub.style.opacity = bp;
+    bub.style.right = '480px'; bub.style.top = '1150px';
+    bub.style.transform = `scale(${0.7 + 0.3 * bp})`; bub.style.transformOrigin = 'center right';
+  } else bub.style.opacity = 0;
+  $('prog').style.width = (t / TOTAL * 1080) + 'px';
+}
+window.render = render;
+</script>
+</body></html>

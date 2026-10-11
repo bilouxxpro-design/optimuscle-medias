@@ -1,0 +1,26 @@
+{
+  "sujet": "Courbatures = bonne séance ?",
+  "scenes": [
+    {"geste": "cross", "bulle": "On en parle 🤔", "voix": "Tu as mal partout après la salle ? Écoute ça avant de juger ta séance.",
+     "items": [{"t": "big", "txt": "Courbatures", "in": 0.1}, {"t": "big", "txt": "= bonne", "in": 0.35}, {"t": "big grad", "txt": "séance ?", "in": 0.6},
+               {"t": "sub", "txt": "Tu as mal partout après la salle ?|Écoute ça avant de juger ta séance.", "in": 1.2}]},
+    {"geste": "wag", "bulle": "Non non non !", "voix": "L'idée reçue : plus j'ai mal, plus j'ai progressé. C'est faux. Une courbature dit surtout que ton muscle a fait un effort inhabituel.",
+     "items": [{"t": "pill", "txt": "✕ L'IDÉE REÇUE", "in": 0.1}, {"t": "mid", "txt": "« Plus j'ai mal,", "in": 0.3}, {"t": "mid out", "txt": "plus j'ai", "in": 0.6},
+               {"t": "mid out", "txt": "progressé »", "in": 0.8}, {"t": "sub", "txt": "**C'est faux.** Une courbature dit surtout que ton muscle a fait un effort **inhabituel**.", "in": 2.4}]},
+    {"geste": "pointUL", "bulle": "Ton corps s'adapte", "voix": "Un. Au début, chaque mouvement est nouveau pour ton corps. Séance un : grosses courbatures. Séance six, même programme : presque rien.",
+     "items": [{"t": "num", "txt": "1", "in": 0.05}, {"t": "mid", "txt": "Pourquoi tu as mal", "in": 0.2},
+               {"t": "card", "lab": "POURQUOI", "txt": "Au début, chaque mouvement est nouveau pour ton corps. Il réagit, puis il s'adapte.", "in": 0.5},
+               {"t": "card ex", "lab": "EXEMPLE", "txt": "Séance 1 : grosses courbatures. Séance 6, même programme : presque rien.", "in": 2.4}]},
+    {"geste": "thumbs", "bulle": "Ça, c'est du progrès 💪", "voix": "Deux. Ce qui prouve que tu progresses : plus de charge, plus de répétitions, un geste plus propre. Ça se mesure dans ton carnet, pas dans tes douleurs.",
+     "items": [{"t": "num", "txt": "2", "in": 0.05}, {"t": "mid", "txt": "Ce qui prouve que tu progresses", "in": 0.2},
+               {"t": "chk", "txt": "✅ Squat : 40 kg → 42,5 kg", "in": 1.6}, {"t": "chk", "txt": "✅ 8 répétitions → 10", "in": 2.4},
+               {"t": "chk", "txt": "✅ Geste plus propre", "in": 3.2}, {"t": "sub", "txt": "Ta progression se mesure dans ton **carnet**, pas dans tes douleurs.", "in": 4.0}]},
+    {"geste": "hips", "bulle": "Bouge léger !", "voix": "Trois. Quand tu as mal : marche, dors, mange normalement. Douleur vive ou dans une articulation : stop, et demande l'avis d'un médecin.",
+     "items": [{"t": "num", "txt": "3", "in": 0.05}, {"t": "mid", "txt": "Quand tu as mal", "in": 0.2},
+               {"t": "card ex", "lab": "FAIS ÇA", "txt": "Bouge doucement : marche 20 min, dors correctement, mange normalement.", "in": 1.4},
+               {"t": "sub", "txt": "Douleur vive ou dans une articulation : **stop**, et demande l'avis d'un médecin.", "in": 3.6}]},
+    {"geste": "wave", "bulle": "À demain 👋", "voix": "Enregistre ce post pour ta prochaine séance, et abonne-toi : un conseil par jour.",
+     "items": [{"t": "big", "txt": "Enregistre", "in": 0.1}, {"t": "big", "txt": "ce post", "in": 0.3}, {"t": "big grad", "txt": "pour ta", "in": 0.55},
+               {"t": "big grad", "txt": "prochaine séance", "in": 0.75}, {"t": "sub", "txt": "➕ Abonne-toi **@optimuscle20** : un conseil par jour.", "in": 1.4}]}
+  ]
+}
