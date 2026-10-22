@@ -812,7 +812,7 @@ function pose(svg,k){const p=svg._p;if(!p)return;const g=svg._dyn;g.innerHTML=''
   // Mets un lien entre les guillemets pour activer un bouton. Vide = « Bientôt disponible » ou masqué.
   const CONFIG = {
     webhook: "https://n8n-suzi.srv2061735.hstgr.cloud/webhook/optimuscle-devis",
-    paiement: { declic: "", pack: "", transfo: "", assiette: "", forge: "" }, // liens Stripe / Systeme.io / Gumroad
+    paiement: { declic: "https://buy.stripe.com/8x2bJ1dyfgLh2Wbb8p1Jm00", pack: "https://buy.stripe.com/8x214n3XFbqX68ngsJ1Jm03", transfo: "https://buy.stripe.com/14AbJ1fGn2Ur40f2BT1Jm02", assiette: "https://buy.stripe.com/14A4gzbq7eD9bsHdgx1Jm04", forge: "https://buy.stripe.com/5kQaEXfGn7aH7cr90h1Jm01" }, // liens Stripe / Systeme.io / Gumroad
     kit: "/kit/",     // lien public du Kit 7 jours gratuit
     instagram: "",    // ex. https://www.instagram.com/...
     tiktok: "",       // ex. https://www.tiktok.com/@...
@@ -853,7 +853,7 @@ function pose(svg,k){const p=svg._p;if(!p)return;const g=svg._dyn;g.innerHTML=''
   // Liens de paiement, kit, réseaux, mentions
   document.querySelectorAll("[data-link]").forEach(a => {
     const k = a.dataset.link, url = k === "kit" ? CONFIG.kit : CONFIG.paiement[k];
-    if (url) { a.href = url; if (k !== "kit") { a.target = "_blank"; a.rel = "noopener"; } }
+    if (url) { a.href = url; }
     else if (k === "kit") { a.textContent = "Le kit arrive très vite"; a.removeAttribute("href"); a.classList.add("off"); }
     else { a.textContent = "Bientôt disponible"; a.removeAttribute("href"); a.classList.add("off"); a.setAttribute("aria-disabled","true"); }
   });
