@@ -248,22 +248,32 @@
   .book b{font-family:Anton,sans-serif;font-size:1.35rem;line-height:1;text-transform:uppercase}
   .book small{font-size:.6rem;letter-spacing:2px;color:var(--fire);font-weight:800}
   .dl{display:none;margin-top:16px}
-  /* POUR LES FILLES */
-  #filles{--fire:#ff4fa3;--fire2:#ffa8d2;background:#150b12;border-top:1px solid #3a1a2e;border-bottom:1px solid #3a1a2e}
-  #filles .pillars{background:#3a1a2e}
-  #filles .pillar{background:#1c0f18}
-  #filles .pillar:hover{background:#26121f}
-  #filles .btn-fire{color:#2a0717;animation-name:pulse-pink}
+  /* BASCULE GARS / FILLES */
+  .mode{display:inline-flex;background:#18181b;border:1px solid var(--line);border-radius:999px;padding:3px;gap:2px;margin-left:14px}
+  .mode button{border:0;background:transparent;color:var(--muted);font:inherit;font-weight:800;font-size:.78rem;letter-spacing:1px;text-transform:uppercase;padding:7px 13px;border-radius:999px;cursor:pointer;min-height:32px}
+  .mode button[aria-pressed="true"]{background:linear-gradient(90deg,var(--fire),var(--fire2));color:#160700}
+  #nav .wrap>.left{display:flex;align-items:center}
+  @media (max-width:420px){.mode button{padding:7px 10px}.mode{margin-left:8px}}
+  .only-f{display:none}
+  html.girl .only-f{display:revert}
+  html.girl .only-g{display:none}
+  html.girl{--fire:#ff4fa3;--fire2:#ffa8d2;--bg2:#150b12;--card:#1c0f18;--line:#3a1a2e}
+  html.girl .mode button[aria-pressed="true"],html.girl .btn-fire{color:#2a0717}
+  html.girl .btn-fire{animation-name:pulse-pink}
   @keyframes pulse-pink{0%{box-shadow:0 0 0 0 rgba(255,79,163,.55)}70%{box-shadow:0 0 0 18px rgba(255,79,163,0)}100%{box-shadow:0 0 0 0 rgba(255,79,163,0)}}
-  #filles .intro{color:var(--muted);max-width:640px;margin:18px 0 40px;font-size:1.05rem}
-  .girl-duo{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:22px}
-  @media (max-width:860px){.girl-duo{grid-template-columns:1fr}}
-  .girl-tip{border:1px solid #3a1a2e;border-radius:18px;padding:32px;background:#1c0f18}
-  .girl-tip h3{font-family:Anton,sans-serif;text-transform:uppercase;font-weight:400;font-size:1.5rem;margin-bottom:10px}
-  .girl-tip p{color:var(--muted);margin-bottom:12px}
-  .girl-tip .btns{display:flex;flex-wrap:wrap;gap:12px;margin-top:18px}
-  #filles form{background:#1c0f18;border-color:#3a1a2e;margin:0}
-  #filles input:focus{border-color:var(--fire)}
+  html.girl .marquee{color:#2a0717}
+  html.girl .hero{background:radial-gradient(ellipse at 78% 35%,rgba(255,79,163,.25),transparent 55%),radial-gradient(ellipse at 5% 95%,rgba(255,168,210,.10),transparent 50%)}
+  html.girl body{background:#0f0a0d}
+  html.girl .c1{background:linear-gradient(135deg,#2b0618,#ff4fa3)}
+  html.girl .c2{background:linear-gradient(135deg,#1c0412,#ffa8d2)}
+  html.girl .c3{background:linear-gradient(135deg,#0d0d10 10%,#ff4fa3 60%,#ffa8d2)}
+  html.girl .product.best{background:linear-gradient(180deg,#24101b,var(--card) 40%);box-shadow:0 30px 80px -30px rgba(255,79,163,.45)}
+  @media (max-width:560px){#nav .nav-cta{display:none}}
+  html.girl .who .yes{background:linear-gradient(160deg,#2a0f1f,var(--card))}
+  html.girl .pillar:hover{background:#26121f}
+  html.girl .book{background:linear-gradient(160deg,#2a0f1f,#0b0b0c 70%);border-color:#4a1c35}
+  html.girl .lead{background:radial-gradient(ellipse at 90% 10%,rgba(255,168,210,.16),transparent 55%),radial-gradient(ellipse at 0% 100%,rgba(255,79,163,.18),transparent 60%),var(--card)}
+
 
   .dl.show{display:flex}
 
@@ -332,11 +342,11 @@
 
 <nav id="nav">
   <div class="wrap">
-    <a class="logo" href="#">OPTI<span>MUSCLE</span></a>
+    <div class="left"><a class="logo" href="#">OPTI<span>MUSCLE</span></a>
+    <div class="mode" role="group" aria-label="Version du site"><button type="button" data-mode="g" aria-pressed="true">Gars</button><button type="button" data-mode="f" aria-pressed="false">Filles</button></div></div>
     <div class="nav-links">
       <a href="#histoire">Mon histoire</a>
       <a href="#kit">Kit gratuit</a>
-      <a href="#filles">Pour les filles</a>
       <a href="#academy">Academy</a>
       <a href="#faq">FAQ</a>
       <a class="nav-cta" href="#produits">Les programmes</a>
@@ -346,15 +356,17 @@
 
 <!-- HERO -->
 <header class="hero">
-  <div class="bigword" aria-hidden="true">Forgé</div>
+  <div class="bigword" aria-hidden="true" data-f="Forte">Forgé</div>
   <div class="wrap">
     <div class="eyebrow">@optimuscle</div>
-    <h1 class="display">
+    <h1 class="display only-f"><span class="line"><span>Ados.</span></span><span class="line"><span class="outline">Mamans.</span></span><span class="line"><span class="fire">Salle ou maison.</span></span></h1>
+    <h1 class="display only-g">
       <span class="line"><span>15 ans.</span></span>
       <span class="line"><span class="outline">En surpoids.</span></span>
       <span class="line"><span class="fire">Forgé par la fonte.</span></span>
     </h1>
-    <p class="lead">La salle m'a changé le corps. Surtout, elle m'a changé la tête. Aujourd'hui je te donne <strong>exactement ce qui a marché pour moi</strong>, pour que tu deviennes enfin <span class="rotator" id="rotator">plus fort</span>.</p>
+    <p class="lead only-f">Ma méthode, version filles : <strong>jambes et fessiers en priorité, du cardio</strong>, et le choix entre la salle et ta maison. Tout ce qui a marché pour moi, pour que tu deviennes <span class="rotator" id="rotatorF">plus forte</span>.</p>
+    <p class="lead only-g">La salle m'a changé le corps. Surtout, elle m'a changé la tête. Aujourd'hui je te donne <strong>exactement ce qui a marché pour moi</strong>, pour que tu deviennes enfin <span class="rotator" id="rotator">plus fort</span>.</p>
     <div class="ctas">
       <a class="btn btn-fire" href="#produits">Je commence ma transformation →</a>
       <a class="btn btn-ghost" href="#kit">🎁 Kit gratuit 7 jours</a>
@@ -453,16 +465,16 @@
 
       <article class="product reveal d1">
         <div class="cover c1"><small>Programme · 12 semaines</small><h4>Le Déclic</h4></div>
-        <h3>Programme débutant salle</h3>
-        <p class="desc">Tu ne sais pas quoi faire en arrivant à la salle ? Tu sauras, chaque jour, pendant 12 semaines.</p>
+        <h3 data-f="Programme filles · salle ou maison">Programme débutant salle</h3>
+        <p class="desc" data-f="Jambes, fessiers et cardio : 5 séances par semaine, à la salle ou chez toi, pendant 12 semaines.">Tu ne sais pas quoi faire en arrivant à la salle ? Tu sauras, chaque jour, pendant 12 semaines.</p>
         <ul>
-          <li>5 séances par semaine, 3 phases</li>
-          <li>24 exercices animés, avec la bonne exécution</li>
+          <li data-f="Jambes et fessiers 3 fois par semaine, cardio inclus">5 séances par semaine, 3 phases</li>
+          <li data-f="Version salle ou maison (tapis, bouteilles d'eau, chaise)">24 exercices animés, avec la bonne exécution</li>
           <li>Minuteur de repos et séries à cocher</li>
           <li>Ton carnet intégré, avec ta courbe de progression</li>
         </ul>
         <div class="price"><b>14,90 €</b><small>e-book interactif</small></div>
-        <div class="save"></div>
+        <div class="save">Inclus : version filles et version garçons</div>
         <a class="btn btn-ghost" href="#produits" data-link="declic">Je veux Le Déclic</a>
       </article>
 
@@ -472,7 +484,7 @@
         <h3>Corps + Assiette + Mental</h3>
         <p class="desc">Tout ce qui m'a transformé, réuni dans un seul pack. Le chemin le plus rapide.</p>
         <ul>
-          <li>Le Déclic : programme 12 semaines</li>
+          <li data-f="Le Déclic version filles (salle ou maison)">Le Déclic : programme 12 semaines</li>
           <li>L'Assiette du Guerrier : guide nutrition</li>
           <li class="bonus">Bonus : « Forge ton mental »</li>
           <li class="bonus">Bonus : check-list des 15 erreurs du débutant</li>
@@ -550,40 +562,6 @@
   </div>
 </section>
 
-<!-- POUR LES FILLES -->
-<section id="filles">
-  <div class="wrap">
-    <div class="kicker reveal">Optimuscle · Version filles</div>
-    <h2 class="display reveal">La salle,<br><span class="fire">c'est aussi ton terrain.</span></h2>
-    <p class="intro reveal">Tu veux te muscler, prendre des fessiers, te sentir forte et à l'aise à la salle ? Les règles qui font progresser sont les mêmes pour tout le monde. Ce qui change, ce sont tes priorités.</p>
-    <div class="pillars reveal d1">
-      <div class="pillar"><div class="num">01</div><h3>Fessiers &amp; jambes</h3><p>Squat, fentes, soulevé de terre roumain, hip thrust : les exercices qui construisent le bas du corps sont dans mes programmes, animés et expliqués.</p></div>
-      <div class="pillar"><div class="num">02</div><h3>Forte, pas « fine »</h3><p>On vise la force et la confiance, pas un chiffre sur la balance. Tu progresses quand tu soulèves plus, pas quand tu manges moins.</p></div>
-      <div class="pillar"><div class="num">03</div><h3>Zéro stress</h3><p>Le kit 7 jours te dit exactement quoi faire dès ta première séance. Tu arrives, tu sais, tu enchaînes.</p></div>
-      <div class="pillar"><div class="num">04</div><h3>De l'énergie</h3><p>L'Assiette du Guerrier : manger simple pour avoir de l'énergie et progresser, sans régime.</p></div>
-    </div>
-    <div class="girl-duo">
-      <div class="girl-tip reveal d1">
-        <h3>Mon conseil si tu prends <span class="fire">Le Déclic</span></h3>
-        <p>Remplace une des séances haut du corps par une 2e séance jambes et fessiers. Même méthode, même progression, plus de bas du corps.</p>
-        <div class="btns">
-          <a class="btn btn-fire" href="#produits">Voir les programmes</a>
-          <a class="btn btn-ghost" href="#kit">Kit gratuit</a>
-        </div>
-      </div>
-      <form class="js-lead reveal d2" data-besoin="Liste d'attente programme filles" data-ok="C'est noté 💗 Tu seras prévenue en premier." novalidate>
-        <div class="kicker" style="margin-bottom:6px">Bientôt</div>
-        <h3 style="font-family:Anton,sans-serif;text-transform:uppercase;font-weight:400;font-size:1.5rem;margin-bottom:14px">Un programme 100 % filles</h3>
-        <label for="girlEmail">Ton e-mail</label>
-        <input type="email" id="girlEmail" name="email" required placeholder="toi@exemple.fr" autocomplete="email">
-        <p class="consent">Ton e-mail sert uniquement à te prévenir de la sortie. Jamais revendu, suppression sur simple demande.</p>
-        <button class="btn btn-fire" type="submit">Je veux être prévenue →</button>
-        <p class="msg"></p>
-      </form>
-    </div>
-  </div>
-</section>
-
 <!-- POUR QUI -->
 <section>
   <div class="wrap">
@@ -596,7 +574,7 @@
           <li>Tu débutes ou tu stagnes depuis des mois</li>
           <li>Tu veux un plan clair, pas 50 vidéos contradictoires</li>
           <li>Tu complexes sur ton corps et tu veux que ça change</li>
-          <li>Tu es prêt à être régulier, même quand c'est dur</li>
+          <li data-f="Tu es prête à être régulière, même quand c'est dur">Tu es prêt à être régulier, même quand c'est dur</li>
         </ul>
       </div>
       <div class="box no reveal d2">
@@ -645,7 +623,7 @@
       <div class="r">
         <div class="kicker">Prix de lancement réservé à la liste</div>
         <div class="price"><b>Bientôt</b><small>prix de lancement annoncé d'abord à la liste</small></div>
-        <p style="color:var(--muted);margin:10px 0 24px">Inscris-toi : tu seras prévenu en premier à l'ouverture, avec le prix de lancement. Aucun paiement maintenant.</p>
+        <p style="color:var(--muted);margin:10px 0 24px">Inscris-toi : tu seras <span data-f="prévenue">prévenu</span> en premier à l'ouverture, avec le prix de lancement. Aucun paiement maintenant.</p>
         <form class="js-lead" data-besoin="Liste d'attente Optimus Academy" novalidate style="background:transparent;border:0;padding:0">
           <label for="acaEmail">Ton e-mail</label>
           <input type="email" id="acaEmail" name="email" required placeholder="toi@exemple.fr" autocomplete="email">
@@ -665,7 +643,8 @@
     <div class="reveal d1">
       <details><summary>Comment je reçois mes e-books ?</summary><p>Juste après le paiement, tu reçois par e-mail ton accès. Ce sont des e-books interactifs : exercices animés, minuteur, cases à cocher et carnet intégré. Ils s'ouvrent sur téléphone, tablette ou ordinateur, sans application à installer.</p></details>
       <details><summary>Je pars de zéro et je suis en surpoids, c'est pour moi ?</summary><p>C'est exactement de là que je suis parti. Le Déclic commence au niveau zéro et chaque mouvement est expliqué.</p></details>
-      <details><summary>Il me faut quel matériel ?</summary><p>Les programmes sont pensés pour une salle de musculation classique : machines, poulies, haltères et barres.</p></details>
+      <details><summary>Il me faut quel matériel ?</summary><p data-f="Le Déclic version filles existe en version salle ou maison : à la maison, un tapis, 2 bouteilles d'eau (ou des haltères) et une chaise solide suffisent. La Forge demande une salle.">Les programmes sont pensés pour une salle de musculation classique : machines, poulies, haltères et barres.</p></details>
+      <details class="only-f"><summary>Je suis maman, c'est pour moi ?</summary><p>Oui, la version filles est pensée pour les ados comme pour les mamans, à la salle ou à la maison. Après une grossesse, attends le feu vert de ton médecin ou de ta sage-femme et fais ta rééducation du périnée avant de reprendre. Enceinte, demande l'avis de ton médecin avant de commencer.</p></details>
       <details><summary>Quel produit choisir ?</summary><p>Si tu hésites, prends le Pack Optimus : entraînement, nutrition et mental, c'est le trio qui m'a transformé.</p></details>
       <details><summary>Quelle différence entre le Pack Optimus et le Pack Transformation ?</summary><p>Le Pack Optimus te fait passer de zéro à des bases solides en 12 semaines. Le Pack Transformation ajoute La Forge, mon programme intermédiaire, pour enchaîner 12 semaines de plus et ne pas stagner : 24 semaines de plan au total.</p></details>
       <details><summary>J'ai moins de 18 ans, c'est pour moi ?</summary><p>Les programmes sont faits pour des débutants, y compris les ados qui commencent la salle. Le guide nutrition ne propose aucun régime restrictif pour les moins de 18 ans. Fais-toi accompagner d'un adulte pour l'achat, et demande l'avis d'un médecin si tu as un doute sur ta santé.</p></details>
@@ -699,7 +678,7 @@
 <!-- CTA FINAL -->
 <section class="final">
   <div class="wrap">
-    <h2 class="display reveal">Dans 12 semaines,<br><span class="fire">tu me remercieras.</span></h2>
+    <h2 class="display reveal">Dans 12 semaines,<br><span class="fire" data-f="tu seras fière de toi.">tu me remercieras.</span></h2>
     <p class="reveal">Le meilleur moment pour commencer, c'était hier. Le deuxième meilleur, c'est maintenant.</p>
     <a class="btn btn-fire reveal" href="#produits">Je commence maintenant →</a>
   </div>
@@ -928,9 +907,23 @@ function pose(svg,k){const p=svg._p;if(!p)return;const g=svg._dyn;g.innerHTML=''
     if (!reduce) { setInterval(() => { i = (i + 1) % SEQ.length; set(i); }, 5200); setInterval(() => { sec = sec > 0 ? sec - 1 : 90; document.getElementById("phT").textContent = Math.floor(sec/60) + ":" + String(sec%60).padStart(2,"0"); }, 1000); }
   })();
   // Mot qui tourne dans le hero
-  const words = ["plus fort","plus sûr de toi","discipliné","fier de toi","imparable"];
-  const rot = document.getElementById("rotator"); let wi = 0;
-  if (!reduce) setInterval(() => { wi = (wi + 1) % words.length; rot.textContent = words[wi]; rot.classList.remove("swap"); void rot.offsetWidth; rot.classList.add("swap"); }, 2200);
+  const words = ["plus fort","plus sûr de toi","discipliné","fier de toi","imparable"], wordsF = ["plus forte","plus sûre de toi","disciplinée","fière de toi","imparable"];
+  const rot = document.getElementById("rotator"), rotF = document.getElementById("rotatorF"); let wi = 0;
+  if (!reduce) setInterval(() => { wi = (wi + 1) % words.length; [[rot,words],[rotF,wordsF]].forEach(([r,w]) => { r.textContent = w[wi]; r.classList.remove("swap"); void r.offsetWidth; r.classList.add("swap"); }); }, 2200);
+  // Bascule Gars / Filles (mémorisée ; lien direct : ?v=filles ou #filles)
+  function setMode(m, save) {
+    const girl = m === "f"; document.documentElement.classList.toggle("girl", girl);
+    document.querySelectorAll("[data-f]").forEach(el => { if (el.dataset.m === undefined) el.dataset.m = el.innerHTML; el.innerHTML = girl ? el.dataset.f : el.dataset.m; });
+    document.querySelectorAll(".mode button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.mode === m)));
+    document.querySelectorAll("#g stop").forEach((s, i) => s.setAttribute("stop-color", girl ? ["#ff4fa3","#ffa8d2"][i] : ["#ff4d1a","#ffb21a"][i]));
+    if (typeof C === "object") { C.shirt = girl ? "#ff4fa3" : "#ff4d1a"; C.shirt2 = girl ? "#b8306f" : "#b33a12"; }
+    const tc = document.querySelector('meta[name="theme-color"]'); if (tc) tc.content = girl ? "#150b12" : "#0b0b0c";
+    if (save) { try { localStorage.setItem("opti-mode", m); } catch (e) {} }
+  }
+  document.querySelectorAll(".mode button").forEach(b => b.addEventListener("click", () => setMode(b.dataset.mode, true)));
+  { let m = "g"; try { m = localStorage.getItem("opti-mode") || "g"; } catch (e) {}
+    const q = new URLSearchParams(location.search).get("v"); if (q === "filles" || location.hash === "#filles") m = "f"; if (q === "gars") m = "g";
+    setMode(m, false); }
 
   // Apparition au scroll
   const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target);} }), {threshold:.15});
@@ -980,7 +973,7 @@ function pose(svg,k){const p=svg._p;if(!p)return;const g=svg._dyn;g.innerHTML=''
         if (!res.ok) throw new Error(res.status);
         f.email.value = "";
         m.style.color = "#4ade80";
-        m.textContent = f.dataset.ok || (dl ? "C'est bon 💪 Ton kit est prêt :" : "C'est noté 💪 Tu seras prévenu en premier.");
+        m.textContent = f.dataset.ok || (dl ? "C'est bon 💪 Ton kit est prêt :" : (document.documentElement.classList.contains("girl") ? "C'est noté 💗 Tu seras prévenue en premier." : "C'est noté 💪 Tu seras prévenu en premier."));
         if (dl) dl.classList.add("show");
       } catch { m.style.color = "#f87171"; m.textContent = "L'envoi a échoué, réessaie dans un instant."; }
       finally { b.disabled = false; b.textContent = txt; }
