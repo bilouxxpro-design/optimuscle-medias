@@ -681,10 +681,10 @@
 <p data-cfg-p="mediateur"><b>Médiation :</b> en cas de litige non résolu, tu peux recourir gratuitement au médiateur de la consommation : <span data-cfg="mediateur"></span>.</p>
 <p><b>Droit applicable :</b> droit français.</p></dialog>
 <dialog id="rgpd"><button class="x" aria-label="Fermer">✕</button><h3>Confidentialité</h3>
-<p><b>Données collectées :</b> ton e-mail et ton message, uniquement quand tu remplis un formulaire.</p>
-<p><b>Pourquoi :</b> te répondre, t'envoyer le kit gratuit ou te prévenir de l'ouverture de l'Academy si tu t'es inscrit.</p>
-<p><b>Durée :</b> 3 ans maximum après notre dernier échange, puis suppression.</p>
-<p><b>Destinataires :</b> uniquement Optimuscle et ses outils techniques (hébergement, gestion des contacts). Jamais revendues.</p>
+<p><b>Données collectées :</b> ton e-mail et ton message quand tu remplis un formulaire ; lors d'un achat, ton nom, ton e-mail, le produit acheté et le montant. Tes données bancaires sont saisies uniquement chez Stripe, notre prestataire de paiement : nous n'y avons jamais accès.</p>
+<p><b>Pourquoi :</b> te répondre, t'envoyer le kit gratuit, te prévenir de l'ouverture de l'Academy si tu t'es inscrit, et pour un achat : te livrer tes e-books, gérer le service après-vente et tenir notre comptabilité.</p>
+<p><b>Durée :</b> 3 ans maximum après notre dernier échange, puis suppression. Les données d'achat sont conservées le temps imposé pour les pièces comptables (10 ans).</p>
+<p><b>Destinataires :</b> uniquement Optimuscle et ses outils techniques (hébergement, gestion des contacts, paiement Stripe, envoi d'e-mails). Jamais revendues.</p>
 <p><b>Tes droits :</b> accès, rectification, suppression, opposition : écris à <a data-cfg-mail="email"></a>. Tu peux aussi saisir la CNIL (cnil.fr).</p>
 <p><b>Cookies :</b> ce site n'utilise aucun cookie publicitaire ni de mesure d'audience.</p></dialog>
 <script>
@@ -862,6 +862,7 @@ function pose(svg,k){const p=svg._p;if(!p)return;const g=svg._dyn;g.innerHTML=''
   document.querySelectorAll("[data-cfg-mail]").forEach(el => { const m = CONFIG.legal[el.dataset.cfgMail]; el.textContent = m; el.href = "mailto:" + m; });
   document.querySelectorAll("[data-cfg-p]").forEach(el => { if (!CONFIG.legal[el.dataset.cfgP]) el.remove(); });
   document.querySelectorAll("[data-dialog]").forEach(a => a.addEventListener("click", e => { e.preventDefault(); document.getElementById(a.dataset.dialog).showModal(); }));
+  { const h = location.hash.slice(1); const d = ["cgv","mentions","rgpd"].includes(h) && document.getElementById(h); if (d) d.showModal(); }
   document.querySelectorAll("dialog").forEach(d => { d.querySelector(".x").onclick = () => d.close(); d.addEventListener("click", e => { if (e.target === d) d.close(); }); });
 
   // Vitrine : Opti enchaîne les exercices
