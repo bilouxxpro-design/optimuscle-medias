@@ -1,0 +1,938 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OPTIMUSCLE – Forgé par la fonte</title>
+<meta name="description" content="À 15 ans j'étais en surpoids. La salle m'a forgé, physiquement et mentalement. Programmes et e-books musculation interactifs, testés sur moi. Accès immédiat.">
+<meta property="og:title" content="OPTIMUSCLE – Forgé par la fonte">
+<meta property="og:description" content="Programmes et e-books musculation interactifs : chaque exercice animé, ton carnet intégré. Tout est possible.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0b0b0c">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2714%27 fill=%27%230b0b0c%27/%3E%3Ctext x=%2732%27 y=%2746%27 font-family=%27Impact,sans-serif%27 font-size=%2738%27 text-anchor=%27middle%27 fill=%27%23ff4d1a%27%3EO%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b0b0c; --bg2:#121214; --card:#18181b; --line:#2a2a2e;
+    --text:#f5f5f4; --muted:#a1a1aa; --fire:#ff4d1a; --fire2:#ffb21a;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.65;overflow-x:hidden}
+  body::before{content:"";position:fixed;inset:-50%;pointer-events:none;z-index:100;opacity:.07;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    animation:grain 1s steps(4) infinite}
+  @keyframes grain{0%{transform:translate(0,0)}25%{transform:translate(-3%,2%)}50%{transform:translate(2%,-3%)}75%{transform:translate(-2%,-1%)}100%{transform:translate(1%,3%)}}
+
+  .wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+  .display{font-family:Anton,Impact,sans-serif;text-transform:uppercase;letter-spacing:.5px;line-height:.95}
+  .fire{background:linear-gradient(90deg,var(--fire),var(--fire2));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .outline{color:transparent;-webkit-text-stroke:2px var(--text)}
+
+  /* barre de progression */
+  #progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:60;background:linear-gradient(90deg,var(--fire),var(--fire2))}
+
+  /* NAV */
+  nav{position:fixed;top:0;left:0;right:0;z-index:50;transition:background .3s}
+  nav.scrolled{background:rgba(11,11,12,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;justify-content:space-between;align-items:center;height:70px}
+  .logo{font-family:Anton,sans-serif;font-size:1.6rem;letter-spacing:1.5px;text-decoration:none;color:var(--text)}
+  .logo span{color:var(--fire)}
+  .nav-links{display:flex;gap:26px;align-items:center}
+  .nav-links a{color:var(--muted);text-decoration:none;font-weight:600;font-size:.9rem;transition:color .2s}
+  .nav-links a:hover{color:var(--text)}
+  .nav-links .nav-cta{white-space:nowrap;color:var(--text);border:2px solid var(--fire);padding:8px 16px;border-radius:6px;font-weight:800;text-transform:uppercase;letter-spacing:1px;font-size:.8rem}
+  .nav-links .nav-cta:hover{background:var(--fire)}
+  @media (max-width:760px){.nav-links a:not(.nav-cta){display:none}}
+
+  /* HERO */
+  .hero{min-height:100vh;display:flex;align-items:center;position:relative;padding:120px 0 70px;overflow:hidden;
+    background:radial-gradient(ellipse at 78% 35%,rgba(255,77,26,.25),transparent 55%),radial-gradient(ellipse at 5% 95%,rgba(255,178,26,.10),transparent 50%)}
+  .hero .wrap{position:relative;z-index:2}
+  .hero .eyebrow{display:inline-flex;align-items:center;gap:10px;font-weight:800;font-size:.8rem;letter-spacing:3px;text-transform:uppercase;color:var(--fire);
+    opacity:0;animation:fade .7s .1s forwards}
+  .hero .eyebrow::before{content:"";width:34px;height:2px;background:var(--fire)}
+  .hero h1{font-size:clamp(3.2rem,11.5vw,9rem);margin-top:14px}
+  .hero h1 .line{display:block;overflow:hidden;padding-bottom:4px}
+  .hero h1 .line span{display:block;transform:translateY(110%);animation:rise .9s cubic-bezier(.2,.8,.2,1) forwards}
+  .hero h1 .line:nth-child(2) span{animation-delay:.18s}
+  .hero h1 .line:nth-child(3) span{animation-delay:.36s}
+  @keyframes rise{to{transform:translateY(0)}}
+  @keyframes fade{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+  .hero p.lead{max-width:560px;color:var(--muted);font-size:1.18rem;margin:28px 0 36px;opacity:0;animation:fade .8s .7s forwards}
+  .hero p.lead strong{color:var(--text)}
+  .ctas{display:flex;gap:14px;flex-wrap:wrap;opacity:0;animation:fade .8s .9s forwards}
+  .rotator{display:inline-block;color:var(--fire);font-weight:800;min-width:9ch}
+  .rotator.swap{animation:swap .45s}
+  @keyframes swap{0%{opacity:0;transform:translateY(10px)}100%{opacity:1;transform:none}}
+
+  /* mot géant en fond */
+  .bigword{position:absolute;bottom:-4vw;right:-2vw;font-family:Anton,sans-serif;font-size:24vw;line-height:.8;color:transparent;
+    -webkit-text-stroke:1px rgba(255,255,255,.06);text-transform:uppercase;z-index:1;pointer-events:none;user-select:none}
+
+  .barbell{position:absolute;right:5%;top:46%;width:min(36vw,430px);z-index:2;animation:lift 3.2s ease-in-out infinite;filter:drop-shadow(0 20px 40px rgba(255,77,26,.25))}
+  @keyframes lift{0%,100%{transform:translateY(-40%) rotate(-4deg)}50%{transform:translateY(-60%) rotate(3deg)}}
+  @media (max-width:900px){.barbell{display:none}}
+
+  .scroll-hint{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);z-index:2;width:26px;height:42px;border:2px solid var(--muted);border-radius:14px}
+  .scroll-hint::after{content:"";position:absolute;left:50%;top:8px;width:4px;height:8px;margin-left:-2px;background:var(--fire);border-radius:2px;animation:wheel 1.6s infinite}
+  @keyframes wheel{0%{opacity:1;transform:translateY(0)}100%{opacity:0;transform:translateY(14px)}}
+
+  .btn{display:inline-flex;align-items:center;gap:10px;font-weight:800;text-transform:uppercase;letter-spacing:1px;font-size:.95rem;
+    padding:17px 30px;border-radius:8px;text-decoration:none;border:0;cursor:pointer;transition:transform .15s,box-shadow .2s,border-color .2s}
+  .btn-fire{background:linear-gradient(90deg,var(--fire),var(--fire2));color:#160700;animation:pulse 2.4s infinite}
+  .btn-fire:hover{transform:translateY(-2px) scale(1.02)}
+  .btn-ghost{color:var(--text);border:2px solid var(--line)}
+  .btn-ghost:hover{border-color:var(--text)}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,77,26,.55)}70%{box-shadow:0 0 0 18px rgba(255,77,26,0)}100%{box-shadow:0 0 0 0 rgba(255,77,26,0)}}
+
+  /* BANDEAU */
+  .marquee{background:var(--fire);color:#160700;overflow:hidden;transform:rotate(-2deg);margin:10px -20px;border-block:3px solid #000;position:relative;z-index:3}
+  .marquee .track{display:flex;width:max-content;animation:scroll 24s linear infinite}
+  .marquee span{font-family:Anton,sans-serif;font-size:1.7rem;padding:12px 0;white-space:nowrap;text-transform:uppercase}
+  @keyframes scroll{to{transform:translateX(-50%)}}
+
+  section{padding:110px 0}
+  .kicker{color:var(--fire);font-weight:800;text-transform:uppercase;letter-spacing:3px;font-size:.8rem;margin-bottom:12px}
+  h2{font-size:clamp(2.3rem,6.5vw,4.4rem);margin-bottom:30px}
+
+  /* HISTOIRE */
+  .story{display:grid;grid-template-columns:1fr 1.1fr;gap:60px;align-items:start}
+  @media (max-width:880px){.story{grid-template-columns:1fr;gap:40px}}
+  .story p{color:var(--muted);margin-bottom:18px;font-size:1.08rem}
+  .story p strong{color:var(--text)}
+  .story blockquote{font-family:Anton,sans-serif;font-size:clamp(1.6rem,3.5vw,2.3rem);text-transform:uppercase;border-left:5px solid var(--fire);
+    padding-left:20px;margin:30px 0;line-height:1.1}
+
+  /* BLOC "15 ANS" */
+  .age{position:sticky;top:110px;border-radius:18px;border:1px solid var(--line);padding:40px 34px;overflow:hidden;
+    background:radial-gradient(ellipse at 30% 20%,rgba(255,77,26,.22),transparent 60%),var(--card)}
+  .age-num{font-family:Anton,sans-serif;font-size:clamp(9rem,22vw,17rem);line-height:.85;color:transparent;-webkit-text-stroke:3px var(--fire);
+    animation:glow 3s ease-in-out infinite}
+  .age-txt{font-family:Anton,sans-serif;font-size:clamp(1.8rem,3.5vw,2.6rem);text-transform:uppercase;line-height:1.05;margin-top:14px}
+  @keyframes glow{0%,100%{filter:drop-shadow(0 0 0 rgba(255,77,26,0))}50%{filter:drop-shadow(0 0 24px rgba(255,77,26,.55))}}
+  @media (max-width:880px){.age{position:static}}
+  .ba{position:relative;aspect-ratio:4/5;border-radius:16px;overflow:hidden;user-select:none;touch-action:none;border:1px solid var(--line);cursor:ew-resize;position:sticky;top:100px}
+  .ba .side{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:30px;color:var(--muted);font-size:.95rem}
+  .ba .side img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .ba .before{background:repeating-linear-gradient(45deg,#141416 0 14px,#19191c 14px 28px)}
+  .ba .after{background:linear-gradient(160deg,#2b0f06,#ff4d1a 120%);clip-path:inset(0 0 0 50%);color:#ffe2d6}
+  .ba .label{position:absolute;top:14px;font-family:Anton,sans-serif;font-size:1rem;letter-spacing:2px;padding:4px 12px;border-radius:4px;z-index:3}
+  .ba .label.l{left:14px;background:#000;color:var(--text)}
+  .ba .label.r{right:14px;background:var(--fire);color:#160700}
+  .ba .handle{position:absolute;top:0;bottom:0;left:50%;width:3px;background:var(--text);z-index:4;transform:translateX(-50%)}
+  .ba .handle::after{content:"⟷";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:46px;height:46px;border-radius:50%;
+    background:var(--text);color:#000;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.1rem}
+
+  /* TIMELINE */
+  .timeline{position:relative;margin-top:50px;padding-left:34px}
+  .timeline::before{content:"";position:absolute;left:8px;top:6px;bottom:6px;width:2px;background:var(--line)}
+  .timeline .fill{position:absolute;left:8px;top:6px;width:2px;height:0;background:linear-gradient(var(--fire),var(--fire2));transition:height .2s linear}
+  .step{position:relative;margin-bottom:34px}
+  .step::before{content:"";position:absolute;left:-32px;top:6px;width:16px;height:16px;border-radius:50%;background:var(--bg);border:3px solid var(--line);transition:.4s}
+  .step.in::before{border-color:var(--fire);background:var(--fire);box-shadow:0 0 0 6px rgba(255,77,26,.18)}
+  .step .when{font-family:Anton,sans-serif;font-size:1.3rem;text-transform:uppercase;letter-spacing:1px}
+  .step p{color:var(--muted);margin:4px 0 0;font-size:1rem}
+
+  /* PRODUITS */
+  .products{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;align-items:stretch}
+  @media (max-width:960px){.products{grid-template-columns:1fr;max-width:480px;margin:0 auto}}
+  .product{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:28px;position:relative;display:flex;flex-direction:column;
+    transition:transform .25s,border-color .25s}
+  .product:hover{border-color:var(--fire)}
+  .product.best{border:2px solid var(--fire);background:linear-gradient(180deg,#221410,var(--card) 40%);transform:scale(1.04);z-index:2;
+    box-shadow:0 30px 80px -30px rgba(255,77,26,.45)}
+  @media (max-width:960px){.product.best{transform:none;order:-1}}
+  .badge{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:linear-gradient(90deg,var(--fire),var(--fire2));color:#160700;
+    font-weight:800;font-size:.75rem;text-transform:uppercase;letter-spacing:1.5px;padding:6px 14px;border-radius:20px;white-space:nowrap}
+  .cover{height:170px;border-radius:12px;margin-bottom:22px;display:flex;flex-direction:column;justify-content:flex-end;padding:18px;position:relative;overflow:hidden}
+  .cover::after{content:"";position:absolute;inset:0;background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,.2) 50%,transparent 70%);transform:translateX(-100%);transition:transform .7s}
+  .product:hover .cover::after{transform:translateX(100%)}
+  .cover small{font-weight:800;font-size:.7rem;letter-spacing:2px;text-transform:uppercase;opacity:.8;position:relative;z-index:1}
+  .cover h4{font-family:Anton,sans-serif;font-size:2rem;text-transform:uppercase;line-height:1;position:relative;z-index:1}
+  .c1{background:linear-gradient(135deg,#2b0f06,#ff4d1a)}
+  .c2{background:linear-gradient(135deg,#1c1404,#ffb21a)}
+  .c3{background:linear-gradient(135deg,#0d0d10 10%,#ff4d1a 60%,#ffb21a)}
+  .product h3{font-size:1.15rem;margin-bottom:6px}
+  .product .desc{color:var(--muted);font-size:.95rem;margin-bottom:16px}
+  .product ul{list-style:none;margin-bottom:24px;flex:1}
+  .product li{padding:6px 0 6px 28px;position:relative;font-size:.94rem;border-bottom:1px dashed #26262a}
+  .product li:last-child{border:0}
+  .product li::before{content:"✓";position:absolute;left:0;top:6px;color:var(--fire);font-weight:800}
+  .product li.bonus{color:var(--fire2);font-weight:700}
+  .product li.bonus::before{content:"🎁"}
+  .price{display:flex;align-items:baseline;gap:10px;margin-bottom:6px}
+  .price b{font-family:Anton,sans-serif;font-size:2.8rem;font-weight:400;line-height:1}
+  .price small{color:var(--muted);font-size:.85rem}
+  .save{font-size:.85rem;color:var(--fire2);font-weight:700;margin-bottom:18px;min-height:1.3em}
+  .product .btn{width:100%;justify-content:center}
+  .trust{display:flex;justify-content:center;gap:26px;flex-wrap:wrap;margin-top:40px;color:var(--muted);font-size:.9rem}
+  .trust span::before{content:"⚡ ";}
+
+  /* POUR QUI */
+  .who{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  @media (max-width:760px){.who{grid-template-columns:1fr}}
+  .who .box{border-radius:16px;padding:30px;border:1px solid var(--line)}
+  .who .yes{background:linear-gradient(160deg,#1f120d,var(--card))}
+  .who h3{font-family:Anton,sans-serif;text-transform:uppercase;font-size:1.6rem;font-weight:400;margin-bottom:14px}
+  .who li{list-style:none;padding:7px 0 7px 30px;position:relative;color:var(--muted)}
+  .who .yes li::before{content:"🔥";position:absolute;left:0}
+  .who .no li::before{content:"✕";position:absolute;left:4px;color:#71717a;font-weight:800}
+
+  /* PILIERS */
+  .pillars{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:2px;background:var(--line);border-radius:16px;overflow:hidden}
+  .pillar{background:var(--bg2);padding:36px 28px;transition:background .3s}
+  .pillar:hover{background:#1a1311}
+  .pillar .num{font-family:Anton,sans-serif;font-size:3.6rem;color:transparent;-webkit-text-stroke:1.5px var(--fire);line-height:1}
+  .pillar h3{font-size:1.2rem;margin:10px 0 8px;text-transform:uppercase}
+  .pillar p{color:var(--muted);font-size:.96rem}
+
+  /* FAQ */
+  details{border-bottom:1px solid var(--line);padding:22px 0}
+  summary{cursor:pointer;font-weight:800;font-size:1.08rem;list-style:none;display:flex;justify-content:space-between;gap:20px}
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:"+";color:var(--fire);font-size:1.7rem;line-height:1;transition:transform .25s}
+  details[open] summary::after{transform:rotate(45deg)}
+  details p{color:var(--muted);margin-top:12px}
+
+  /* FORMULAIRE */
+  .contact{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:start}
+  @media (max-width:820px){.contact{grid-template-columns:1fr}}
+  form{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:32px}
+  label{display:block;font-weight:800;text-transform:uppercase;font-size:.8rem;letter-spacing:1.5px;margin-bottom:8px}
+  input[type=email],textarea{width:100%;padding:15px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--text);font:inherit;margin-bottom:20px;transition:border-color .2s}
+  textarea{min-height:130px;resize:vertical}
+  input:focus,textarea:focus{outline:none;border-color:var(--fire)}
+  .consent{font-size:.8rem;color:var(--muted);margin:-6px 0 20px}
+  .hp{position:absolute;left:-9999px}
+  form .btn{width:100%;justify-content:center}
+  #msg{margin-top:16px;font-weight:600;display:none}
+  #msg.ok{display:block;color:#4ade80}
+  #msg.err{display:block;color:#f87171}
+
+  /* CTA FINAL */
+  .final{text-align:center;background:radial-gradient(ellipse at 50% 100%,rgba(255,77,26,.25),transparent 60%)}
+  .final h2{font-size:clamp(2.6rem,9vw,6.5rem)}
+  .final p{color:var(--muted);max-width:560px;margin:0 auto 34px;font-size:1.1rem}
+
+  footer{border-top:1px solid var(--line);padding:40px 0 100px;color:var(--muted);font-size:.85rem}
+  footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px}
+  footer a{color:var(--muted)}
+
+  /* barre d'achat mobile */
+  .sticky-buy{position:fixed;left:12px;right:12px;bottom:12px;z-index:40;display:none;transform:translateY(130%);transition:transform .35s}
+  .sticky-buy.show{transform:none}
+  .sticky-buy a{width:100%;justify-content:center}
+  @media (max-width:760px){.sticky-buy{display:block}}
+
+  /* apparition au scroll */
+  .reveal{opacity:0;transform:translateY(40px);transition:opacity .8s,transform .8s cubic-bezier(.2,.8,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+  .product.best.reveal.in{transform:scale(1.04)}
+  @media (max-width:960px){.product.best.reveal.in{transform:none}}
+  .d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}
+
+  /* KIT GRATUIT */
+  .lead{display:grid;grid-template-columns:1.1fr 1fr;gap:50px;align-items:center;border:1px solid var(--line);border-radius:22px;padding:46px;
+    background:radial-gradient(ellipse at 90% 10%,rgba(255,178,26,.16),transparent 55%),radial-gradient(ellipse at 0% 100%,rgba(255,77,26,.18),transparent 60%),var(--card)}
+  @media (max-width:860px){.lead{grid-template-columns:1fr;padding:28px;gap:30px}}
+  .lead ul{list-style:none;margin:18px 0 0}
+  .lead li{padding:6px 0 6px 30px;position:relative;color:var(--muted)}
+  .lead li::before{content:"✓";position:absolute;left:0;color:var(--fire);font-weight:800}
+  .lead form{background:var(--bg);margin:0}
+  .book{width:150px;aspect-ratio:3/4.2;border-radius:6px 12px 12px 6px;background:linear-gradient(160deg,#2a120a,#0b0b0c 70%);border:1px solid #3a2318;
+    box-shadow:18px 22px 40px -10px rgba(0,0,0,.7),inset 6px 0 0 rgba(255,255,255,.06);padding:16px 14px;display:flex;flex-direction:column;justify-content:space-between;
+    transform:rotate(-6deg);margin:0 auto 24px}
+  .book b{font-family:Anton,sans-serif;font-size:1.35rem;line-height:1;text-transform:uppercase}
+  .book small{font-size:.6rem;letter-spacing:2px;color:var(--fire);font-weight:800}
+  .dl{display:none;margin-top:16px}
+  .dl.show{display:flex}
+
+  /* À L'UNITÉ */
+  .solo{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:34px}
+  @media (max-width:760px){.solo{grid-template-columns:1fr}}
+  .solo article{display:flex;gap:18px;align-items:center;border:1px solid var(--line);border-radius:14px;padding:18px 20px;background:var(--card)}
+  .solo .mini{flex:0 0 64px;height:84px;border-radius:6px;display:flex;align-items:flex-end;padding:6px;font-family:Anton,sans-serif;font-size:.8rem;line-height:1;text-transform:uppercase}
+  .solo h4{font-size:1rem;margin-bottom:2px}
+  .solo p{color:var(--muted);font-size:.85rem;margin-bottom:8px}
+  .solo .row{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+  .solo .row b{font-family:Anton,sans-serif;font-size:1.5rem;font-weight:400}
+  .solo .row a{color:var(--text);font-weight:800;font-size:.85rem;text-transform:uppercase;letter-spacing:1px;text-decoration:none;border-bottom:2px solid var(--fire)}
+  .worth{font-size:.8rem;color:var(--muted);text-decoration:line-through;margin-left:4px}
+
+  /* ACADEMY */
+  .academy{border-radius:22px;overflow:hidden;border:2px solid var(--fire);display:grid;grid-template-columns:1.2fr 1fr;
+    background:linear-gradient(135deg,#1b0c06,#0b0b0c 60%)}
+  @media (max-width:880px){.academy{grid-template-columns:1fr}}
+  .academy .l{padding:46px}
+  .academy .r{padding:46px;background:rgba(255,77,26,.06);border-left:1px solid var(--line)}
+  @media (max-width:880px){.academy .l,.academy .r{padding:28px}.academy .r{border-left:0;border-top:1px solid var(--line)}}
+  .mods{list-style:none;counter-reset:m;margin:22px 0 0}
+  .mods li{counter-increment:m;padding:10px 0 10px 46px;position:relative;border-bottom:1px dashed #2a2a2e}
+  .mods li::before{content:counter(m,decimal-leading-zero);position:absolute;left:0;top:8px;font-family:Anton,sans-serif;font-size:1.4rem;color:transparent;-webkit-text-stroke:1px var(--fire)}
+  .mods li b{display:block}
+  .mods li span{color:var(--muted);font-size:.88rem}
+  .soon{display:inline-block;background:var(--fire2);color:#160700;font-weight:800;font-size:.72rem;letter-spacing:1.5px;padding:5px 12px;border-radius:20px;text-transform:uppercase;margin-bottom:14px}
+
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation:none!important;transition:none!important}
+    .hero h1 .line span,.hero p.lead,.ctas,.hero .eyebrow,.reveal{opacity:1;transform:none}
+  }
+
+  html{overflow-x:clip}
+  .products>*{min-width:0}
+  .price{flex-wrap:wrap}
+  /* VITRINE */
+  .showcase{display:grid;grid-template-columns:330px 1fr;gap:70px;align-items:center}
+  @media (max-width:860px){.showcase{grid-template-columns:1fr;gap:40px}}
+  .phone{justify-self:center;width:290px;border-radius:42px;padding:12px;background:#1d1d21;border:1px solid #333;box-shadow:0 40px 90px -30px rgba(255,77,26,.45),inset 0 0 0 2px #0b0b0c}
+  .screen{border-radius:32px;background:#0c0c0e;padding:20px 16px;display:grid;gap:10px;min-height:520px;align-content:start}
+  .ph-top{display:flex;justify-content:space-between;font-size:.7rem;font-weight:800;letter-spacing:1.5px;color:var(--fire2)}
+  .ph-top span:last-child{color:var(--muted);letter-spacing:.5px}
+  .ph-anim{border-radius:18px;background:radial-gradient(circle at 50% 40%,#24242b,#141418);aspect-ratio:1}
+  .ph-anim svg{width:100%;height:100%;display:block}
+  .ph-name{font-family:Anton,sans-serif;font-size:1.6rem;text-transform:uppercase;line-height:1}
+  .ph-spec{font-size:.78rem;color:var(--fire2);font-family:ui-monospace,Menlo,monospace}
+  .ph-dots{display:flex;gap:8px}.ph-dots i{width:26px;height:26px;border-radius:50%;border:2px solid var(--line)}.ph-dots i.on{background:#3ddc84;border-color:#3ddc84}
+  .ph-timer{display:flex;align-items:baseline;gap:8px;background:#16161a;border-radius:14px;padding:10px 14px}.ph-timer b{font-family:Anton,sans-serif;font-size:1.8rem;font-weight:400}.ph-timer span{color:var(--muted);font-size:.8rem}
+  .feats{list-style:none;display:grid;gap:14px;margin-top:10px}
+  .feats li{display:grid;gap:2px;border-left:3px solid var(--fire);padding:4px 0 4px 16px}
+  .feats b{font-size:1.1rem}.feats span{color:var(--muted)}
+  .btn.off,.solo a.off{opacity:.55;pointer-events:none;animation:none}
+  /* MENTIONS */
+  dialog{margin:auto;max-width:640px;width:calc(100% - 32px);background:var(--card);color:var(--text);border:1px solid var(--line);border-radius:18px;padding:30px 26px;line-height:1.55}
+  dialog::backdrop{background:rgba(0,0,0,.7)}
+  dialog h3{font-family:Anton,sans-serif;text-transform:uppercase;font-weight:400;font-size:1.8rem;margin-bottom:14px}
+  dialog p{color:var(--muted);font-size:.92rem;margin-bottom:10px}dialog p b{color:var(--text)}dialog a{color:var(--fire2)}
+  dialog .x{position:absolute;top:14px;right:14px;background:none;border:0;color:var(--muted);font-size:1.2rem;cursor:pointer}
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<nav id="nav">
+  <div class="wrap">
+    <a class="logo" href="#">OPTI<span>MUSCLE</span></a>
+    <div class="nav-links">
+      <a href="#histoire">Mon histoire</a>
+      <a href="#kit">Kit gratuit</a>
+      <a href="#academy">Academy</a>
+      <a href="#faq">FAQ</a>
+      <a class="nav-cta" href="#produits">Les programmes</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="bigword" aria-hidden="true">Forgé</div>
+  <div class="wrap">
+    <div class="eyebrow">@optimuscle</div>
+    <h1 class="display">
+      <span class="line"><span>15 ans.</span></span>
+      <span class="line"><span class="outline">En surpoids.</span></span>
+      <span class="line"><span class="fire">Forgé par la fonte.</span></span>
+    </h1>
+    <p class="lead">La salle m'a changé le corps. Surtout, elle m'a changé la tête. Aujourd'hui je te donne <strong>exactement ce qui a marché pour moi</strong>, pour que tu deviennes enfin <span class="rotator" id="rotator">plus fort</span>.</p>
+    <div class="ctas">
+      <a class="btn btn-fire" href="#produits">Je commence ma transformation →</a>
+      <a class="btn btn-ghost" href="#kit">🎁 Kit gratuit 7 jours</a>
+    </div>
+  </div>
+  <svg class="barbell" viewBox="0 0 400 140" aria-hidden="true">
+    <defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#ff4d1a"/><stop offset="1" stop-color="#ffb21a"/></linearGradient></defs>
+    <rect x="40" y="64" width="320" height="12" rx="6" fill="#d4d4d8"/>
+    <rect x="20" y="28" width="26" height="84" rx="6" fill="url(#g)"/>
+    <rect x="50" y="40" width="20" height="60" rx="5" fill="#3f3f46"/>
+    <rect x="354" y="28" width="26" height="84" rx="6" fill="url(#g)"/>
+    <rect x="330" y="40" width="20" height="60" rx="5" fill="#3f3f46"/>
+    <rect x="6" y="58" width="16" height="24" rx="4" fill="#a1a1aa"/>
+    <rect x="378" y="58" width="16" height="24" rx="4" fill="#a1a1aa"/>
+  </svg>
+  <div class="scroll-hint" aria-hidden="true"></div>
+</header>
+
+<div class="marquee" aria-hidden="true">
+  <div class="track">
+    <span>Tout est possible ✦ Discipline ✦ Régularité ✦ Pas d'excuses ✦ Une séance après l'autre ✦ Forgé par la fonte ✦&nbsp;</span>
+    <span>Tout est possible ✦ Discipline ✦ Régularité ✦ Pas d'excuses ✦ Une séance après l'autre ✦ Forgé par la fonte ✦&nbsp;</span>
+  </div>
+</div>
+
+<!-- HISTOIRE -->
+<section id="histoire">
+  <div class="wrap story">
+
+    <div class="age reveal" aria-hidden="true">
+      <div class="age-num">15</div>
+      <div class="age-txt">ans. Le jour où<br><span class="fire">tout a commencé.</span></div>
+    </div>
+
+    <div>
+      <div class="kicker reveal">Mon histoire</div>
+      <h2 class="display reveal">Tout est possible.<br><span class="fire">J'en suis la preuve.</span></h2>
+
+      <p class="reveal">J'avais <strong>15 ans</strong> quand j'ai poussé la porte de la salle pour la première fois. J'étais gros, mal dans ma peau, et je le savais. Les regards, les remarques, les photos que j'évitais : <strong>si tu lis ça, tu vois très bien de quoi je parle.</strong></p>
+
+      <p class="reveal">Au début, je ne savais rien. Je copiais les autres, je me trompais de charges, je repartais parfois en me demandant ce que je faisais là. <strong>Mais je revenais. Encore. Et encore.</strong></p>
+
+      <p class="reveal">Puis un jour, ça a basculé. Pas seulement dans le miroir : <strong>dans ma tête.</strong> J'ai compris que chaque séance tenue, c'était une promesse tenue envers moi-même. Cette discipline a débordé partout : à l'école, dans mes projets, dans ma façon de me tenir debout.</p>
+
+      <p class="reveal">J'ai changé physiquement, c'est vrai. Mais ce dont je suis le plus fier, c'est <strong>le mental que la fonte m'a construit.</strong> Et c'est exactement ça qu'Optimuscle veut te transmettre.</p>
+
+      <blockquote class="reveal">La salle ne m'a pas seulement changé le corps. Elle m'a appris que <span class="fire">tout est possible.</span></blockquote>
+
+      <div class="timeline" id="timeline">
+        <div class="fill" id="tlFill"></div>
+        <div class="step"><div class="when">15 ans — Jour 1</div><p>En surpoids, aucune idée de quoi faire. Juste l'envie que ça change.</p></div>
+        <div class="step"><div class="when">Les galères</div><p>Mauvais programmes, erreurs, doutes. Mais je ne lâche pas.</p></div>
+        <div class="step"><div class="when">Le déclic</div><p>La discipline devient un mode de vie. Le corps suit, le mental explose.</p></div>
+        <div class="step"><div class="when">Aujourd'hui — Optimuscle</div><p>Je partage tout ce qui a marché, pour que tu gagnes des années.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VITRINE : PAS UN PDF -->
+<section id="vitrine">
+  <div class="wrap showcase">
+    <div class="phone reveal" aria-label="Aperçu d'un exercice animé dans l'e-book">
+      <div class="screen">
+        <div class="ph-top"><span>LE DÉCLIC</span><span id="phDay">Mardi · Pecs</span></div>
+        <div class="ph-anim"><svg id="phSvg" viewBox="0 0 200 200" data-ex="inc"></svg></div>
+        <div class="ph-name" id="phName">Développé incliné</div>
+        <div class="ph-spec" id="phSpec">1 échauffement + 2 × 10-12 · repos 2 min</div>
+        <div class="ph-dots"><i class="on"></i><i class="on"></i><i></i></div>
+        <div class="ph-timer"><b id="phT">1:24</b><span>repos</span></div>
+      </div>
+    </div>
+    <div>
+      <div class="kicker reveal">Pas un PDF de plus</div>
+      <h2 class="display reveal">Un coach<br><span class="fire">dans ta poche.</span></h2>
+      <ul class="feats">
+        <li class="reveal"><b>Chaque exercice animé</b><span>Tu vois la bonne exécution avant de la faire : trajectoire, amplitude, matériel.</span></li>
+        <li class="reveal d1"><b>Tes séries à cocher</b><span>Tu coches, le minuteur de repos se lance tout seul.</span></li>
+        <li class="reveal d2"><b>Ton carnet intégré</b><span>Tu notes tes charges, ta courbe monte semaine après semaine.</span></li>
+        <li class="reveal d3"><b>Opti t'accompagne</b><span>Mon personnage te guide chapitre par chapitre, sans blabla.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUITS -->
+<section id="produits" style="background:var(--bg2)">
+  <div class="wrap">
+    <div style="text-align:center">
+      <div class="kicker reveal">Les programmes</div>
+      <h2 class="display reveal">Choisis ton arme</h2>
+    </div>
+
+    <!-- Les liens de paiement se règlent dans CONFIG, en bas de page. Sans lien, le bouton affiche « Bientôt disponible ». -->
+    <div class="products">
+
+      <article class="product reveal d1">
+        <div class="cover c1"><small>Programme · 12 semaines</small><h4>Le Déclic</h4></div>
+        <h3>Programme débutant salle</h3>
+        <p class="desc">Tu ne sais pas quoi faire en arrivant à la salle ? Tu sauras, chaque jour, pendant 12 semaines.</p>
+        <ul>
+          <li>5 séances par semaine, 3 phases</li>
+          <li>24 exercices animés, avec la bonne exécution</li>
+          <li>Minuteur de repos et séries à cocher</li>
+          <li>Ton carnet intégré, avec ta courbe de progression</li>
+        </ul>
+        <div class="price"><b>14,90 €</b><small>e-book interactif</small></div>
+        <div class="save"></div>
+        <a class="btn btn-ghost" href="#produits" data-link="declic">Je veux Le Déclic</a>
+      </article>
+
+      <article class="product best reveal d2">
+        <span class="badge">⭐ Recommandé</span>
+        <div class="cover c3"><small>Pack complet</small><h4>Pack<br>Optimus</h4></div>
+        <h3>Corps + Assiette + Mental</h3>
+        <p class="desc">Tout ce qui m'a transformé, réuni dans un seul pack. Le chemin le plus rapide.</p>
+        <ul>
+          <li>Le Déclic : programme 12 semaines</li>
+          <li>L'Assiette du Guerrier : guide nutrition</li>
+          <li class="bonus">Bonus : « Forge ton mental »</li>
+          <li class="bonus">Bonus : check-list des 15 erreurs du débutant</li>
+        </ul>
+        <div class="price"><b>29,90 €</b><small>4 e-books interactifs</small></div>
+        <div class="save">Les 2 guides seuls valent 27,80 € · les bonus sont offerts</div>
+        <a class="btn btn-fire" href="#produits" data-link="pack">Je prends le Pack Optimus</a>
+      </article>
+
+      <article class="product reveal d3">
+        <div class="cover c2"><small>24 semaines · tout inclus</small><h4>Pack<br>Transformation</h4></div>
+        <h3>Du jour 1 au niveau intermédiaire</h3>
+        <p class="desc">Pour ceux qui veulent le parcours complet : 12 semaines pour démarrer, 12 semaines pour ne plus jamais stagner.</p>
+        <ul>
+          <li>Tout le Pack Optimus</li>
+          <li>La Forge : programme intermédiaire 12 semaines</li>
+          <li>4 façons d'organiser ta semaine, dont force / intensité</li>
+          <li>La méthode pour casser chaque plateau</li>
+        </ul>
+        <div class="price"><b>39 €</b><small>5 e-books interactifs</small></div>
+        <div class="save">au lieu de 49,80 € (Pack Optimus + La Forge)</div>
+        <a class="btn btn-ghost" href="#produits" data-link="transfo">Je veux tout</a>
+      </article>
+    </div>
+
+    <div class="solo reveal">
+      <article>
+        <div class="mini c2">L'Assiette</div>
+        <div><h4>L'Assiette du Guerrier</h4><p>Le guide nutrition seul : les macros, combien manger selon ton objectif, ton assiette type et ta journée type.</p>
+          <div class="row"><b>12,90 €</b><a href="#produits" data-link="assiette">Acheter</a></div></div>
+      </article>
+      <article>
+        <div class="mini c1">La Forge</div>
+        <div><h4>La Forge</h4><p>Le programme intermédiaire seul, pour ceux qui s'entraînent déjà et qui stagnent.</p>
+          <div class="row"><b>19,90 €</b><a href="#produits" data-link="forge">Acheter</a></div></div>
+      </article>
+    </div>
+
+    <div class="trust reveal">
+      <span>Accès immédiat</span>
+      <span>Paiement sécurisé</span>
+      <span>Pensé pour le téléphone</span>
+      <span>Aucun abonnement</span>
+    </div>
+  </div>
+</section>
+
+<!-- KIT GRATUIT -->
+<section id="kit">
+  <div class="wrap">
+    <div class="lead reveal">
+      <div>
+        <div class="kicker">Pas encore prêt ? Commence gratuitement</div>
+        <h2 class="display" style="margin-bottom:10px">Ta 1re semaine<br><span class="fire">à la salle.</span></h2>
+        <p style="color:var(--muted)">Le plan exact pour tes 7 premiers jours, en e-book interactif. Ce que j'aurais voulu avoir à 15 ans, le jour où j'ai poussé la porte.</p>
+        <ul>
+          <li>Ton planning de 7 jours à cocher</li>
+          <li>2 séances, haut et bas du corps, chaque exercice animé</li>
+          <li>L'échauffement guidé de 6 minutes</li>
+          <li>Quoi manger cette semaine, sans régime, et ton bilan du jour 7</li>
+        </ul>
+      </div>
+      <div>
+        <div class="book"><small>KIT GRATUIT</small><b>Ta 1re<br>semaine<br><span class="fire">à la salle</span></b><small style="color:var(--muted)">OPTIMUSCLE</small></div>
+        <form class="js-lead" data-besoin="Kit gratuit 7 jours" novalidate>
+          <label for="kitEmail">Ton e-mail</label>
+          <input type="email" id="kitEmail" name="email" required placeholder="toi@exemple.fr" autocomplete="email">
+          <p class="consent">Ton e-mail sert à t'envoyer le kit et à te répondre. Jamais revendu, suppression sur simple demande.</p>
+          <button class="btn btn-fire" type="submit">Je veux le kit gratuit →</button>
+          <p class="msg"></p>
+          <a class="btn btn-ghost dl" data-link="kit" href="#" target="_blank" rel="noopener">Ouvrir mon kit →</a>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- POUR QUI -->
+<section>
+  <div class="wrap">
+    <div class="kicker reveal">Pour qui ?</div>
+    <h2 class="display reveal">C'est pour toi si…</h2>
+    <div class="who">
+      <div class="box yes reveal d1">
+        <h3>Optimuscle est fait pour toi</h3>
+        <ul>
+          <li>Tu débutes ou tu stagnes depuis des mois</li>
+          <li>Tu veux un plan clair, pas 50 vidéos contradictoires</li>
+          <li>Tu complexes sur ton corps et tu veux que ça change</li>
+          <li>Tu es prêt à être régulier, même quand c'est dur</li>
+        </ul>
+      </div>
+      <div class="box no reveal d2">
+        <h3>Passe ton chemin si</h3>
+        <ul>
+          <li>Tu cherches un résultat magique en 10 jours</li>
+          <li>Tu veux un physique sans jamais aller à la salle</li>
+          <li>Tu abandonnes à la première courbature</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MÉTHODE -->
+<section id="methode" style="background:var(--bg2)">
+  <div class="wrap">
+    <div class="kicker reveal">La méthode Optimuscle</div>
+    <h2 class="display reveal">Pas de magie.<br><span class="outline">Du travail bien fait.</span></h2>
+    <div class="pillars reveal d1">
+      <div class="pillar"><div class="num">01</div><h3>Simple</h3><p>Peu d'exercices, bien exécutés. Tu arrives à la salle, tu sais exactement quoi faire.</p></div>
+      <div class="pillar"><div class="num">02</div><h3>Progressif</h3><p>Un peu plus chaque semaine. Tu notes, tu compares, tu vois que tu avances.</p></div>
+      <div class="pillar"><div class="num">03</div><h3>Tenable</h3><p>Pensé pour une vraie vie : cours, boulot, petit budget. Le programme s'adapte à toi.</p></div>
+      <div class="pillar"><div class="num">04</div><h3>Mental</h3><p>Le corps suit la tête. On travaille la discipline autant que les muscles.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ACADEMY -->
+<section id="academy">
+  <div class="wrap">
+    <div class="academy reveal">
+      <div class="l">
+        <span class="soon">Bientôt · liste d'attente</span>
+        <h2 class="display" style="margin-bottom:14px">Optimus<br><span class="fire">Academy</span></h2>
+        <p style="color:var(--muted)">La transformation complète, en vidéo. Je te montre chaque mouvement, chaque séance, chaque repas. Tous les programmes inclus, et un groupe privé avec une session de questions chaque mois.</p>
+        <ul class="mods">
+          <li><b>Le déclic</b><span>Mon histoire, pourquoi 90 % abandonnent, et comment tu vas tenir</span></li>
+          <li><b>Les règles qui font progresser</b><span>Double progression, effort, échauffement, douleur</span></li>
+          <li><b>La technique, exercice par exercice</b><span>Squat, développé, tirage, hanches, épaules, gainage</span></li>
+          <li><b>Les programmes en pratique</b><span>Une séance complète filmée avec moi, puis La Forge</span></li>
+          <li><b>L'assiette</b><span>Manger simple, pas cher, et le batch cooking du dimanche</span></li>
+          <li><b>Le mental</b><span>Discipline, regard des autres, ton contrat</span></li>
+        </ul>
+      </div>
+      <div class="r">
+        <div class="kicker">Prix de lancement réservé à la liste</div>
+        <div class="price"><b>Bientôt</b><small>prix de lancement annoncé d'abord à la liste</small></div>
+        <p style="color:var(--muted);margin:10px 0 24px">Inscris-toi : tu seras prévenu en premier à l'ouverture, avec le prix de lancement. Aucun paiement maintenant.</p>
+        <form class="js-lead" data-besoin="Liste d'attente Optimus Academy" novalidate style="background:transparent;border:0;padding:0">
+          <label for="acaEmail">Ton e-mail</label>
+          <input type="email" id="acaEmail" name="email" required placeholder="toi@exemple.fr" autocomplete="email">
+          <button class="btn btn-fire" type="submit">Je rejoins la liste d'attente →</button>
+          <p class="msg"></p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="wrap">
+    <div class="kicker reveal">Questions</div>
+    <h2 class="display reveal">FAQ</h2>
+    <div class="reveal d1">
+      <details><summary>Comment je reçois mes e-books ?</summary><p>Juste après le paiement, tu reçois par e-mail ton accès. Ce sont des e-books interactifs : exercices animés, minuteur, cases à cocher et carnet intégré. Ils s'ouvrent sur téléphone, tablette ou ordinateur, sans application à installer.</p></details>
+      <details><summary>Je pars de zéro et je suis en surpoids, c'est pour moi ?</summary><p>C'est exactement de là que je suis parti. Le Déclic commence au niveau zéro et chaque mouvement est expliqué.</p></details>
+      <details><summary>Il me faut quel matériel ?</summary><p>Les programmes sont pensés pour une salle de musculation classique : machines, poulies, haltères et barres.</p></details>
+      <details><summary>Quel produit choisir ?</summary><p>Si tu hésites, prends le Pack Optimus : entraînement, nutrition et mental, c'est le trio qui m'a transformé.</p></details>
+      <details><summary>Quelle différence entre le Pack Optimus et le Pack Transformation ?</summary><p>Le Pack Optimus te fait passer de zéro à des bases solides en 12 semaines. Le Pack Transformation ajoute La Forge, mon programme intermédiaire, pour enchaîner 12 semaines de plus et ne pas stagner : 24 semaines de plan au total.</p></details>
+      <details><summary>J'ai moins de 18 ans, c'est pour moi ?</summary><p>Les programmes sont faits pour des débutants, y compris les ados qui commencent la salle. Le guide nutrition ne propose aucun régime restrictif pour les moins de 18 ans. Fais-toi accompagner d'un adulte pour l'achat, et demande l'avis d'un médecin si tu as un doute sur ta santé.</p></details>
+      <details><summary>C'est un coaching personnalisé ?</summary><p>Non : ce sont des programmes et des guides généraux, que tu suis en autonomie. Ils ne remplacent ni un coach diplômé ni un avis médical.</p></details>
+      <details><summary>Puis-je être remboursé ?</summary><p>S'agissant d'un contenu numérique fourni immédiatement, tu renonces à ton droit de rétractation au moment de l'achat (tu le confirmes lors du paiement). En cas de problème technique, écris-moi via le formulaire.</p></details>
+      <details><summary>Ça remplace un avis médical ?</summary><p>Non. En cas de douleur, de blessure ou de problème de santé, consulte un médecin avant de commencer un programme.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" style="background:var(--bg2)">
+  <div class="wrap contact">
+    <div class="reveal">
+      <div class="kicker">Une question ?</div>
+      <h2 class="display">Parle-moi<br><span class="fire">de ton objectif.</span></h2>
+      <p style="color:var(--muted)">Tu hésites entre deux programmes, tu veux un conseil ou une offre pour ta salle ou ton club ? Laisse ton e-mail et ton objectif, je te réponds personnellement.</p>
+    </div>
+    <form id="devisForm" class="reveal d1" novalidate>
+      <label for="email">Ton e-mail</label>
+      <input type="email" id="email" name="email" required placeholder="toi@exemple.fr" autocomplete="email">
+      <label for="besoin">Ton objectif / ta question</label>
+      <textarea id="besoin" name="besoin" required placeholder="Ex. : je débute, je peux m'entraîner 3 fois par semaine, je veux perdre du ventre et prendre du muscle"></textarea>
+      <p class="consent">Ton e-mail sert uniquement à te répondre. Jamais revendu. Tu peux demander sa suppression à tout moment.</p>
+      <button class="btn btn-fire" type="submit" id="sendBtn">Envoyer →</button>
+      <p id="msg"></p>
+    </form>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="final">
+  <div class="wrap">
+    <h2 class="display reveal">Dans 12 semaines,<br><span class="fire">tu me remercieras.</span></h2>
+    <p class="reveal">Le meilleur moment pour commencer, c'était hier. Le deuxième meilleur, c'est maintenant.</p>
+    <a class="btn btn-fire reveal" href="#produits">Je commence maintenant →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>© <span id="y"></span> OPTIMUSCLE<span data-social="instagram" hidden> · <a target="_blank" rel="noopener">Instagram</a></span><span data-social="tiktok" hidden> · <a target="_blank" rel="noopener">TikTok</a></span></span>
+    <span><a href="#" data-dialog="mentions">Mentions légales</a> · <a href="#" data-dialog="cgv">CGV</a> · <a href="#" data-dialog="rgpd">Confidentialité</a></span>
+  </div>
+</footer>
+
+<div class="sticky-buy" id="stickyBuy"><a class="btn btn-fire" href="#produits">Voir le Pack Optimus · 29,90 €</a></div>
+
+<dialog id="mentions"><button class="x" aria-label="Fermer">✕</button><h3>Mentions légales</h3>
+<p><b>Éditeur du site :</b> <span data-cfg="editeur"></span>, <span data-cfg="adresse"></span>. <span data-cfg="identifiant"></span>.</p>
+<p><b>Directeur de la publication :</b> <span data-cfg="directeur"></span>.</p>
+<p><b>Contact :</b> <a data-cfg-mail="email"></a></p>
+<p><b>Hébergeur :</b> Hostinger International Ltd, 61 Lordou Vironos Street, 6023 Larnaca, Chypre.</p>
+<p><b>Propriété intellectuelle :</b> les textes, programmes, illustrations et le personnage Opti sont la propriété d'Optimuscle. Toute reproduction ou revente sans autorisation est interdite.</p>
+<p><b>Santé :</b> les contenus sont des conseils généraux d'entraînement et d'alimentation. Ils ne remplacent pas un avis médical. En cas de douleur ou de problème de santé, consulte un médecin.</p></dialog>
+<dialog id="cgv"><button class="x" aria-label="Fermer">✕</button><h3>Conditions générales de vente</h3>
+<p><b>Vendeur :</b> <span data-cfg="editeur"></span>, <span data-cfg="adresse"></span>. Contact : <a data-cfg-mail="email"></a>.</p>
+<p><b>Produits :</b> e-books et programmes numériques interactifs, consultables en ligne sur téléphone, tablette ou ordinateur. Leur contenu est décrit sur la page de chaque produit.</p>
+<p><b>Prix :</b> en euros, toutes taxes comprises. <span data-cfg="tva"></span>. Le prix payé est celui affiché au moment de la commande.</p>
+<p><b>Commande et paiement :</b> le paiement se fait en ligne par la plateforme de paiement indiquée lors de la commande. La commande est ferme après paiement.</p>
+<p><b>Livraison :</b> l'accès est envoyé par e-mail juste après le paiement. Sans e-mail sous 24 h, vérifie tes indésirables puis écris-nous.</p>
+<p><b>Rétractation :</b> conformément à l'article L221-28 13° du Code de la consommation, le droit de rétractation ne s'applique pas à un contenu numérique fourni immédiatement, dès lors que tu as donné ton accord exprès et renoncé à ce droit au moment de l'achat.</p>
+<p><b>Usage :</b> l'achat donne un droit d'usage personnel. Le partage, la copie ou la revente sont interdits.</p>
+<p><b>Mineurs :</b> l'achat par une personne de moins de 18 ans se fait avec l'accord de son représentant légal.</p>
+<p data-cfg-p="mediateur"><b>Médiation :</b> en cas de litige non résolu, tu peux recourir gratuitement au médiateur de la consommation : <span data-cfg="mediateur"></span>.</p>
+<p><b>Droit applicable :</b> droit français.</p></dialog>
+<dialog id="rgpd"><button class="x" aria-label="Fermer">✕</button><h3>Confidentialité</h3>
+<p><b>Données collectées :</b> ton e-mail et ton message, uniquement quand tu remplis un formulaire.</p>
+<p><b>Pourquoi :</b> te répondre, t'envoyer le kit gratuit ou te prévenir de l'ouverture de l'Academy si tu t'es inscrit.</p>
+<p><b>Durée :</b> 3 ans maximum après notre dernier échange, puis suppression.</p>
+<p><b>Destinataires :</b> uniquement Optimuscle et ses outils techniques (hébergement, gestion des contacts). Jamais revendues.</p>
+<p><b>Tes droits :</b> accès, rectification, suppression, opposition : écris à <a data-cfg-mail="email"></a>. Tu peux aussi saisir la CNIL (cnil.fr).</p>
+<p><b>Cookies :</b> ce site n'utilise aucun cookie publicitaire ni de mesure d'audience.</p></dialog>
+<script>
+// ---------- Opti en mouvement v2 : vue de profil (ou de face), cinématique inverse ----------
+// Repère SVG 200x200, sol à y=176, Opti regarde vers la droite.
+// Angles : 0 = vers le bas, 90 = vers l'avant (droite), 180 = vers le haut, -90 = vers l'arrière.
+const RIG={LT:42,UA:25,FA:23,TH:35,SH:34,HR:11,G:176};
+const V=(a,L)=>[Math.sin(a*Math.PI/180)*L,Math.cos(a*Math.PI/180)*L];
+const add=(p,q)=>[p[0]+q[0],p[1]+q[1]], sub=(p,q)=>[p[0]-q[0],p[1]-q[1]];
+const lp=(a,b,k)=>Array.isArray(a)?[a[0]+(b[0]-a[0])*k,a[1]+(b[1]-a[1])*k]:a+(b-a)*k;
+const lp3=(a,m,b,k)=>k<.5?lp(a,m,k*2):lp(m,b,(k-.5)*2);
+function ik(R,T,l1,l2,hint){let dx=T[0]-R[0],dy=T[1]-R[1],d=Math.hypot(dx,dy)||.01;const dmax=l1+l2-.3,dmin=Math.abs(l1-l2)+.3;
+ if(d>dmax){dx*=dmax/d;dy*=dmax/d;d=dmax}if(d<dmin){dx*=dmin/d;dy*=dmin/d;d=dmin}
+ const base=Math.atan2(dy,dx),a=Math.acos(Math.max(-1,Math.min(1,(l1*l1+d*d-l2*l2)/(2*l1*d))));
+ const j1=[R[0]+Math.cos(base+a)*l1,R[1]+Math.sin(base+a)*l1],j2=[R[0]+Math.cos(base-a)*l1,R[1]+Math.sin(base-a)*l1];
+ const s1=(j1[0]-R[0])*hint[0]+(j1[1]-R[1])*hint[1],s2=(j2[0]-R[0])*hint[0]+(j2[1]-R[1])*hint[1];
+ const J=s1>=s2?j1:j2;return [J,[R[0]+dx,R[1]+dy]]}
+// ---------- les exercices : f(k) renvoie la pose, k=0 position de départ, k=1 position contractée ----------
+const BENCH=[['rect',{x:38,y:131,width:112,height:7,rx:3,fill:'#3a3a44'}],['rect',{x:56,y:138,width:6,height:38,fill:'#2c2c34'}],['rect',{x:128,y:138,width:6,height:38,fill:'#2c2c34'}]];
+const SEAT=(x,y,back)=>[['rect',{x:x-20,y:y+5,width:36,height:7,rx:3,fill:'#3a3a44'}],['rect',{x:x-3,y:y+12,width:6,height:176-y-12,fill:'#2c2c34'}],...(back?[['rect',{x:x-25,y:y-58,width:7,height:66,rx:3,fill:'#3a3a44',transform:`rotate(${back} ${x-21} ${y+6})`}]]:[])];
+const STAND={leg:{th:0,sh:0}};
+const P={
+ // bras
+ cb:{f:k=>({H:[100,103],tor:180,...STAND,arm:{ua:lp(2,12,k),fa:lp(6,150,k)},hold:'db'})},
+ et:{gear:[['rect',{x:150,y:6,width:9,height:170,fill:'#2c2c34'}]],f:k=>({H:[92,103],tor:172,leg:{th:3,sh:0},arm:{ua:5,fa:lp(150,6,k)},cable:[150,12],hold:'rope'})},
+ bf:{gear:BENCH,f:k=>({H:[120,123],tor:-90,leg:{A:[152,172],hint:[0,-1]},arm:{ua:194,fa:lp(190,292,k)},hold:'bar'})},
+ // épaules
+ mil:{f:k=>{const S=[100,61];return{H:[100,103],tor:180,...STAND,arm:{W:lp3([113,62],[115,40],[103,15],k),hint:[1,1]},hold:'bar'}}},
+ de:{gear:SEAT(96,138,-4),f:k=>({H:[96,138],tor:182,leg:{A:[138,172],hint:[1,-1]},arm:{W:lp([107,98],[100,52],k),hint:[1,1]},hold:'db'})},
+ fp:{gear:[['rect',{x:178,y:6,width:9,height:170,fill:'#2c2c34'}]],f:k=>({H:[90,103],tor:183,leg:{th:-4,sh:0},leg2:{th:8,sh:0},arm:{W:lp([136,56],[103,46],k),hint:[-.3,-1]},cable:[178,52],hold:'rope'})},
+ lat:{front:1,f:k=>({stand:1,a:lp(10,86,k),b:lp(6,12,k),hold:'db'})},
+ // pecs
+ dc:{gear:[...BENCH,['rect',{x:68,y:62,width:5,height:69,fill:'#2c2c34'}],['rect',{x:66,y:70,width:12,height:4,fill:'#55556a'}]],f:k=>({H:[120,123],tor:-90,leg:{A:[152,172],hint:[0,-1]},arm:{W:lp([82,76],[87,110],k),hint:[1,1]},hold:'bar'})},
+ cp:{gear:[...SEAT(90,138,4),['rect',{x:150,y:40,width:9,height:136,fill:'#2c2c34'}]],f:k=>({H:[90,138],tor:184,leg:{A:[128,172],hint:[1,-1]},arm:{W:lp([136,100],[104,100],k),hint:[-1,1]},hold:'handle'})},
+ inc:{gear:[['path',{d:'M58 82 L114 138 L106 145 L52 90 Z',fill:'#3a3a44'}],['rect',{x:96,y:139,width:34,height:7,rx:3,fill:'#3a3a44'}],['rect',{x:108,y:146,width:6,height:30,fill:'#2c2c34'}],['rect',{x:62,y:96,width:6,height:80,fill:'#2c2c34'}]],
+  f:k=>({H:[112,136],tor:-142,leg:{A:[152,172],hint:[1,-1]},arm:{W:lp([90,58],[97,99],k),hint:[1,1]},hold:'bar'})},
+ dip:{gear:[['rect',{x:70,y:82,width:66,height:6,rx:3,fill:'#77777f'}],['rect',{x:128,y:88,width:6,height:88,fill:'#2c2c34'}],['rect',{x:74,y:88,width:6,height:88,fill:'#2c2c34'}]],
+  f:k=>{const tor=lp(172,164,k),S=lp([104,38],[97,77],k);return{H:sub(S,V(tor,RIG.LT)),tor,leg:{th:10,sh:-75},arm:{W:[108,82],hint:[-1,0]}}}},
+ fly:{front:1,f:k=>({seat:1,fly:lp(0,108,k),hold:'handle'})},
+ // dos
+ tv:{gear:[...SEAT(94,140,0),['rect',{x:114,y:118,width:22,height:8,rx:4,fill:'#3a3a44'}],['circle',{cx:106,cy:8,r:5,fill:'#55556a'}]],
+  f:k=>({H:[94,140],tor:188,leg:{A:[126,172],hint:[1,-1]},arm:{W:lp([104,26],[100,82],k),hint:[-.2,1]},cable:[106,8],hold:'knob'})},
+ tr:{gear:[['rect',{x:40,y:14,width:120,height:6,rx:3,fill:'#77777f'}]],f:k=>{const tor=lp(178,190,k),S=lp([100,63],[94,32],k);return{H:sub(S,V(tor,RIG.LT)),tor,leg:{th:8,sh:-35},arm:{W:[102,17],hint:[1,.6]}}}},
+ ra:{gear:[['rect',{x:46,y:154,width:44,height:7,rx:3,fill:'#3a3a44'}],['rect',{x:138,y:132,width:8,height:44,fill:'#2c2c34'}],['circle',{cx:184,cy:144,r:5,fill:'#55556a'}]],
+  f:k=>({H:[66,150],tor:lp(168,184,k),leg:{A:[134,150],hint:[0,-1]},arm:{W:lp([132,110],[90,124],k),hint:[-1,.7]},cable:[184,144],hold:'handle'})},
+ rl:{gear:[...SEAT(86,140,0),['rect',{x:110,y:92,width:8,height:42,rx:4,fill:'#3a3a44'}]],
+  f:k=>({H:[86,140],tor:180,leg:{A:[120,172],hint:[1,-1]},arm:{E:[lp(25,-22,k),lp(1,3,k)],Wd:[lp(48,-1,k),lp(2,3,k)]},hold:'handle'})},
+ // jambes
+ gs:{f:k=>{const tor=lp(180,138,k),H=lp([100,103],[74,138],k);return{H,tor,leg:{A:[104,172],hint:[1,-.2]},arm:{rel:'bar',hint:[-1,1]},hold:'bar',bar:1}}},
+ le:{gear:[...SEAT(88,138,-6),['rect',{x:150,y:120,width:9,height:56,fill:'#2c2c34'}]],f:k=>({H:[88,138],tor:186,leg:{th:90,sh:lp(6,88,k)},arm:{W:[100,142],hint:[1,0]},pad:1,lever:1})},
+ lc:{gear:BENCH.map(g=>g),f:k=>({H:[114,123],tor:-90,prone:1,leg:{th:89,sh:lp(92,168,k)},arm:{W:[58,139],hint:[0,1]},pad:1})},
+ bu:{gear:[['rect',{x:20,y:141,width:46,height:7,rx:3,fill:'#3a3a44'}],['rect',{x:38,y:148,width:6,height:28,fill:'#2c2c34'}]],
+  f:k=>({H:lp([100,105],[93,134],k),tor:lp(178,170,k),leg:{A:[122,172],hint:[1,-.3]},leg2:{A:[50,139],hint:[.2,1],foot:'back'},arm:{ua:lp(2,8,k),fa:lp(2,8,k)},hold:'db'})},
+ mo:{gear:[['rect',{x:98,y:174,width:46,height:6,rx:2,fill:'#3a3a44'}]],f:k=>({H:lp([100,101],[100,91],k),tor:180,leg:{A:lp([100,170],[100,160],k),hint:[1,0],toe:[114,173]},arm:{ua:3,fa:3}})},
+ pc:{gear:[['path',{d:'M30 108 L72 146 L66 152 L24 114 Z',fill:'#3a3a44'}],['rect',{x:60,y:146,width:28,height:7,rx:3,fill:'#3a3a44'}],['rect',{x:68,y:153,width:7,height:23,fill:'#2c2c34'}],['line',{x1:92,y1:140,x2:150,y2:70,stroke:'#2c2c34','stroke-width':6}],['rect',{x:20,y:170,width:150,height:6,fill:'#2c2c34'}]],
+  f:k=>({H:[72,142],tor:-128,leg:{A:lp([118,96],[96,118],k),hint:[-1,-1],foot:'up'},arm:{W:[80,150],hint:[1,1]},sled:1})},
+ fa:{f:k=>({H:lp([98,105],[96,135],k),tor:178,leg:{A:[130,172],hint:[1,-.3]},leg2:{A:[62,170],hint:[.2,1],foot:'toe'},arm:{ua:3,fa:3}})},
+ // abdos
+ cr:{gear:[['rect',{x:150,y:6,width:9,height:170,fill:'#2c2c34'}]],f:k=>({H:[96,136],tor:lp(176,108,k),leg:{th:4,sh:-90},arm:{rel:'head',hint:[1,1]},cable:[150,12],hold:'rope'})},
+ rj:{gear:[['rect',{x:40,y:14,width:120,height:6,rx:3,fill:'#77777f'}]],f:k=>{const tor=lp(180,172,k),S=[100,63];return{H:sub(S,V(tor,RIG.LT)),tor,leg:{th:lp(3,98,k),sh:lp(0,88,k)},arm:{W:[100,17],hint:[1,0]}}}},
+ pl:{f:k=>({H:[96,156.5+k*1.2],tor:101.5,leg:{th:-78.5,sh:-78.5,foot:'down'},arm:{ua:0,fa:90}})},
+};
+// ---------- dessin ----------
+const NS='http://www.w3.org/2000/svg';
+function el(t,a,p){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);p&&p.appendChild(e);return e}
+const C={skin:'#C98A5E',skin2:'#9c6a47',shirt:'#ff4d1a',shirt2:'#b33a12',short:'#34343e',short2:'#26262d',shoe:'#f3f3f3',shoe2:'#bdbdc4',hair:'#141416',band:'#ffb21a',metal:'#8a8a94',plate:'#3a3a44'};
+function setupEx(svg){const p=P[svg.dataset.ex];if(!p)return;svg.innerHTML='';
+ el('line',{x1:8,y1:RIG.G,x2:192,y2:RIG.G,stroke:'#33333b','stroke-width':3,'stroke-linecap':'round'},svg);
+ (p.gear||[]).forEach(([t,a])=>el(t,a,svg));
+ svg._dyn=el('g',{},svg);svg._p=p;svg._phase=Math.random()*6}
+function L(g,a,b,c,w){el('line',{x1:a[0],y1:a[1],x2:b[0],y2:b[1],stroke:c,'stroke-width':w,'stroke-linecap':'round'},g)}
+function foot(g,A,mode,col,toe){let T;if(toe)T=toe;else if(mode==='back')T=add(A,[-12,-2]);else if(mode==='up')T=add(A,[7,-9]);else if(mode==='down')T=add(A,[2,6]);else if(mode==='toe')T=add(A,[9,4]);else T=add(A,[12,1]);L(g,A,T,col,7)}
+function arm(g,S,E,W,far){L(g,E,W,far?C.skin2:C.skin,7.5);L(g,S,E,far?C.skin2:C.skin,8.5);L(g,S,lp(S,E,.45),far?C.shirt2:C.shirt,11);el('circle',{cx:W[0],cy:W[1],r:4.6,fill:far?C.skin2:C.skin},g)}
+function leg(g,H,K,A,far,fm,toe){L(g,K,A,far?C.skin2:C.skin,9.5);L(g,H,K,far?C.skin2:C.skin,11.5);L(g,H,lp(H,K,.6),far?C.short2:C.short,14.5);foot(g,A,fm,far?C.shoe2:C.shoe,toe)}
+function head(g,c,fn,tor){const up=V(tor,1),bk=V(fn+180,1);let d=[up[0]+bk[0],up[1]+bk[1]];const n=Math.hypot(d[0],d[1])||1;d=[d[0]/n,d[1]/n];
+ el('circle',{cx:c[0],cy:c[1],r:RIG.HR+.5,fill:C.hair},g);const c2=[c[0]-d[0]*3.4,c[1]-d[1]*3.4];el('circle',{cx:c2[0],cy:c2[1],r:RIG.HR-1,fill:C.skin},g);
+ const a=Math.atan2(d[1],d[0]),r=RIG.HR-3,p1=[c2[0]+Math.cos(a-1.15)*r,c2[1]+Math.sin(a-1.15)*r],p2=[c2[0]+Math.cos(a+1.15)*r,c2[1]+Math.sin(a+1.15)*r];
+ el('path',{d:`M${p1[0]} ${p1[1]} A${r} ${r} 0 0 1 ${p2[0]} ${p2[1]}`,fill:'none',stroke:C.band,'stroke-width':2.6,'stroke-linecap':'round'},g);
+ const e=add(add(c,V(fn,6)),V(tor,1.5));el('circle',{cx:e[0],cy:e[1],r:1.6,fill:'#141416'},g)}
+function held(g,W,type,front){if(type==='bar'){el('circle',{cx:W[0],cy:W[1],r:13,fill:C.plate,stroke:'#55556a','stroke-width':2.5},g);el('circle',{cx:W[0],cy:W[1],r:3,fill:C.metal},g)}
+ if(type==='db'){if(front){el('rect',{x:W[0]-10,y:W[1]-2,width:20,height:4,rx:2,fill:C.metal},g);el('rect',{x:W[0]-12,y:W[1]-6,width:5,height:12,rx:2,fill:C.plate},g);el('rect',{x:W[0]+7,y:W[1]-6,width:5,height:12,rx:2,fill:C.plate},g)}
+  else el('circle',{cx:W[0],cy:W[1],r:7,fill:C.plate,stroke:'#55556a','stroke-width':2},g)}
+ if(type==='handle')el('rect',{x:W[0]-2.5,y:W[1]-8,width:5,height:16,rx:2,fill:'#55556a'},g);
+ if(type==='knob')el('circle',{cx:W[0],cy:W[1],r:4,fill:'#55556a'},g);
+ if(type==='rope'){L(g,add(W,[-3,0]),add(W,[-1,9]),'#c9b48a',3);L(g,add(W,[3,0]),add(W,[5,8]),'#c9b48a',3)}}
+function solve(q){const S=add(q.H,V(q.tor,RIG.LT)),fn=q.prone?q.tor+90:q.tor-90,Hd=add(add(q.H,V(q.tor,RIG.LT+14)),[0,0]);let W,E;const a=q.arm||{};
+ let bar=null;if(q.bar)bar=add(add(S,V(q.tor+90,6)),V(q.tor,-2));
+ if(a.rel==='bar'){[E,W]=ik(S,add(bar,V(q.tor-90,3)),RIG.UA,RIG.FA,a.hint)}
+ else if(a.rel==='head'){const T=add(add(S,V(q.tor,9)),V(fn,9));[E,W]=ik(S,T,RIG.UA,RIG.FA,a.hint)}
+ else if(a.E){E=add(S,a.E);W=add(S,a.Wd)}else if(a.W){[E,W]=ik(S,a.W,RIG.UA,RIG.FA,a.hint)}else{E=add(S,V(a.ua,RIG.UA));W=add(E,V(a.fa,RIG.FA))}
+ const lg=l=>{let K,A;if(l.A){[K,A]=ik(q.H,l.A,RIG.TH,RIG.SH,l.hint)}else{K=add(q.H,V(l.th,RIG.TH));A=add(K,V(l.sh,RIG.SH))}return{K,A,fm:l.foot,toe:l.toe}};
+ return{S,Hd,fn,E,W,bar,l1:lg(q.leg),l2:q.leg2?lg(q.leg2):null}}
+function drawSide(g,q){const j=solve(q),o=[-2.5,-1.5];
+ if(q.cable){L(g,q.cable,j.W,C.metal,1.6)}
+ // côté éloigné
+ const l2=j.l2||{K:add(j.l1.K,o),A:add(j.l1.A,o),fm:j.l1.fm,toe:j.l1.toe&&add(j.l1.toe,o)};leg(g,j.l2?q.H:add(q.H,o),l2.K,l2.A,1,l2.fm,l2.toe);
+ arm(g,add(j.S,o),add(j.E,o),add(j.W,o),1);
+ if(q.pad||q.lever){if(q.lever)L(g,j.l1.K,add(j.l1.A,V(q.leg.sh+90,6)),'#2c2c34',5)}
+ // corps
+ L(g,j.S,lp(j.S,j.Hd,.55),C.skin,7);L(g,q.H,j.S,C.shirt,23);L(g,q.H,lp(q.H,j.S,.08),C.short,21);
+ leg(g,q.H,j.l1.K,j.l1.A,0,j.l1.fm,j.l1.toe);head(g,j.Hd,j.fn,q.tor);
+ if(q.pad){const pp=add(j.l1.A,V((q.leg.sh??0)+(q.prone?-90:90),6));el('circle',{cx:pp[0],cy:pp[1],r:6,fill:'#55556a'},g)}
+ if(q.sled){const A=j.l1.A;L(g,add(A,[-10,-10]),add(A,[10,10]),'#55556a',6)}
+ const W2=q.hold==='bar'&&q.bar?j.bar:j.W;if(q.hold)held(g,W2,q.hold);
+ arm(g,j.S,j.E,j.W,0)}
+function drawFront(g,q){const cx=100,seat=q.seat,hipY=seat?140:103,shY=hipY-RIG.LT,hdY=shY-15;
+ if(seat){el('rect',{x:cx-26,y:shY-12,width:52,height:hipY-shY+16,rx:6,fill:'#3a3a44'},g);el('rect',{x:cx-24,y:hipY+4,width:48,height:7,rx:3,fill:'#3a3a44'},g);el('rect',{x:cx-3,y:hipY+11,width:6,height:176-hipY-11,fill:'#2c2c34'},g)}
+ [-1,1].forEach(s=>{const H=[cx+s*8,hipY+2];if(seat){const K=[cx+s*14,hipY+12];const A=[cx+s*15,172];L(g,K,A,C.skin,9.5);L(g,H,K,C.short,14);L(g,A,add(A,[s*3,1]),C.shoe,8)}
+  else{const A=[cx+s*11,172];L(g,H,A,C.skin,10.5);L(g,H,lp(H,A,.4),C.short,14.5);L(g,A,add(A,[s*3,1]),C.shoe,8)}});
+ L(g,[cx,shY],[cx,hdY],C.skin,7);
+ el('path',{d:`M${cx-15} ${shY-2} L${cx+15} ${shY-2} L${cx+11} ${hipY} L${cx-11} ${hipY} Z`,fill:C.shirt,stroke:C.shirt,'stroke-width':6,'stroke-linejoin':'round'},g);
+ el('rect',{x:cx-12,y:hipY-6,width:24,height:9,rx:3,fill:C.short},g);
+ el('circle',{cx,cy:hdY,r:RIG.HR,fill:C.skin},g);el('path',{d:`M${cx-11} ${hdY-1} A11 11 0 0 1 ${cx+11} ${hdY-1} Z`,fill:C.hair},g);L(g,[cx-10.5,hdY-2],[cx+10.5,hdY-2],C.band,3.5);
+ el('circle',{cx:cx-4,cy:hdY+3,r:1.5,fill:'#141416'},g);el('circle',{cx:cx+4,cy:hdY+3,r:1.5,fill:'#141416'},g);
+ [-1,1].forEach(s=>{const S=[cx+s*15,shY+1];let E,W;
+  if(q.fly!==undefined){const t=q.fly*Math.PI/180;E=[S[0]+s*RIG.UA*Math.cos(t),S[1]+2];W=[S[0]+s*(RIG.UA+RIG.FA-4)*Math.cos(t),S[1]+3]}
+  else{const a=q.a;E=add(S,V(s*a,RIG.UA));W=add(E,V(s*(a+q.b),RIG.FA))}
+  L(g,E,W,C.skin,7.5);L(g,S,E,C.skin,8.5);L(g,S,lp(S,E,.45),C.shirt,11);el('circle',{cx:W[0],cy:W[1],r:q.fly!==undefined?4.6+Math.sin(q.fly*Math.PI/180)*1.4:4.6,fill:C.skin},g);
+  if(q.hold)held(g,W,q.hold,1)})}
+function pose(svg,k){const p=svg._p;if(!p)return;const g=svg._dyn;g.innerHTML='';const q=p.f(k);if(p.front)drawFront(g,q);else drawSide(g,q)}
+
+</script>
+<script>
+  // ====================== RÉGLAGES DU SITE ======================
+  // Mets un lien entre les guillemets pour activer un bouton. Vide = « Bientôt disponible » ou masqué.
+  const CONFIG = {
+    webhook: "https://n8n-suzi.srv2061735.hstgr.cloud/webhook/optimuscle-devis",
+    paiement: { declic: "", pack: "", transfo: "", assiette: "", forge: "" }, // liens Stripe / Systeme.io / Gumroad
+    kit: "",          // lien public du Kit 7 jours gratuit
+    instagram: "",    // ex. https://www.instagram.com/...
+    tiktok: "",       // ex. https://www.tiktok.com/@...
+    legal: {
+      editeur: "Civi'lab, Junior Association (projet Optimuscle)",
+      adresse: "6 rue des Prés, 25630 Sainte-Suzanne",
+      identifiant: "Junior Association habilitée par le RNJA, n° JA-11150",
+      directeur: "Bilal Lamchi",
+      email: "bilouxxpro@gmail.com",
+      tva: "TVA non applicable",
+      mediateur: ""   // nom + site du médiateur de la consommation (obligatoire avant de vendre)
+    }
+  };
+  const WEBHOOK_URL = CONFIG.webhook;
+  // ==============================================================
+
+  const reduce = matchMedia("(prefers-reduced-motion:reduce)").matches;
+  document.getElementById("y").textContent = new Date().getFullYear();
+
+  // Nav, barre de progression, barre d'achat mobile
+  const nav = document.getElementById("nav"), bar = document.getElementById("progress"), sticky = document.getElementById("stickyBuy");
+  const prod = document.getElementById("produits");
+  function onScroll(){
+    const h = document.documentElement.scrollHeight - innerHeight;
+    bar.style.width = (scrollY / h * 100) + "%";
+    nav.classList.toggle("scrolled", scrollY > 40);
+    const vis = el => { if (!el) return false; const q = el.getBoundingClientRect(); return q.top < innerHeight && q.bottom > 0; };
+    const onProducts = vis(prod) || vis(document.getElementById("kit")) || vis(document.getElementById("academy")) || vis(document.getElementById("contact"));
+    sticky.classList.toggle("show", scrollY > innerHeight * .8 && !onProducts);
+    // timeline qui se remplit
+    const tl = document.getElementById("timeline").getBoundingClientRect();
+    const p = Math.min(1, Math.max(0, (innerHeight * .7 - tl.top) / tl.height));
+    document.getElementById("tlFill").style.height = (p * (tl.height - 12)) + "px";
+  }
+  addEventListener("scroll", onScroll, {passive:true}); onScroll();
+
+
+  // Liens de paiement, kit, réseaux, mentions
+  document.querySelectorAll("[data-link]").forEach(a => {
+    const k = a.dataset.link, url = k === "kit" ? CONFIG.kit : CONFIG.paiement[k];
+    if (url) { a.href = url; if (k !== "kit") { a.target = "_blank"; a.rel = "noopener"; } }
+    else if (k === "kit") { a.textContent = "Le kit arrive très vite"; a.removeAttribute("href"); a.classList.add("off"); }
+    else { a.textContent = "Bientôt disponible"; a.removeAttribute("href"); a.classList.add("off"); a.setAttribute("aria-disabled","true"); }
+  });
+  ["instagram","tiktok"].forEach(k => { const el = document.querySelector(`[data-social="${k}"]`); if (CONFIG[k]) { el.hidden = false; el.querySelector("a").href = CONFIG[k]; } });
+  document.querySelectorAll("[data-cfg]").forEach(el => el.textContent = CONFIG.legal[el.dataset.cfg] || "");
+  document.querySelectorAll("[data-cfg-mail]").forEach(el => { const m = CONFIG.legal[el.dataset.cfgMail]; el.textContent = m; el.href = "mailto:" + m; });
+  document.querySelectorAll("[data-cfg-p]").forEach(el => { if (!CONFIG.legal[el.dataset.cfgP]) el.remove(); });
+  document.querySelectorAll("[data-dialog]").forEach(a => a.addEventListener("click", e => { e.preventDefault(); document.getElementById(a.dataset.dialog).showModal(); }));
+  document.querySelectorAll("dialog").forEach(d => { d.querySelector(".x").onclick = () => d.close(); d.addEventListener("click", e => { if (e.target === d) d.close(); }); });
+
+  // Vitrine : Opti enchaîne les exercices
+  (function(){
+    const SEQ = [["inc","Mardi · Pecs","Développé incliné","1 échauffement + 2 × 10-12 · repos 2 min"],["tv","Lundi · Dos","Tirage vertical","1 échauffement + 2 × 10-12 · repos 2 min"],["gs","Mercredi · Jambes","Squat","1 échauffement + 2 × 10-12 · repos 2 min"],["lat","Mardi · Épaules","Élévations latérales","2 × 10-12 · repos 75 s"],["cb","Vendredi · Biceps","Curl biceps","3 × 10-12 · repos 75 s"]];
+    const svg = document.getElementById("phSvg"); let i = 0, t0 = performance.now(), sec = 84;
+    function set(n){ const s = SEQ[n]; svg.dataset.ex = s[0]; setupEx(svg); document.getElementById("phDay").textContent = s[1]; document.getElementById("phName").textContent = s[2]; document.getElementById("phSpec").textContent = s[3]; }
+    set(0);
+    function loop(t){ if (!reduce) pose(svg, (1 - Math.cos(((t - t0) / 1000 * .75) * Math.PI)) / 2); else pose(svg,.5); requestAnimationFrame(loop); }
+    requestAnimationFrame(loop);
+    if (!reduce) { setInterval(() => { i = (i + 1) % SEQ.length; set(i); }, 5200); setInterval(() => { sec = sec > 0 ? sec - 1 : 90; document.getElementById("phT").textContent = Math.floor(sec/60) + ":" + String(sec%60).padStart(2,"0"); }, 1000); }
+  })();
+  // Mot qui tourne dans le hero
+  const words = ["plus fort","plus sûr de toi","discipliné","fier de toi","imparable"];
+  const rot = document.getElementById("rotator"); let wi = 0;
+  if (!reduce) setInterval(() => { wi = (wi + 1) % words.length; rot.textContent = words[wi]; rot.classList.remove("swap"); void rot.offsetWidth; rot.classList.add("swap"); }, 2200);
+
+  // Apparition au scroll
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target);} }), {threshold:.15});
+  document.querySelectorAll(".reveal, .step").forEach(el => io.observe(el));
+
+  // Effet 3D sur les cartes (ordinateur)
+  if (matchMedia("(hover:hover)").matches && !reduce){
+    document.querySelectorAll(".product").forEach(card => {
+      const base = card.classList.contains("best") ? " scale(1.04)" : "";
+      card.addEventListener("mousemove", e => {
+        const r = card.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+        card.style.transform = `perspective(900px) rotateY(${x*8}deg) rotateX(${-y*8}deg) translateY(-6px)` + base;
+      });
+      card.addEventListener("mouseleave", () => card.style.transform = "");
+    });
+  }
+
+  // Formulaire → n8n
+  const form = document.getElementById("devisForm"), msg = document.getElementById("msg"), btn = document.getElementById("sendBtn");
+  const show = (t, c) => { msg.textContent = t; msg.className = c; };
+  form.addEventListener("submit", async e => {
+    e.preventDefault();
+    const email = form.email.value.trim(), besoin = form.besoin.value.trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return show("Mets un e-mail valide.", "err");
+    if (besoin.length < 5) return show("Dis-m'en un peu plus sur ton objectif.", "err");
+    
+    btn.disabled = true; btn.textContent = "Envoi…";
+    try {
+      const res = await fetch(WEBHOOK_URL, { method:"POST", headers:{"Content-Type":"application/json"},
+        body: JSON.stringify({ email, besoin, source:"Formulaire site", page: location.href }) });
+      if (!res.ok) throw new Error(res.status);
+      form.reset(); show("Bien reçu 💪 Je te réponds très vite.", "ok");
+    } catch { show("L'envoi a échoué, réessaie dans un instant.", "err"); }
+    finally { btn.disabled = false; btn.textContent = "Envoyer →"; }
+  });
+  // Kit gratuit + liste d'attente Academy → n8n (même webhook que le formulaire, avec la source)
+  document.querySelectorAll(".js-lead").forEach(f => {
+    const m = f.querySelector(".msg"), b = f.querySelector("button"), dl = f.querySelector(".dl"), txt = b.textContent;
+    f.addEventListener("submit", async e => {
+      e.preventDefault();
+      const email = f.email.value.trim();
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { m.textContent = "Mets un e-mail valide."; m.style.color = "#f87171"; return; }
+      b.disabled = true; b.textContent = "Envoi…";
+      try {
+        const res = await fetch(WEBHOOK_URL, { method:"POST", headers:{"Content-Type":"application/json"},
+          body: JSON.stringify({ email, besoin: f.dataset.besoin, source: f.dataset.besoin, page: location.href }) });
+        if (!res.ok) throw new Error(res.status);
+        f.email.value = "";
+        m.style.color = "#4ade80";
+        m.textContent = dl ? "C'est bon 💪 Ton kit est prêt :" : "C'est noté 💪 Tu seras prévenu en premier.";
+        if (dl) dl.classList.add("show");
+      } catch { m.style.color = "#f87171"; m.textContent = "L'envoi a échoué, réessaie dans un instant."; }
+      finally { b.disabled = false; b.textContent = txt; }
+    });
+  });
+</script>
+</body>
+</html>
