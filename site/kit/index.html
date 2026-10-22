@@ -1,0 +1,629 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Kit gratuit Optimuscle : le plan exact de ta première semaine à la salle.">
+<meta name="theme-color" content="#0c0c0e">
+</head>
+<body>
+<title>Kit 7 jours</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,700;0,800;0,900;1,900&family=Manrope:wght@500;700;800&family=JetBrains+Mono:wght@600&display=swap">
+<style>
+/* Mise en page : un e-book vertical façon carnet de salle — chapitres plein écran, Opti coach en bas à droite qui commente */
+:root{
+  --ink:#0c0c0e; --panel:#16161a; --panel2:#1e1e24; --line:#2b2b33;
+  --fg:#f5f2ee; --mute:#a7a3ad; --ember:#ff5a1f; --gold:#ffb21a; --ok:#3ddc84; --bad:#ff4d5e;
+  --display:"Barlow Condensed","Arial Narrow",Impact,sans-serif;
+  --body:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--ink);color:var(--fg);font-family:var(--body);font-size:17px;line-height:1.6;margin:0;overflow-x:hidden;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--ink)}
+.wrap{max-width:760px;margin:0 auto}
+h1,h2,h3{font-family:var(--display);text-transform:uppercase;line-height:.92;letter-spacing:-.5px;text-wrap:balance;margin:0}
+h2{font-size:clamp(46px,9vw,78px)}
+h3{font-size:30px;letter-spacing:0}
+p{margin:0;max-width:62ch}
+b,strong{color:var(--fg)}
+.fire{background:linear-gradient(90deg,var(--ember),var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent}
+.eyebrow{font-family:var(--mono);font-size:12.5px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold)}
+.mute{color:var(--mute)}
+section{padding-block:72px;display:grid;gap:26px;position:relative;min-width:0}
+section>*,.cover-grid>*{min-width:0}
+section + section{border-top:1px solid var(--line)}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,.chip:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+
+/* barre de progression de lecture */
+#bar{position:fixed;left:0;right:0;top:env(safe-area-inset-top,0px);height:5px;z-index:40;background:transparent}
+#bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--ember),var(--gold));transition:width .15s linear}
+
+/* COUVERTURE */
+.cover{padding-block:56px 64px;min-height:auto;overflow:hidden}
+.cover .top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.logo{font-family:var(--display);font-weight:900;font-size:24px;letter-spacing:1px}.logo span{color:var(--ember)}
+.cover-grid{display:grid;grid-template-columns:1.25fr .9fr;align-items:end;gap:10px}
+.title{font-size:clamp(62px,17vw,168px);font-weight:900;font-style:italic;line-height:.95;letter-spacing:-2px;padding-top:.08em}
+.title .l{display:inline-block;animation:drop .7s cubic-bezier(.2,1.4,.4,1) backwards}
+.title .l:nth-child(2){animation-delay:.06s}.title .l:nth-child(3){animation-delay:.12s}
+.title .l2{display:block;animation:slideR .8s .25s cubic-bezier(.2,1,.3,1) backwards}
+@keyframes drop{from{transform:translateY(-60px) rotate(-8deg)}}
+@keyframes slideR{from{transform:translateX(-40px)}}
+.cover .sub{font-size:19px;color:#ddd8d2;max-width:34ch}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.stat{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:14px 14px 12px}
+.stat b{display:block;font-family:var(--display);font-size:46px;line-height:.9;font-weight:900}
+.stat span{font-size:13px;color:var(--mute)}
+.go{justify-self:start;display:inline-flex;gap:10px;align-items:center;background:linear-gradient(90deg,var(--ember),var(--gold));color:#170700;border:0;border-radius:60px;padding:15px 26px;font-weight:800;font-size:17px;text-decoration:none;animation:pulse 2.4s ease-in-out infinite}
+@keyframes pulse{50%{transform:scale(1.04);box-shadow:0 0 0 10px rgba(255,90,31,.12)}}
+.opti{width:100%;height:auto;overflow:visible}
+.cover .opti{max-width:300px;justify-self:end;animation:landing .9s cubic-bezier(.3,1.6,.5,1) backwards}
+@keyframes landing{from{transform:translateY(-120px) scaleY(1.1)}}
+.glow{position:absolute;inset:-10% -30% auto auto;width:520px;height:520px;background:radial-gradient(circle,rgba(255,90,31,.35),transparent 60%);pointer-events:none;z-index:-1;animation:breathe 6s ease-in-out infinite}
+@keyframes breathe{50%{transform:scale(1.15) translate(-20px,10px)}}
+/* animation du perso (SVG) */
+.o-body{animation:bob 2.6s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 100%}
+@keyframes bob{50%{transform:translateY(-6px) scaleY(1.01)}}
+[id$="-eyes"]{animation:blink 4s infinite;transform-box:fill-box;transform-origin:center}
+@keyframes blink{0%,94%,100%{transform:scaleY(1)}96%{transform:scaleY(.1)}}
+[id$="-pointArm"]{animation:wave 1.4s ease-in-out infinite;transform-box:view-box;transform-origin:96px -150px}
+@keyframes wave{50%{transform:rotate(-14deg)}}
+[id$="-curl"]{animation:curl 1.2s ease-in-out infinite;transform-box:view-box;transform-origin:96px -150px}
+@keyframes curl{50%{transform:rotate(16deg)}}
+[id$="-mouthOpen"]{display:none}
+.talking [id$="-mouthOpen"]{display:inline;animation:talk .22s steps(2) infinite}
+.talking [id$="-mouthClosed"]{display:none}
+@keyframes talk{50%{transform:scaleY(.35);transform-box:fill-box;transform-origin:50% 0}}
+
+/* HISTOIRE : frise */
+.frise{display:grid;gap:0;position:relative;padding-left:34px}
+.frise::before{content:"";position:absolute;left:11px;top:8px;bottom:8px;width:3px;background:var(--line);border-radius:3px}
+.frise .fill{position:absolute;left:11px;top:8px;width:3px;height:0;background:linear-gradient(var(--ember),var(--gold));border-radius:3px;transition:height 1.6s cubic-bezier(.3,.8,.3,1)}
+.in .frise .fill{height:calc(100% - 16px)}
+.step{position:relative;padding-block:14px}
+.step::before{content:"";position:absolute;left:-30px;top:22px;width:17px;height:17px;border-radius:50%;background:var(--ink);border:3px solid var(--ember)}
+.step .k{font-family:var(--display);font-size:30px;font-weight:900;text-transform:uppercase;line-height:1}
+.step.loop .k span{display:inline-block;animation:spin 2.2s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.promise{background:linear-gradient(135deg,#2a1208,#16161a 60%);border:1px solid #4a2412;border-radius:24px;padding:24px;display:grid;gap:10px}
+.promise .eyebrow{color:var(--ember)}
+
+/* COMMENT ÇA MARCHE */
+.toggle{display:flex;gap:8px;flex-wrap:wrap}
+.chip{border:1px solid var(--line);background:var(--panel);border-radius:40px;padding:9px 16px;font-weight:700;font-size:15px}
+.chip[aria-pressed="true"]{background:var(--fg);color:var(--ink);border-color:var(--fg)}
+.week{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}
+.day{aspect-ratio:1/1.25;max-width:100%;border-radius:16px;background:var(--panel);border:1px solid var(--line);display:grid;place-items:center;align-content:center;gap:4px;font-weight:800;font-size:14px;color:var(--mute);transition:.35s cubic-bezier(.3,1.5,.5,1)}
+.day i{font-style:normal;font-size:20px;opacity:.25;transition:.3s}
+.day.on{background:linear-gradient(160deg,var(--ember),#c2380f);color:#fff;border-color:transparent;transform:translateY(-6px)}
+.day.on i{opacity:1}
+.phases{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.ph{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:16px;display:grid;gap:6px;align-content:start;min-width:0}
+.ph .n{font-family:var(--mono);font-size:12px;color:var(--gold);letter-spacing:1.5px}
+.ph h3{font-size:26px}
+.ph .meter{height:8px;border-radius:8px;background:var(--line);overflow:hidden;margin-top:6px}
+.ph .meter i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--ember),var(--gold));transition:width 1.2s cubic-bezier(.3,.8,.3,1)}
+.in .ph:nth-child(1) .meter i{width:40%}.in .ph:nth-child(2) .meter i{width:70%;transition-delay:.2s}.in .ph:nth-child(3) .meter i{width:100%;transition-delay:.4s}
+.ph small{color:var(--mute);font-size:14px;line-height:1.4}
+.decode{background:var(--panel);border:1px solid var(--line);border-radius:22px;padding:22px;display:grid;gap:16px}
+.formula{font-family:var(--display);font-size:clamp(38px,8vw,56px);font-weight:900;display:flex;flex-wrap:wrap;gap:8px;align-items:baseline}
+.formula button{background:none;border:0;border-bottom:4px dashed var(--line);padding:0 2px;font:inherit;transition:.25s}
+.formula button[aria-pressed="true"]{color:var(--gold);border-color:var(--gold)}
+.explain{min-height:3.2em;font-size:17px;color:#ddd8d2}
+
+/* SIMULATEUR double progression */
+.sim{background:var(--panel);border:1px solid var(--line);border-radius:24px;padding:22px;display:grid;gap:18px}
+.sim-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.kg{font-family:var(--display);font-size:64px;font-weight:900;line-height:.9;font-variant-numeric:tabular-nums}
+.kg small{font-size:26px;color:var(--mute)}
+.sets{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;align-items:end;height:190px}
+.set{display:flex;flex-direction:column;gap:8px;align-items:center;justify-content:flex-end;height:100%}
+.set .col{width:100%;max-width:90px;border-radius:14px 14px 6px 6px;background:linear-gradient(var(--gold),var(--ember));transition:height .6s cubic-bezier(.3,1.5,.5,1);height:30px}
+.set b{font-family:var(--display);font-size:34px;line-height:1;font-variant-numeric:tabular-nums}
+.set span{font-size:12px;color:var(--mute);font-family:var(--mono)}
+.target{position:relative;height:0;border-top:2px dashed rgba(255,255,255,.25);margin-top:-2px}
+.weeks{display:flex;gap:8px;flex-wrap:wrap}
+.verdict{border-radius:16px;padding:14px 16px;font-weight:700;background:var(--panel2);transition:background .4s}
+.verdict.up{background:rgba(61,220,132,.14);color:var(--ok);animation:pop .5s cubic-bezier(.3,1.8,.5,1)}
+@keyframes pop{from{transform:scale(.92)}}
+
+/* SÉANCE A */
+.sess{display:grid;gap:10px}
+.ex{display:grid;grid-template-columns:1fr auto;gap:10px 14px;align-items:center;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:14px 16px;transition:border-color .3s,background .3s}
+.ex.done{border-color:rgba(61,220,132,.5);background:#132018}
+.ex .name{font-weight:800;min-width:0}
+.ex .spec{font-family:var(--mono);font-size:13px;color:var(--mute)}
+.dots{display:flex;gap:7px}
+.dot{width:30px;height:30px;border-radius:50%;border:2px solid var(--line);background:none;transition:.25s cubic-bezier(.3,1.6,.5,1)}
+.dot.on{background:var(--ok);border-color:var(--ok);transform:scale(1.12)}
+.timer{display:flex;gap:18px;align-items:center;background:var(--panel2);border-radius:22px;padding:16px 18px;flex-wrap:wrap}
+.ring{width:84px;height:84px;flex:none}
+.ring circle{fill:none;stroke-width:9}
+.ring .bg{stroke:var(--line)}.ring .fg{stroke:var(--ember);stroke-linecap:round;transform:rotate(-90deg);transform-origin:50% 50%;transition:stroke-dashoffset .9s linear}
+.ring text{fill:var(--fg);font-family:var(--display);font-weight:900;font-size:28px}
+.tbtns{display:flex;gap:8px;flex-wrap:wrap}
+.tbtns button{border:1px solid var(--line);background:var(--panel);border-radius:40px;padding:10px 16px;font-weight:700}
+.tbtns button.main{background:var(--fg);color:var(--ink);border-color:var(--fg)}
+.score{font-family:var(--display);font-size:38px;font-weight:900}
+
+/* coach flottant */
+.coach{position:fixed;right:max(12px,env(safe-area-inset-right,0px));bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:35;display:flex;align-items:flex-end;gap:8px;pointer-events:none}
+.coach .opti{width:92px}
+.bubble{max-width:230px;background:var(--fg);color:var(--ink);border-radius:18px 18px 4px 18px;padding:11px 14px;font-weight:700;font-size:14px;line-height:1.35;box-shadow:0 10px 30px rgba(0,0,0,.4);transition:opacity .3s,transform .3s}
+.bubble.swap,.bubble.hide{opacity:0;transform:translateY(8px)}
+.end{text-align:left;padding-bottom:180px}
+.lock{background:repeating-linear-gradient(135deg,var(--panel),var(--panel) 12px,var(--panel2) 12px,var(--panel2) 24px);border:1px dashed var(--line);border-radius:22px;padding:22px;display:grid;gap:8px}
+
+@media (max-width:620px){
+  body{font-size:16px}
+  .cover-grid{grid-template-columns:1fr 112px}
+  .cover .opti{max-width:120px}
+  .stat{padding:12px 10px}
+  .phases{grid-template-columns:1fr}
+  .stat b{font-size:36px}
+  .coach .opti{width:70px}.bubble{max-width:190px;font-size:13px}
+  .week{gap:5px}.day{border-radius:12px;font-size:12px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+ 
+.plan{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px}
+.pday{border:1px solid var(--line);background:var(--panel);border-radius:16px;padding:10px 6px;display:grid;gap:4px;justify-items:center;text-align:center;transition:.3s cubic-bezier(.3,1.5,.5,1)}
+.pday b{font-family:var(--display);font-size:26px;line-height:1}
+.pday span{font-size:11.5px;color:var(--mute);line-height:1.2}
+.pday .ic{font-size:20px}
+.pday.done{background:#132018;border-color:rgba(61,220,132,.55)}
+.pday.done b{color:var(--ok)}
+.pday[data-k="haut"] .ic::after{content:"💪"}.pday[data-k="bas"] .ic::after{content:"🦵"}.pday[data-k="marche"] .ic::after{content:"🚶"}.pday[data-k="repos"] .ic::after{content:"😴"}.pday[data-k="bilan"] .ic::after{content:"✅"}
+.list{display:grid;gap:10px;padding:0;margin:0;list-style:none}
+.check{display:flex;gap:12px;align-items:center;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:13px 15px;cursor:pointer;transition:.25s}
+.check input{appearance:none;width:26px;height:26px;border-radius:8px;border:2px solid var(--line);flex:none;display:grid;place-items:center;margin:0;transition:.2s cubic-bezier(.3,1.6,.5,1)}
+.check input:checked{background:var(--ok);border-color:var(--ok);transform:scale(1.1)}
+.check input:checked::after{content:"✓";color:#06210f;font-weight:900}
+.check:has(input:checked){border-color:rgba(61,220,132,.45);background:#132018}
+.check input:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.tip{border-radius:20px;padding:18px 20px;display:grid;gap:6px;background:var(--panel2);border:1px solid var(--line)}
+.tip.ok{background:#11201a;border-color:rgba(61,220,132,.35)}.tip.warn{background:#24130f;border-color:rgba(255,77,94,.4)}
+.tip .eyebrow{color:inherit;opacity:.85}
+.tip.ok .eyebrow{color:var(--ok)}.tip.warn .eyebrow{color:var(--bad)}
+.steps{display:grid;gap:10px;counter-reset:s}
+.st{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:start;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:14px 16px}
+.st::before{counter-increment:s;content:counter(s);font-family:var(--display);font-weight:900;font-size:30px;line-height:1;color:var(--ember);min-width:22px}
+/* échauffement guidé */
+.warm{background:var(--panel);border:1px solid var(--line);border-radius:24px;padding:20px;display:grid;gap:16px}
+.wsteps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.ws{border-radius:14px;background:var(--panel2);padding:10px;font-size:13px;line-height:1.3;border:1px solid transparent;transition:.3s}
+.ws b{display:block;font-family:var(--display);font-size:20px}
+.ws.now{border-color:var(--ember);background:#2a1208}.ws.ok{opacity:.55}
+.big{font-family:var(--display);font-size:72px;font-weight:900;line-height:.9;font-variant-numeric:tabular-nums}
+/* cartes exercice */
+.exs{display:grid;gap:14px}
+.card{display:grid;grid-template-columns:150px 1fr;gap:16px;background:var(--panel);border:1px solid var(--line);border-radius:22px;padding:14px;align-items:center;transition:border-color .3s,background .3s}
+.card.done{border-color:rgba(61,220,132,.5);background:#132018}
+.anim{background:radial-gradient(circle at 50% 40%,#24242b,#141418);border-radius:16px;aspect-ratio:1;max-width:100%;overflow:hidden}
+.anim svg{width:100%;height:100%;display:block}
+.card h3{font-size:25px}
+.card .spec{font-family:var(--mono);font-size:13px;color:var(--gold);margin:4px 0 6px}
+.card p{font-size:14.5px;color:#d9d4ce;line-height:1.45}
+.card .dots{margin-top:10px}
+.sessbar{position:sticky;top:calc(env(safe-area-inset-top,0px) + 8px);z-index:20;display:flex;gap:14px;align-items:center;background:rgba(22,22,26,.92);backdrop-filter:blur(8px);border:1px solid var(--line);border-radius:20px;padding:10px 14px;flex-wrap:wrap}
+.sessbar .ring{width:62px;height:62px}
+.sessbar .ring text{font-size:30px}
+.plate{width:min(320px,100%);aspect-ratio:1;max-width:100%;justify-self:center}
+.plate .q{transform-origin:160px 160px;transition:transform .8s cubic-bezier(.3,1.5,.5,1),opacity .4s}
+.reflex{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.rf{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:14px;display:grid;gap:6px;cursor:pointer;text-align:left;transition:.25s}
+.rf b{font-family:var(--display);font-size:24px;text-transform:uppercase;line-height:1}
+.rf small{color:var(--mute);font-size:13.5px;line-height:1.35}
+.rf[aria-pressed="true"]{border-color:var(--ember);background:#2a1208}
+.dayfood{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.meal{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:12px;font-size:14px;line-height:1.35}
+.meal b{display:block;font-family:var(--mono);font-size:11px;letter-spacing:1.5px;color:var(--gold);margin-bottom:4px}
+.curve{width:100%;height:auto;max-width:100%}
+.result{border-radius:20px;padding:18px;font-weight:700;background:var(--panel2);display:grid;gap:4px;transition:.4s}
+.result b{font-family:var(--display);font-size:46px;line-height:1}
+.result.win{background:rgba(61,220,132,.14);color:var(--ok)}
+.next{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.prod{background:var(--panel);border:1px solid var(--line);border-radius:22px;padding:18px;display:grid;gap:8px;align-content:start}
+.prod.hot{border-color:var(--ember);box-shadow:0 0 50px rgba(255,90,31,.18)}
+.prod h3{font-size:30px}.prod .price{font-family:var(--display);font-size:34px;font-weight:900}
+.outro{font-family:var(--display);font-size:clamp(54px,12vw,96px);font-weight:900;font-style:italic;line-height:.9;text-transform:uppercase}
+@media (max-width:620px){
+  .plan{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .card{grid-template-columns:110px 1fr;gap:12px}
+  .wsteps,.reflex,.dayfood,.next{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .card h3{font-size:21px}
+}
+
+html{overflow-x:clip}
+h2{font-size:clamp(40px,10.5vw,78px);overflow-wrap:anywhere}
+.cover .title{font-size:clamp(54px,14.5vw,150px)}</style>
+<div id="bar"><i></i></div>
+<div class="wrap">
+
+<section class="cover" id="debut" data-say="Salut, moi c'est Opti ! Je t'accompagne pendant ta toute première semaine.">
+  <div class="glow"></div>
+  <div class="top"><div class="logo">OPTI<span>MUSCLE</span></div><div class="eyebrow">Kit gratuit · 7 jours</div></div>
+  <div class="cover-grid">
+    <h1 class="title"><span class="l2">Ta 1<sup style="font-size:.45em">re</sup></span><span class="l2 fire">semaine</span></h1>
+    <svg class="opti" data-opti="c" viewBox="-240 -390 560 650" aria-hidden="true"><ellipse cx="0" cy="250" rx="130" ry="12" fill="rgba(0,0,0,.45)"/><g class="o-body"><rect x="-26" y="-215" width="52" height="40" fill="#A86E47"/><path d="M-98,-120 q0,-70 98,-74 q98,4 98,74 l10,150 q-108,22 -216,0z" fill="#FF4D1A"/>
+<path d="M-40,-190 q40,40 80,0 l0,20 q-40,34 -80,0z" fill="#D93A0C"/><path d="M-30,-100 l60,0 l-6,60 l-48,0z" fill="#D93A0C" opacity=".55"/>
+<text x="0" y="-62" text-anchor="middle" font-family="Anton,Impact,sans-serif" font-size="34" fill="#160700">OPTI</text>
+<path d="M-104,26 l90,0 l-4,190 l-58,0z" fill="#1E1E24"/><path d="M14,26 l90,0 l-28,190 l-58,0z" fill="#1E1E24"/>
+<rect x="-110" y="206" width="72" height="30" rx="14" fill="#f5f5f4"/><rect x="22" y="206" width="72" height="30" rx="14" fill="#f5f5f4"/>
+<rect x="-110" y="226" width="72" height="10" rx="5" fill="#FF4D1A"/><rect x="22" y="226" width="72" height="10" rx="5" fill="#FF4D1A"/><g class="o-arms"><path d="M-96,-150 q-70,40 -60,130" stroke="#FF4D1A" stroke-width="54" fill="none" stroke-linecap="round"/><circle cx="-156" cy="-18" r="26" fill="#C98A5E"/>
+<g id="c-pointArm"><path d="M96,-150 q90,-30 150,-70" stroke="#FF4D1A" stroke-width="54" fill="none" stroke-linecap="round"/><circle cx="252" cy="-224" r="26" fill="#C98A5E"/><path d="M262,-236 l46,-26" stroke="#C98A5E" stroke-width="18" stroke-linecap="round"/></g></g><g id="c-head"><g transform="translate(0,-250)">
+<path d="M-62,-20 q0,-70 62,-74 q62,4 62,74 l0,30 q0,62 -62,66 q-62,-4 -62,-66z" fill="#C98A5E"/>
+<ellipse cx="-64" cy="8" rx="12" ry="18" fill="#A86E47"/><ellipse cx="64" cy="8" rx="12" ry="18" fill="#A86E47"/>
+<path d="M-64,-30 q-4,-72 64,-70 q68,-2 64,70 q-20,-38 -64,-38 q-44,0 -64,38z" fill="#141416"/>
+<rect x="-66" y="-40" width="132" height="18" rx="9" fill="#FFB21A"/>
+<g id="c-brows"><path d="M-27,-11 l17,3" stroke="#141416" stroke-width="5" stroke-linecap="round"/><path d="M27,-11 l-17,3" stroke="#141416" stroke-width="5" stroke-linecap="round"/></g>
+<g id="c-eyes"><ellipse cx="-17" cy="6" rx="6" ry="6.5" fill="#141416"/><ellipse cx="17" cy="6" rx="6" ry="6.5" fill="#141416"/>
+<circle cx="-15" cy="4" r="2" fill="#fff"/><circle cx="19" cy="4" r="2" fill="#fff"/></g>
+<path d="M-4,12 q4,9 8,0" stroke="#A86E47" stroke-width="4" fill="none" stroke-linecap="round"/>
+<g id="c-mouthClosed"><path d="M-13,30 q13,8 26,0" stroke="#5a2a14" stroke-width="5" fill="none" stroke-linecap="round"/></g>
+<g id="c-mouthOpen"><ellipse id="c-mo" cx="0" cy="31" rx="13" ry="8" fill="#5a2a14"/><ellipse id="c-tongue" cx="0" cy="36" rx="8" ry="3" fill="#e0765a"/><rect id="c-teeth" x="-10" y="23" width="20" height="4" rx="2" fill="#fff"/></g>
+</g></g></g></svg>
+  </div>
+  <p class="sub">Le plan exact pour tes 7 premiers jours à la salle : quoi faire, quoi manger, comment ne pas abandonner.</p>
+  <div class="stats">
+    <div class="stat"><b data-count="7">7</b><span>jours guidés</span></div>
+    <div class="stat"><b data-count="3">3</b><span>séances</span></div>
+    <div class="stat"><b data-count="12">12</b><span>exercices animés</span></div>
+  </div>
+  <a class="go" href="#avant">C'est parti ↓</a>
+</section>
+
+<section id="avant" data-say="À 15 ans, j'étais exactement à ta place. Ce kit, c'est ce que j'aurais voulu avoir.">
+  <div class="eyebrow">Avant de commencer</div>
+  <h2>J'étais <span class="fire">à ta place</span></h2>
+  <p>À 15 ans, j'ai poussé la porte de la salle pour la première fois. J'étais en surpoids, je ne connaissais personne et je ne savais rien. J'ai passé ma première séance à faire semblant de savoir où j'allais.</p>
+  <p><b>Ce kit, c'est ce que j'aurais voulu avoir ce jour-là.</b> Pas 50 vidéos qui se contredisent : un plan simple pour 7 jours, même si tu pars de zéro.</p>
+  <div class="tip"><div class="eyebrow">La règle de la semaine</div><p>Tu ne cherches pas à te détruire, tu cherches à <b>revenir</b>. Une séance moyenne que tu fais vaut mieux qu'une séance parfaite que tu sautes.</p></div>
+</section>
+
+<section id="planning" data-say="Voilà ta semaine. Touche un jour quand il est fait, il passe au vert.">
+  <div class="eyebrow">Ton planning</div>
+  <h2>7 jours, <span class="fire">pas un de plus</span></h2>
+  <div class="plan" id="plan">
+    <button class="pday" data-k="haut"><b>J1</b><div class="ic"></div><span>Séance A · haut du corps · 45 min</span></button>
+    <button class="pday" data-k="marche"><b>J2</b><div class="ic"></div><span>Marche + mobilité · 30 min</span></button>
+    <button class="pday" data-k="bas"><b>J3</b><div class="ic"></div><span>Séance B · bas du corps · 50 min</span></button>
+    <button class="pday" data-k="repos"><b>J4</b><div class="ic"></div><span>Repos complet</span></button>
+    <button class="pday" data-k="haut"><b>J5</b><div class="ic"></div><span>Séance A · en mieux · 45 min</span></button>
+    <button class="pday" data-k="marche"><b>J6</b><div class="ic"></div><span>Marche + mobilité · 30 min</span></button>
+    <button class="pday" data-k="bilan"><b>J7</b><div class="ic"></div><span>Bilan · 15 min</span></button>
+  </div>
+  <p class="mute">La semaine 2 commence par la séance B, pour que tes jambes travaillent deux fois.</p>
+</section>
+
+<section id="jour1" data-say="Personne ne te regarde. Le mec énorme près des haltères a été débutant lui aussi.">
+  <div class="eyebrow">Le jour 1</div>
+  <h2>Ne pas avoir <span class="fire">l'air perdu</span></h2>
+  <p><b>Personne ne te regarde.</b> Les gens à la salle sont concentrés sur eux.</p>
+  <h3>Ton sac</h3>
+  <ul class="list" data-store="sac">
+    <li><label class="check"><input type="checkbox" id="sac0"> Une bouteille d'eau</label></li>
+    <li><label class="check"><input type="checkbox" id="sac1"> Une serviette (souvent obligatoire)</label></li>
+    <li><label class="check"><input type="checkbox" id="sac2"> Des baskets propres et stables</label></li>
+    <li><label class="check"><input type="checkbox" id="sac3"> Un cadenas pour le casier</label></li>
+    <li><label class="check"><input type="checkbox" id="sac4"> Ce kit sur ton téléphone</label></li>
+  </ul>
+  <h3>En arrivant</h3>
+  <div class="steps">
+    <div class="st"><p>Demande un tour de la salle à l'accueil : c'est normal et souvent gratuit.</p></div>
+    <div class="st"><p>Repère trois zones : les machines guidées, les haltères, le cardio.</p></div>
+    <div class="st"><p>Commence par <b>les machines guidées</b> : elles te montrent le bon mouvement et limitent les erreurs.</p></div>
+  </div>
+  <div class="tip ok"><div class="eyebrow">Astuce</div><p>Sur presque toutes les machines, un schéma explique le réglage. Règle le siège avant de mettre du poids, et commence toujours léger.</p></div>
+</section>
+
+<section id="echauffement" data-say="6 minutes, pas une de moins. Lance le chrono, je te dis quoi faire.">
+  <div class="eyebrow">Avant chaque séance</div>
+  <h2>L'échauffement · <span class="fire">6 min</span></h2>
+  <div class="warm">
+    <div style="display:flex;gap:18px;align-items:center;flex-wrap:wrap"><div class="big" id="wt">6:00</div>
+      <div class="tbtns"><button class="main" id="wgo">Lancer l'échauffement</button><button id="wstop">Arrêter</button></div></div>
+    <div class="wsteps">
+      <div class="ws" data-d="180"><b>3 min</b>Vélo ou marche rapide, allure confortable</div>
+      <div class="ws" data-d="60"><b>1 min</b>10 rotations des bras vers l'avant, 10 vers l'arrière</div>
+      <div class="ws" data-d="60"><b>1 min</b>10 squats au poids du corps, lentement</div>
+      <div class="ws" data-d="60"><b>1 min</b>Une série très légère du 1er exercice</div>
+    </div>
+    <p class="mute">Tu dois avoir un peu chaud, pas être essoufflé.</p>
+  </div>
+</section>
+
+<section id="seanceA" data-say="Séance A, le haut du corps. Regarde-moi faire le mouvement, puis coche tes séries.">
+  <div class="eyebrow">Jours 1 et 5</div>
+  <h2>Séance A · <span class="fire">haut du corps</span></h2>
+  <div class="sessbar"><svg class="ring" viewBox="0 0 100 100"><circle class="bg" cx="50" cy="50" r="42"/><circle class="fg" data-ring="A" cx="50" cy="50" r="42" stroke-dasharray="264" stroke-dashoffset="0"/><text data-tt="A" x="50" y="61" text-anchor="middle">–</text></svg><div class="score"><span data-done="A">0</span> / 15 séries</div><div class="tbtns"><button data-reset="A">Remettre à zéro</button></div></div>
+  <div class="exs"><div class="card" id="A0"><div class="anim"><svg viewBox="0 0 200 200" data-ex="cp"></svg></div><div style="min-width:0"><h3>Développé couché machine</h3><div class="spec">3 × 12 · repos 90 s</div><p>Dos collé au dossier, poignées à hauteur de poitrine. Pousse devant toi sans verrouiller les coudes.</p><div class="dots"><button class="dot" aria-label="Développé couché machine, série 1" data-s="A" data-i="0" data-j="0" data-rest="90" data-sets="3"></button><button class="dot" aria-label="Développé couché machine, série 2" data-s="A" data-i="0" data-j="1" data-rest="90" data-sets="3"></button><button class="dot" aria-label="Développé couché machine, série 3" data-s="A" data-i="0" data-j="2" data-rest="90" data-sets="3"></button></div></div></div><div class="card" id="A1"><div class="anim"><svg viewBox="0 0 200 200" data-ex="tv"></svg></div><div style="min-width:0"><h3>Tirage vertical poulie haute</h3><div class="spec">3 × 12 · repos 90 s</div><p>Buste légèrement en arrière. Tire la barre vers le haut de ta poitrine, coudes vers le bas.</p><div class="dots"><button class="dot" aria-label="Tirage vertical poulie haute, série 1" data-s="A" data-i="1" data-j="0" data-rest="90" data-sets="3"></button><button class="dot" aria-label="Tirage vertical poulie haute, série 2" data-s="A" data-i="1" data-j="1" data-rest="90" data-sets="3"></button><button class="dot" aria-label="Tirage vertical poulie haute, série 3" data-s="A" data-i="1" data-j="2" data-rest="90" data-sets="3"></button></div></div></div><div class="card" id="A2"><div class="anim"><svg viewBox="0 0 200 200" data-ex="ra"></svg></div><div style="min-width:0"><h3>Rowing assis à la poulie</h3><div class="spec">3 × 12 · repos 90 s</div><p>Dos droit, tu ramènes les mains vers le nombril en serrant les omoplates.</p><div class="dots"><button class="dot" aria-label="Rowing assis à la poulie, série 1" data-s="A" data-i="2" data-j="0" data-rest="90" data-sets="3"></button><button class="dot" aria-label="Rowing assis à la poulie, série 2" data-s="A" data-i="2" data-j="1" data-rest="90" data-sets="3"></button><button class="dot" aria-label="Rowing assis à la poulie, série 3" data-s="A" data-i="2" data-j="2" data-rest="90" data-sets="3"></button></div></div></div><div class="card" id="A3"><div class="anim"><svg viewBox="0 0 200 200" data-ex="de"></svg></div><div style="min-width:0"><h3>Développé épaules haltères assis</h3><div class="spec">2 × 12 · repos 90 s</div><p>Haltères à hauteur d'oreilles, tu pousses vers le haut sans cambrer le dos.</p><div class="dots"><button class="dot" aria-label="Développé épaules haltères assis, série 1" data-s="A" data-i="3" data-j="0" data-rest="90" data-sets="2"></button><button class="dot" aria-label="Développé épaules haltères assis, série 2" data-s="A" data-i="3" data-j="1" data-rest="90" data-sets="2"></button></div></div></div><div class="card" id="A4"><div class="anim"><svg viewBox="0 0 200 200" data-ex="cb"></svg></div><div style="min-width:0"><h3>Curl biceps haltères</h3><div class="spec">2 × 12 · repos 60 s</div><p>Coudes collés au corps. Tu montes en 1 seconde, tu redescends en 2.</p><div class="dots"><button class="dot" aria-label="Curl biceps haltères, série 1" data-s="A" data-i="4" data-j="0" data-rest="60" data-sets="2"></button><button class="dot" aria-label="Curl biceps haltères, série 2" data-s="A" data-i="4" data-j="1" data-rest="60" data-sets="2"></button></div></div></div><div class="card" id="A5"><div class="anim"><svg viewBox="0 0 200 200" data-ex="et"></svg></div><div style="min-width:0"><h3>Extension triceps à la poulie</h3><div class="spec">2 × 12 · repos 60 s</div><p>Coudes fixes contre le buste, seuls les avant-bras bougent.</p><div class="dots"><button class="dot" aria-label="Extension triceps à la poulie, série 1" data-s="A" data-i="5" data-j="0" data-rest="60" data-sets="2"></button><button class="dot" aria-label="Extension triceps à la poulie, série 2" data-s="A" data-i="5" data-j="1" data-rest="60" data-sets="2"></button></div></div></div></div>
+  <div class="tip"><div class="eyebrow">Comment choisir la charge</div><p>Une charge que tu soulèves <b>12 fois proprement</b>, en sentant que tu aurais pu en faire <b>2 ou 3 de plus</b>. À 12 en souffrant : trop lourd. Si tu pourrais en faire 25 : trop léger.</p></div>
+</section>
+
+<section id="seanceB" data-say="Séance B, le bas du corps. Les jambes, c'est la moitié de ton corps : on ne les zappe pas.">
+  <div class="eyebrow">Jour 3</div>
+  <h2>Séance B · <span class="fire">bas du corps</span></h2>
+  <div class="sessbar"><svg class="ring" viewBox="0 0 100 100"><circle class="bg" cx="50" cy="50" r="42"/><circle class="fg" data-ring="B" cx="50" cy="50" r="42" stroke-dasharray="264" stroke-dashoffset="0"/><text data-tt="B" x="50" y="61" text-anchor="middle">–</text></svg><div class="score"><span data-done="B">0</span> / 16 séries</div><div class="tbtns"><button data-reset="B">Remettre à zéro</button></div></div>
+  <div class="exs"><div class="card" id="B0"><div class="anim"><svg viewBox="0 0 200 200" data-ex="pc"></svg></div><div style="min-width:0"><h3>Presse à cuisses</h3><div class="spec">3 × 12 · repos 90 s</div><p>Pieds largeur d'épaules, bas du dos collé au siège. Ne tends jamais complètement les genoux.</p><div class="dots"><button class="dot" aria-label="Presse à cuisses, série 1" data-s="B" data-i="0" data-j="0" data-rest="90" data-sets="3"></button><button class="dot" aria-label="Presse à cuisses, série 2" data-s="B" data-i="0" data-j="1" data-rest="90" data-sets="3"></button><button class="dot" aria-label="Presse à cuisses, série 3" data-s="B" data-i="0" data-j="2" data-rest="90" data-sets="3"></button></div></div></div><div class="card" id="B1"><div class="anim"><svg viewBox="0 0 200 200" data-ex="gs"></svg></div><div style="min-width:0"><h3>Goblet squat</h3><div class="spec">3 × 10 · repos 90 s</div><p>Un haltère contre la poitrine. Descends comme pour t'asseoir, talons au sol, dos droit.</p><div class="dots"><button class="dot" aria-label="Goblet squat, série 1" data-s="B" data-i="1" data-j="0" data-rest="90" data-sets="3"></button><button class="dot" aria-label="Goblet squat, série 2" data-s="B" data-i="1" data-j="1" data-rest="90" data-sets="3"></button><button class="dot" aria-label="Goblet squat, série 3" data-s="B" data-i="1" data-j="2" data-rest="90" data-sets="3"></button></div></div></div><div class="card" id="B2"><div class="anim"><svg viewBox="0 0 200 200" data-ex="fa"></svg></div><div style="min-width:0"><h3>Fentes arrière</h3><div class="spec">2 × 8 par jambe · repos 90 s</div><p>Grand pas en arrière, le genou arrière frôle le sol, le buste reste droit.</p><div class="dots"><button class="dot" aria-label="Fentes arrière, série 1" data-s="B" data-i="2" data-j="0" data-rest="90" data-sets="2"></button><button class="dot" aria-label="Fentes arrière, série 2" data-s="B" data-i="2" data-j="1" data-rest="90" data-sets="2"></button></div></div></div><div class="card" id="B3"><div class="anim"><svg viewBox="0 0 200 200" data-ex="lc"></svg></div><div style="min-width:0"><h3>Leg curl allongé</h3><div class="spec">3 × 12 · repos 60 s</div><p>Hanches collées au banc. Tu ramènes les talons vers les fesses, sans à-coup.</p><div class="dots"><button class="dot" aria-label="Leg curl allongé, série 1" data-s="B" data-i="3" data-j="0" data-rest="60" data-sets="3"></button><button class="dot" aria-label="Leg curl allongé, série 2" data-s="B" data-i="3" data-j="1" data-rest="60" data-sets="3"></button><button class="dot" aria-label="Leg curl allongé, série 3" data-s="B" data-i="3" data-j="2" data-rest="60" data-sets="3"></button></div></div></div><div class="card" id="B4"><div class="anim"><svg viewBox="0 0 200 200" data-ex="mo"></svg></div><div style="min-width:0"><h3>Mollets debout</h3><div class="spec">2 × 15 · repos 60 s</div><p>Monte sur la pointe des pieds, tiens 1 seconde en haut, redescends lentement.</p><div class="dots"><button class="dot" aria-label="Mollets debout, série 1" data-s="B" data-i="4" data-j="0" data-rest="60" data-sets="2"></button><button class="dot" aria-label="Mollets debout, série 2" data-s="B" data-i="4" data-j="1" data-rest="60" data-sets="2"></button></div></div></div><div class="card" id="B5"><div class="anim"><svg viewBox="0 0 200 200" data-ex="pl"></svg></div><div style="min-width:0"><h3>Gainage (planche)</h3><div class="spec">3 × 20 s · repos 60 s</div><p>Coudes sous les épaules, corps bien droit de la tête aux talons. Tu respires.</p><div class="dots"><button class="dot" aria-label="Gainage (planche), série 1" data-s="B" data-i="5" data-j="0" data-rest="60" data-sets="3"></button><button class="dot" aria-label="Gainage (planche), série 2" data-s="B" data-i="5" data-j="1" data-rest="60" data-sets="3"></button><button class="dot" aria-label="Gainage (planche), série 3" data-s="B" data-i="5" data-j="2" data-rest="60" data-sets="3"></button></div></div></div></div>
+  <div class="tip warn"><div class="eyebrow">Jamais de douleur vive</div><p>Une brûlure dans le muscle, c'est normal. Une douleur pointue dans une articulation (genou, épaule, dos) : tu t'arrêtes. Si elle revient, tu en parles à un médecin.</p></div>
+  <h3>Les 3 réflexes techniques</h3>
+  <div class="steps">
+    <div class="st"><p><b>Dos neutre</b> : ni rond, ni trop cambré. Une ligne droite de ta tête à tes fesses.</p></div>
+    <div class="st"><p><b>Mouvement contrôlé</b> : 2 secondes pour descendre, 1 seconde pour remonter. Pas d'élan.</p></div>
+    <div class="st"><p><b>Respiration</b> : tu souffles pendant l'effort, quand tu pousses ou quand tu tires.</p></div>
+  </div>
+</section>
+
+<section id="manger" data-say="Pas besoin de régime. Juste 3 réflexes. Touche-les pour remplir l'assiette.">
+  <div class="eyebrow">Manger cette semaine</div>
+  <h2>3 réflexes, <span class="fire">zéro régime</span></h2>
+  <div style="display:flex;gap:18px;align-items:flex-end;justify-content:center;flex-wrap:wrap"><svg class="plate" viewBox="0 0 320 320" aria-label="Assiette : moitié légumes, un quart protéines, un quart féculents">
+    <circle cx="160" cy="160" r="150" fill="#eae6e0"/><circle cx="160" cy="160" r="122" fill="#f7f4f0"/>
+    <g class="q" id="q2"><path d="M160 160 L160 40 A120 120 0 0 1 160 280 Z" fill="#4caf50"/><text x="222" y="166" font-family="Barlow Condensed" font-weight="900" font-size="24" fill="#fff" text-anchor="middle">LÉGUMES</text></g>
+    <g class="q" id="q1"><path d="M160 160 L160 280 A120 120 0 0 1 40 160 Z" fill="#c8553d"/><text x="112" y="222" font-family="Barlow Condensed" font-weight="900" font-size="24" fill="#fff" text-anchor="middle">PROTÉINES</text></g>
+    <g><path d="M160 160 L40 160 A120 120 0 0 1 160 40 Z" fill="#e9b949"/><text x="112" y="112" font-family="Barlow Condensed" font-weight="900" font-size="24" fill="#5b4108" text-anchor="middle">FÉCULENTS</text></g>
+  </svg>
+  <svg viewBox="0 0 90 150" style="width:90px;height:150px" aria-label="Verre d'eau"><defs><clipPath id="gl"><path d="M12 10 L78 10 L70 140 L20 140 Z"/></clipPath></defs>
+    <rect id="water" x="0" y="140" width="90" height="130" fill="#4fa8ff" clip-path="url(#gl)" style="transition:y 1s cubic-bezier(.3,1.2,.5,1)"/>
+    <path d="M12 10 L78 10 L70 140 L20 140 Z" fill="none" stroke="#f5f2ee" stroke-width="5" stroke-linejoin="round"/></svg></div>
+  <div class="reflex">
+    <button class="rf" aria-pressed="false" data-q="q1"><b>Protéines</b><small>À chaque repas : œufs, poulet, poisson, steak haché, fromage blanc, lentilles, pois chiches, tofu.</small></button>
+    <button class="rf" aria-pressed="false" data-q="q2"><b>Légumes ou fruit</b><small>À chaque repas. Les surgelés marchent aussi, et c'est moins cher.</small></button>
+    <button class="rf" aria-pressed="false" data-q="water"><b>De l'eau</b><small>Ta boisson principale. Sodas et jus, c'est occasionnel.</small></button>
+  </div>
+  <h3>Exemple de journée simple</h3>
+  <div class="dayfood">
+    <div class="meal"><b>MATIN</b>Œufs ou fromage blanc et un fruit</div>
+    <div class="meal"><b>MIDI</b>Riz, poulet, haricots verts</div>
+    <div class="meal"><b>GOÛTER</b>Yaourt et une poignée d'amandes</div>
+    <div class="meal"><b>SOIR</b>Pâtes, thon, tomates</div>
+  </div>
+  <div class="tip"><div class="eyebrow">Tu as moins de 18 ans ?</div><p>Mange à ta faim, de tout, et ne saute pas de repas : ton corps grandit encore. Pas de compléments sans en parler à un médecin.</p></div>
+</section>
+
+<section id="mental" data-say="Jour 3 ou 4, tu vas avoir envie d'arrêter. C'est normal, et ça passe.">
+  <div class="eyebrow">Le mental</div>
+  <h2>Pourquoi tu vas <span class="fire">vouloir arrêter</span></h2>
+  <svg class="curve" viewBox="0 0 640 220" aria-label="Courbe de motivation sur 7 jours">
+    <line x1="40" y1="190" x2="620" y2="190" stroke="#2b2b33" stroke-width="3"/>
+    <path id="mcurve" d="M40 60 C 140 60, 200 175, 280 175 S 470 70, 620 40" stroke="url(#mg)" stroke-width="8" fill="none" stroke-linecap="round" stroke-dasharray="800" stroke-dashoffset="800"/>
+    <defs><linearGradient id="mg"><stop offset="0" stop-color="#ffb21a"/><stop offset=".45" stop-color="#ff4d5e"/><stop offset="1" stop-color="#3ddc84"/></linearGradient></defs>
+    <circle cx="280" cy="175" r="9" fill="#ff4d5e"/><text x="280" y="150" fill="#f5f2ee" font-family="Barlow Condensed" font-weight="900" font-size="24" text-anchor="middle">COURBATURES · J3-J4</text>
+    <text x="50" y="40" fill="#a7a3ad" font-family="Manrope" font-size="16">Motivation au départ</text>
+    <text x="610" y="25" fill="#3ddc84" font-family="Barlow Condensed" font-weight="900" font-size="22" text-anchor="end">TU AS TENU</text>
+    <g fill="#a7a3ad" font-family="JetBrains Mono" font-size="14" text-anchor="middle"><text x="40" y="212">J1</text><text x="137" y="212">J2</text><text x="233" y="212">J3</text><text x="330" y="212">J4</text><text x="427" y="212">J5</text><text x="523" y="212">J6</text><text x="620" y="212">J7</text></g>
+  </svg>
+  <p>Vers le jour 3 ou 4, tu auras des <b>courbatures</b>. Tu vas te dire que tu n'es pas fait pour ça. C'est faux : ton corps découvre un effort nouveau. Elles diminuent vite avec la régularité.</p>
+  <h3>Mes 3 règles anti-abandon</h3>
+  <div class="steps">
+    <div class="st"><p><b>Prépare ton sac la veille.</b> Moins de décisions à prendre, moins d'excuses.</p></div>
+    <div class="st"><p><b>Fixe tes jours à l'avance</b> et mets-les dans ton téléphone comme un rendez-vous.</p></div>
+    <div class="st"><p><b>Note chaque séance</b> : exercice, charge, répétitions. Dans 4 semaines, tu verras le chemin parcouru.</p></div>
+  </div>
+  <div class="promise"><div class="eyebrow">Ce qui m'a sauvé à 15 ans</div><p>Je ne comptais pas les kilos perdus, je comptais <b>les séances tenues</b>. Chaque séance, c'était une promesse tenue envers moi-même.</p></div>
+</section>
+
+<section id="bilan" data-say="Jour 7. Sois honnête, coche ce que tu as vraiment fait.">
+  <div class="eyebrow">Jour 7</div>
+  <h2>Ton <span class="fire">bilan</span></h2>
+  <ul class="list" data-store="bilan" id="bilanlist">
+    <li><label class="check"><input type="checkbox" id="b0"> J'ai fait mes 3 séances.</label></li>
+    <li><label class="check"><input type="checkbox" id="b1"> J'ai noté mes charges et mes répétitions.</label></li>
+    <li><label class="check"><input type="checkbox" id="b2"> J'ai mangé une protéine à chaque repas, la plupart des jours.</label></li>
+    <li><label class="check"><input type="checkbox" id="b3"> J'ai dormi au moins 8 heures, la plupart des nuits.</label></li>
+    <li><label class="check"><input type="checkbox" id="b4"> Je sais quels jours je m'entraîne la semaine prochaine.</label></li>
+  </ul>
+  <div class="result" id="result"><b>0 / 5</b><span>Coche ce que tu as fait cette semaine.</span></div>
+</section>
+
+<section class="end" id="suite" data-say="7 jours, c'est le démarrage. Pour transformer ton corps, il te faut un plan sur plusieurs mois.">
+  <div class="eyebrow">Et maintenant ?</div>
+  <h2>La suite, c'est <span class="fire">12 semaines</span></h2>
+  <div class="next">
+    <div class="prod"><div class="eyebrow">Programme débutant</div><h3>Le Déclic</h3><p class="mute">12 semaines, chaque séance détaillée, chaque exercice animé, ton carnet de progression intégré.</p><div class="price">14,90 €</div></div>
+    <div class="prod hot"><div class="eyebrow">Le plus complet</div><h3>Pack Optimus</h3><p class="mute">Le Déclic + L'Assiette du Guerrier + Forge ton mental + les 15 erreurs du débutant.</p><div class="price">29,90 €</div></div>
+  </div>
+  <p class="mute">Tout est sur <a href="/#produits" style="color:var(--gold)">optimuscle.tech</a>. Une question ? Écris-moi depuis <a href="/#contact" style="color:var(--gold)">le formulaire du site</a> : je lis tout.</p>
+  <div class="outro">On se voit<br><span class="fire">à la salle</span></div>
+</section>
+</div>
+
+<div class="coach" aria-live="polite"><div class="bubble" id="bubble">Salut ! Moi c'est Opti.</div><svg class="opti" data-opti="k" viewBox="-240 -390 560 650" aria-hidden="true"><ellipse cx="0" cy="250" rx="130" ry="12" fill="rgba(0,0,0,.45)"/><g class="o-body"><rect x="-26" y="-215" width="52" height="40" fill="#A86E47"/><path d="M-98,-120 q0,-70 98,-74 q98,4 98,74 l10,150 q-108,22 -216,0z" fill="#FF4D1A"/>
+<path d="M-40,-190 q40,40 80,0 l0,20 q-40,34 -80,0z" fill="#D93A0C"/><path d="M-30,-100 l60,0 l-6,60 l-48,0z" fill="#D93A0C" opacity=".55"/>
+<text x="0" y="-62" text-anchor="middle" font-family="Anton,Impact,sans-serif" font-size="34" fill="#160700">OPTI</text>
+<path d="M-104,26 l90,0 l-4,190 l-58,0z" fill="#1E1E24"/><path d="M14,26 l90,0 l-28,190 l-58,0z" fill="#1E1E24"/>
+<rect x="-110" y="206" width="72" height="30" rx="14" fill="#f5f5f4"/><rect x="22" y="206" width="72" height="30" rx="14" fill="#f5f5f4"/>
+<rect x="-110" y="226" width="72" height="10" rx="5" fill="#FF4D1A"/><rect x="22" y="226" width="72" height="10" rx="5" fill="#FF4D1A"/><g class="o-arms"><path d="M-96,-150 q-70,40 -60,130" stroke="#FF4D1A" stroke-width="54" fill="none" stroke-linecap="round"/><circle cx="-156" cy="-18" r="26" fill="#C98A5E"/>
+<g id="k-curl"><path d="M96,-150 q80,-10 92,-110" stroke="#FF4D1A" stroke-width="54" fill="none" stroke-linecap="round"/><circle cx="190" cy="-262" r="28" fill="#C98A5E"/>
+<g transform="translate(190,-262) rotate(-12)"><rect x="-74" y="-9" width="148" height="18" rx="9" fill="#cfcfd4"/><rect x="-96" y="-38" width="28" height="76" rx="8" fill="#2a2a30"/><rect x="68" y="-38" width="28" height="76" rx="8" fill="#2a2a30"/><rect x="-112" y="-26" width="18" height="52" rx="6" fill="#3a3a42"/><rect x="94" y="-26" width="18" height="52" rx="6" fill="#3a3a42"/></g></g></g><g id="k-head"><g transform="translate(0,-250)">
+<path d="M-62,-20 q0,-70 62,-74 q62,4 62,74 l0,30 q0,62 -62,66 q-62,-4 -62,-66z" fill="#C98A5E"/>
+<ellipse cx="-64" cy="8" rx="12" ry="18" fill="#A86E47"/><ellipse cx="64" cy="8" rx="12" ry="18" fill="#A86E47"/>
+<path d="M-64,-30 q-4,-72 64,-70 q68,-2 64,70 q-20,-38 -64,-38 q-44,0 -64,38z" fill="#141416"/>
+<rect x="-66" y="-40" width="132" height="18" rx="9" fill="#FFB21A"/>
+<g id="k-brows"><path d="M-27,-11 l17,3" stroke="#141416" stroke-width="5" stroke-linecap="round"/><path d="M27,-11 l-17,3" stroke="#141416" stroke-width="5" stroke-linecap="round"/></g>
+<g id="k-eyes"><ellipse cx="-17" cy="6" rx="6" ry="6.5" fill="#141416"/><ellipse cx="17" cy="6" rx="6" ry="6.5" fill="#141416"/>
+<circle cx="-15" cy="4" r="2" fill="#fff"/><circle cx="19" cy="4" r="2" fill="#fff"/></g>
+<path d="M-4,12 q4,9 8,0" stroke="#A86E47" stroke-width="4" fill="none" stroke-linecap="round"/>
+<g id="k-mouthClosed"><path d="M-13,30 q13,8 26,0" stroke="#5a2a14" stroke-width="5" fill="none" stroke-linecap="round"/></g>
+<g id="k-mouthOpen"><ellipse id="k-mo" cx="0" cy="31" rx="13" ry="8" fill="#5a2a14"/><ellipse id="k-tongue" cx="0" cy="36" rx="8" ry="3" fill="#e0765a"/><rect id="k-teeth" x="-10" y="23" width="20" height="4" rx="2" fill="#fff"/></g>
+</g></g></g></svg></div>
+
+<script>
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const LS={get(k,d){try{return JSON.parse(localStorage.getItem('kit7-'+k))??d}catch(e){return d}},set(k,v){try{localStorage.setItem('kit7-'+k,JSON.stringify(v))}catch(e){}}};
+addEventListener('scroll',()=>{const h=document.documentElement;$('#bar i').style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%'},{passive:true});
+$$('[data-count]').forEach(el=>{if(reduce)return;const n=+el.dataset.count;let t0=null;const f=t=>{t0??=t;const k=Math.min(1,(t-t0)/900);el.textContent=Math.round(n*(1-Math.pow(1-k,3)));if(k<1)requestAnimationFrame(f)};requestAnimationFrame(f)});
+// coach
+const bubble=$('#bubble'), coach=$('.coach .opti'); let talkT;
+function say(t){bubble.classList.add('swap');setTimeout(()=>{bubble.innerHTML=t;bubble.classList.remove('swap')},250);bubble.classList.remove('hide');coach.classList.add('talking');clearTimeout(talkT);
+ talkT=setTimeout(()=>{coach.classList.remove('talking');setTimeout(()=>bubble.classList.add('hide'),2500)},Math.min(4500,t.length*55))}
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');if(e.target.dataset.say)say(e.target.dataset.say);if(e.target.id==='mental')$('#mcurve').style.cssText='transition:stroke-dashoffset 2.2s cubic-bezier(.3,.8,.3,1);stroke-dashoffset:0'}}),{threshold:.3});
+$$('section').forEach(s=>io.observe(s));
+// planning
+let plan=LS.get('plan',[]);
+function drawPlan(){$$('#plan .pday').forEach((d,i)=>{d.classList.toggle('done',plan.includes(i));d.setAttribute('aria-pressed',plan.includes(i))})}
+$$('#plan .pday').forEach((d,i)=>d.onclick=()=>{plan=plan.includes(i)?plan.filter(x=>x!==i):[...plan,i];LS.set('plan',plan);drawPlan();if(plan.includes(i))say(plan.length===7?'Semaine terminée. Respect !':'Jour '+(i+1)+' validé. Un de plus !')});
+drawPlan();
+// cases à cocher mémorisées
+$$('.list[data-store]').forEach(ul=>{const k=ul.dataset.store;const v=LS.get(k,{});ul.querySelectorAll('input').forEach(inp=>{inp.checked=!!v[inp.id];inp.onchange=()=>{v[inp.id]=inp.checked;LS.set(k,v);if(k==='bilan')score()}})});
+function score(){const n=$$('#bilanlist input:checked').length;const r=$('#result');r.querySelector('b').textContent=n+' / 5';
+ r.querySelector('span').textContent=n>=4?'Tu as passé le cap le plus dur. La plupart des gens abandonnent la première semaine. Pas toi.':(n>=2?'Bon début. Garde ce qui a marché et vise 4 cases la semaine prochaine.':'Coche ce que tu as fait cette semaine.');
+ r.classList.toggle('win',n>=4);if(n>=4)say('4 cases ou plus ? Tu es lancé, bravo !')}
+score();
+// assiette
+$$('.rf').forEach(b=>b.onclick=()=>{const on=b.getAttribute('aria-pressed')!=='true';b.setAttribute('aria-pressed',on);fillPlate()});
+function fillPlate(){$$('.rf').forEach(b=>{const q=$('#'+b.dataset.q),on=b.getAttribute('aria-pressed')==='true';if(b.dataset.q==='water'){q.setAttribute('y',on?30:140);return}q.style.transform=on?'scale(1)':'scale(.2)';q.style.opacity=on?1:.3})}
+fillPlate();
+// échauffement guidé
+let wT=null;const WS=$$('.ws');
+function wrun(){clearInterval(wT);let t=0;const tot=360;say('C\'est parti : 3 minutes de vélo ou de marche rapide.');
+ wT=setInterval(()=>{t++;const r=tot-t;$('#wt').textContent=Math.floor(r/60)+':'+String(r%60).padStart(2,'0');let acc=0,cur=0;WS.forEach((w,i)=>{const d=+w.dataset.d;if(t>=acc&&t<acc+d)cur=i;acc+=d});
+  WS.forEach((w,i)=>{w.classList.toggle('now',i===cur&&r>0);w.classList.toggle('ok',i<cur||r<=0)});
+  if([180,240,300].includes(t))say(['Rotations des bras : 10 vers l\'avant, 10 vers l\'arrière.','10 squats, tout doucement.','Une série très légère du premier exercice.'][[180,240,300].indexOf(t)]);
+  if(r<=0){clearInterval(wT);say('Échauffé ! Tu peux attaquer ta séance.')}},1000)}
+$('#wgo').onclick=wrun;$('#wstop').onclick=()=>{clearInterval(wT);$('#wt').textContent='6:00';WS.forEach(w=>w.classList.remove('now','ok'))};
+// séances : séries + chrono de repos
+const S={A:LS.get('A',{}),B:LS.get('B',{})};const timers={};
+function drawS(k){let d=0;$$(`.dot[data-s="${k}"]`).forEach(b=>{const i=+b.dataset.i,j=+b.dataset.j;const on=j<(S[k][i]||0);b.classList.toggle('on',on);if(on)d++});
+ $$(`[data-done="${k}"]`).forEach(e=>e.textContent=d);$$('.card').forEach(c=>{if(!c.id.startsWith(k))return;const i=+c.id.slice(1);const n=c.querySelectorAll('.dot').length;c.classList.toggle('done',(S[k][i]||0)>=n)})}
+function rest(k,s){clearInterval(timers[k]);let r=s;const ring=$(`[data-ring="${k}"]`),tt=$(`[data-tt="${k}"]`);const draw=()=>{tt.textContent=r;ring.style.strokeDashoffset=264*(1-r/s)};draw();
+ say('Repos '+s+' secondes. Respire, bois un coup.');timers[k]=setInterval(()=>{r--;draw();if(r<=0){clearInterval(timers[k]);tt.textContent='GO';say('C\'est reparti : série suivante !')}},1000)}
+$$('.dot').forEach(b=>b.onclick=()=>{const k=b.dataset.s,i=+b.dataset.i,j=+b.dataset.j,n=+b.dataset.sets;S[k][i]=(S[k][i]||0)===j+1?j:j+1;LS.set(k,S[k]);drawS(k);
+ if(S[k][i]===j+1){if(S[k][i]<n)rest(k,+b.dataset.rest);else say('Exercice terminé, passe au suivant !')}});
+$$('[data-reset]').forEach(b=>b.onclick=()=>{const k=b.dataset.reset;S[k]={};LS.set(k,{});clearInterval(timers[k]);$(`[data-tt="${k}"]`).textContent='–';$(`[data-ring="${k}"]`).style.strokeDashoffset=0;drawS(k)});
+drawS('A');drawS('B');
+
+// ---------- Opti en mouvement v2 : vue de profil (ou de face), cinématique inverse ----------
+// Repère SVG 200x200, sol à y=176, Opti regarde vers la droite.
+// Angles : 0 = vers le bas, 90 = vers l'avant (droite), 180 = vers le haut, -90 = vers l'arrière.
+const RIG={LT:42,UA:25,FA:23,TH:35,SH:34,HR:11,G:176};
+const V=(a,L)=>[Math.sin(a*Math.PI/180)*L,Math.cos(a*Math.PI/180)*L];
+const add=(p,q)=>[p[0]+q[0],p[1]+q[1]], sub=(p,q)=>[p[0]-q[0],p[1]-q[1]];
+const lp=(a,b,k)=>Array.isArray(a)?[a[0]+(b[0]-a[0])*k,a[1]+(b[1]-a[1])*k]:a+(b-a)*k;
+const lp3=(a,m,b,k)=>k<.5?lp(a,m,k*2):lp(m,b,(k-.5)*2);
+function ik(R,T,l1,l2,hint){let dx=T[0]-R[0],dy=T[1]-R[1],d=Math.hypot(dx,dy)||.01;const dmax=l1+l2-.3,dmin=Math.abs(l1-l2)+.3;
+ if(d>dmax){dx*=dmax/d;dy*=dmax/d;d=dmax}if(d<dmin){dx*=dmin/d;dy*=dmin/d;d=dmin}
+ const base=Math.atan2(dy,dx),a=Math.acos(Math.max(-1,Math.min(1,(l1*l1+d*d-l2*l2)/(2*l1*d))));
+ const j1=[R[0]+Math.cos(base+a)*l1,R[1]+Math.sin(base+a)*l1],j2=[R[0]+Math.cos(base-a)*l1,R[1]+Math.sin(base-a)*l1];
+ const s1=(j1[0]-R[0])*hint[0]+(j1[1]-R[1])*hint[1],s2=(j2[0]-R[0])*hint[0]+(j2[1]-R[1])*hint[1];
+ const J=s1>=s2?j1:j2;return [J,[R[0]+dx,R[1]+dy]]}
+// ---------- les exercices : f(k) renvoie la pose, k=0 position de départ, k=1 position contractée ----------
+const BENCH=[['rect',{x:38,y:131,width:112,height:7,rx:3,fill:'#3a3a44'}],['rect',{x:56,y:138,width:6,height:38,fill:'#2c2c34'}],['rect',{x:128,y:138,width:6,height:38,fill:'#2c2c34'}]];
+const SEAT=(x,y,back)=>[['rect',{x:x-20,y:y+5,width:36,height:7,rx:3,fill:'#3a3a44'}],['rect',{x:x-3,y:y+12,width:6,height:176-y-12,fill:'#2c2c34'}],...(back?[['rect',{x:x-25,y:y-58,width:7,height:66,rx:3,fill:'#3a3a44',transform:`rotate(${back} ${x-21} ${y+6})`}]]:[])];
+const STAND={leg:{th:0,sh:0}};
+const P={
+ // bras
+ cb:{f:k=>({H:[100,103],tor:180,...STAND,arm:{ua:lp(2,12,k),fa:lp(6,150,k)},hold:'db'})},
+ et:{gear:[['rect',{x:150,y:6,width:9,height:170,fill:'#2c2c34'}]],f:k=>({H:[92,103],tor:172,leg:{th:3,sh:0},arm:{ua:5,fa:lp(150,6,k)},cable:[150,12],hold:'rope'})},
+ bf:{gear:BENCH,f:k=>({H:[120,123],tor:-90,leg:{A:[152,172],hint:[0,-1]},arm:{ua:194,fa:lp(190,292,k)},hold:'bar'})},
+ // épaules
+ mil:{f:k=>{const S=[100,61];return{H:[100,103],tor:180,...STAND,arm:{W:lp3([113,62],[115,40],[103,15],k),hint:[1,1]},hold:'bar'}}},
+ de:{gear:SEAT(96,138,-4),f:k=>({H:[96,138],tor:182,leg:{A:[138,172],hint:[1,-1]},arm:{W:lp([107,98],[100,52],k),hint:[1,1]},hold:'db'})},
+ fp:{gear:[['rect',{x:178,y:6,width:9,height:170,fill:'#2c2c34'}]],f:k=>({H:[90,103],tor:183,leg:{th:-4,sh:0},leg2:{th:8,sh:0},arm:{W:lp([136,56],[103,46],k),hint:[-.3,-1]},cable:[178,52],hold:'rope'})},
+ lat:{front:1,f:k=>({stand:1,a:lp(10,86,k),b:lp(6,12,k),hold:'db'})},
+ // pecs
+ dc:{gear:[...BENCH,['rect',{x:68,y:62,width:5,height:69,fill:'#2c2c34'}],['rect',{x:66,y:70,width:12,height:4,fill:'#55556a'}]],f:k=>({H:[120,123],tor:-90,leg:{A:[152,172],hint:[0,-1]},arm:{W:lp([82,76],[87,110],k),hint:[1,1]},hold:'bar'})},
+ cp:{gear:[...SEAT(90,138,4),['rect',{x:150,y:40,width:9,height:136,fill:'#2c2c34'}]],f:k=>({H:[90,138],tor:184,leg:{A:[128,172],hint:[1,-1]},arm:{W:lp([136,100],[104,100],k),hint:[-1,1]},hold:'handle'})},
+ inc:{gear:[['path',{d:'M58 82 L114 138 L106 145 L52 90 Z',fill:'#3a3a44'}],['rect',{x:96,y:139,width:34,height:7,rx:3,fill:'#3a3a44'}],['rect',{x:108,y:146,width:6,height:30,fill:'#2c2c34'}],['rect',{x:62,y:96,width:6,height:80,fill:'#2c2c34'}]],
+  f:k=>({H:[112,136],tor:-142,leg:{A:[152,172],hint:[1,-1]},arm:{W:lp([90,58],[97,99],k),hint:[1,1]},hold:'bar'})},
+ dip:{gear:[['rect',{x:70,y:82,width:66,height:6,rx:3,fill:'#77777f'}],['rect',{x:128,y:88,width:6,height:88,fill:'#2c2c34'}],['rect',{x:74,y:88,width:6,height:88,fill:'#2c2c34'}]],
+  f:k=>{const tor=lp(172,164,k),S=lp([104,38],[97,77],k);return{H:sub(S,V(tor,RIG.LT)),tor,leg:{th:10,sh:-75},arm:{W:[108,82],hint:[-1,0]}}}},
+ fly:{front:1,f:k=>({seat:1,fly:lp(0,108,k),hold:'handle'})},
+ // dos
+ tv:{gear:[...SEAT(94,140,0),['rect',{x:114,y:118,width:22,height:8,rx:4,fill:'#3a3a44'}],['circle',{cx:106,cy:8,r:5,fill:'#55556a'}]],
+  f:k=>({H:[94,140],tor:188,leg:{A:[126,172],hint:[1,-1]},arm:{W:lp([104,26],[100,82],k),hint:[-.2,1]},cable:[106,8],hold:'knob'})},
+ tr:{gear:[['rect',{x:40,y:14,width:120,height:6,rx:3,fill:'#77777f'}]],f:k=>{const tor=lp(178,190,k),S=lp([100,63],[94,32],k);return{H:sub(S,V(tor,RIG.LT)),tor,leg:{th:8,sh:-35},arm:{W:[102,17],hint:[1,.6]}}}},
+ ra:{gear:[['rect',{x:46,y:154,width:44,height:7,rx:3,fill:'#3a3a44'}],['rect',{x:138,y:132,width:8,height:44,fill:'#2c2c34'}],['circle',{cx:184,cy:144,r:5,fill:'#55556a'}]],
+  f:k=>({H:[66,150],tor:lp(168,184,k),leg:{A:[134,150],hint:[0,-1]},arm:{W:lp([132,110],[90,124],k),hint:[-1,.7]},cable:[184,144],hold:'handle'})},
+ rl:{gear:[...SEAT(86,140,0),['rect',{x:110,y:92,width:8,height:42,rx:4,fill:'#3a3a44'}]],
+  f:k=>({H:[86,140],tor:180,leg:{A:[120,172],hint:[1,-1]},arm:{E:[lp(25,-22,k),lp(1,3,k)],Wd:[lp(48,-1,k),lp(2,3,k)]},hold:'handle'})},
+ // jambes
+ gs:{f:k=>{const tor=lp(180,138,k),H=lp([100,103],[74,138],k);return{H,tor,leg:{A:[104,172],hint:[1,-.2]},arm:{rel:'bar',hint:[-1,1]},hold:'bar',bar:1}}},
+ le:{gear:[...SEAT(88,138,-6),['rect',{x:150,y:120,width:9,height:56,fill:'#2c2c34'}]],f:k=>({H:[88,138],tor:186,leg:{th:90,sh:lp(6,88,k)},arm:{W:[100,142],hint:[1,0]},pad:1,lever:1})},
+ lc:{gear:BENCH.map(g=>g),f:k=>({H:[114,123],tor:-90,prone:1,leg:{th:89,sh:lp(92,168,k)},arm:{W:[58,139],hint:[0,1]},pad:1})},
+ bu:{gear:[['rect',{x:20,y:141,width:46,height:7,rx:3,fill:'#3a3a44'}],['rect',{x:38,y:148,width:6,height:28,fill:'#2c2c34'}]],
+  f:k=>({H:lp([100,105],[93,134],k),tor:lp(178,170,k),leg:{A:[122,172],hint:[1,-.3]},leg2:{A:[50,139],hint:[.2,1],foot:'back'},arm:{ua:lp(2,8,k),fa:lp(2,8,k)},hold:'db'})},
+ mo:{gear:[['rect',{x:98,y:174,width:46,height:6,rx:2,fill:'#3a3a44'}]],f:k=>({H:lp([100,101],[100,91],k),tor:180,leg:{A:lp([100,170],[100,160],k),hint:[1,0],toe:[114,173]},arm:{ua:3,fa:3}})},
+ pc:{gear:[['path',{d:'M30 108 L72 146 L66 152 L24 114 Z',fill:'#3a3a44'}],['rect',{x:60,y:146,width:28,height:7,rx:3,fill:'#3a3a44'}],['rect',{x:68,y:153,width:7,height:23,fill:'#2c2c34'}],['line',{x1:92,y1:140,x2:150,y2:70,stroke:'#2c2c34','stroke-width':6}],['rect',{x:20,y:170,width:150,height:6,fill:'#2c2c34'}]],
+  f:k=>({H:[72,142],tor:-128,leg:{A:lp([118,96],[96,118],k),hint:[-1,-1],foot:'up'},arm:{W:[80,150],hint:[1,1]},sled:1})},
+ fa:{f:k=>({H:lp([98,105],[96,135],k),tor:178,leg:{A:[130,172],hint:[1,-.3]},leg2:{A:[62,170],hint:[.2,1],foot:'toe'},arm:{ua:3,fa:3}})},
+ // abdos
+ cr:{gear:[['rect',{x:150,y:6,width:9,height:170,fill:'#2c2c34'}]],f:k=>({H:[96,136],tor:lp(176,108,k),leg:{th:4,sh:-90},arm:{rel:'head',hint:[1,1]},cable:[150,12],hold:'rope'})},
+ rj:{gear:[['rect',{x:40,y:14,width:120,height:6,rx:3,fill:'#77777f'}]],f:k=>{const tor=lp(180,172,k),S=[100,63];return{H:sub(S,V(tor,RIG.LT)),tor,leg:{th:lp(3,98,k),sh:lp(0,88,k)},arm:{W:[100,17],hint:[1,0]}}}},
+ pl:{f:k=>({H:[96,156.5+k*1.2],tor:101.5,leg:{th:-78.5,sh:-78.5,foot:'down'},arm:{ua:0,fa:90}})},
+};
+// ---------- dessin ----------
+const NS='http://www.w3.org/2000/svg';
+function el(t,a,p){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);p&&p.appendChild(e);return e}
+const C={skin:'#C98A5E',skin2:'#9c6a47',shirt:'#ff4d1a',shirt2:'#b33a12',short:'#34343e',short2:'#26262d',shoe:'#f3f3f3',shoe2:'#bdbdc4',hair:'#141416',band:'#ffb21a',metal:'#8a8a94',plate:'#3a3a44'};
+function setupEx(svg){const p=P[svg.dataset.ex];if(!p)return;svg.innerHTML='';
+ el('line',{x1:8,y1:RIG.G,x2:192,y2:RIG.G,stroke:'#33333b','stroke-width':3,'stroke-linecap':'round'},svg);
+ (p.gear||[]).forEach(([t,a])=>el(t,a,svg));
+ svg._dyn=el('g',{},svg);svg._p=p;svg._phase=Math.random()*6}
+function L(g,a,b,c,w){el('line',{x1:a[0],y1:a[1],x2:b[0],y2:b[1],stroke:c,'stroke-width':w,'stroke-linecap':'round'},g)}
+function foot(g,A,mode,col,toe){let T;if(toe)T=toe;else if(mode==='back')T=add(A,[-12,-2]);else if(mode==='up')T=add(A,[7,-9]);else if(mode==='down')T=add(A,[2,6]);else if(mode==='toe')T=add(A,[9,4]);else T=add(A,[12,1]);L(g,A,T,col,7)}
+function arm(g,S,E,W,far){L(g,E,W,far?C.skin2:C.skin,7.5);L(g,S,E,far?C.skin2:C.skin,8.5);L(g,S,lp(S,E,.45),far?C.shirt2:C.shirt,11);el('circle',{cx:W[0],cy:W[1],r:4.6,fill:far?C.skin2:C.skin},g)}
+function leg(g,H,K,A,far,fm,toe){L(g,K,A,far?C.skin2:C.skin,9.5);L(g,H,K,far?C.skin2:C.skin,11.5);L(g,H,lp(H,K,.6),far?C.short2:C.short,14.5);foot(g,A,fm,far?C.shoe2:C.shoe,toe)}
+function head(g,c,fn,tor){const up=V(tor,1),bk=V(fn+180,1);let d=[up[0]+bk[0],up[1]+bk[1]];const n=Math.hypot(d[0],d[1])||1;d=[d[0]/n,d[1]/n];
+ el('circle',{cx:c[0],cy:c[1],r:RIG.HR+.5,fill:C.hair},g);const c2=[c[0]-d[0]*3.4,c[1]-d[1]*3.4];el('circle',{cx:c2[0],cy:c2[1],r:RIG.HR-1,fill:C.skin},g);
+ const a=Math.atan2(d[1],d[0]),r=RIG.HR-3,p1=[c2[0]+Math.cos(a-1.15)*r,c2[1]+Math.sin(a-1.15)*r],p2=[c2[0]+Math.cos(a+1.15)*r,c2[1]+Math.sin(a+1.15)*r];
+ el('path',{d:`M${p1[0]} ${p1[1]} A${r} ${r} 0 0 1 ${p2[0]} ${p2[1]}`,fill:'none',stroke:C.band,'stroke-width':2.6,'stroke-linecap':'round'},g);
+ const e=add(add(c,V(fn,6)),V(tor,1.5));el('circle',{cx:e[0],cy:e[1],r:1.6,fill:'#141416'},g)}
+function held(g,W,type,front){if(type==='bar'){el('circle',{cx:W[0],cy:W[1],r:13,fill:C.plate,stroke:'#55556a','stroke-width':2.5},g);el('circle',{cx:W[0],cy:W[1],r:3,fill:C.metal},g)}
+ if(type==='db'){if(front){el('rect',{x:W[0]-10,y:W[1]-2,width:20,height:4,rx:2,fill:C.metal},g);el('rect',{x:W[0]-12,y:W[1]-6,width:5,height:12,rx:2,fill:C.plate},g);el('rect',{x:W[0]+7,y:W[1]-6,width:5,height:12,rx:2,fill:C.plate},g)}
+  else el('circle',{cx:W[0],cy:W[1],r:7,fill:C.plate,stroke:'#55556a','stroke-width':2},g)}
+ if(type==='handle')el('rect',{x:W[0]-2.5,y:W[1]-8,width:5,height:16,rx:2,fill:'#55556a'},g);
+ if(type==='knob')el('circle',{cx:W[0],cy:W[1],r:4,fill:'#55556a'},g);
+ if(type==='rope'){L(g,add(W,[-3,0]),add(W,[-1,9]),'#c9b48a',3);L(g,add(W,[3,0]),add(W,[5,8]),'#c9b48a',3)}}
+function solve(q){const S=add(q.H,V(q.tor,RIG.LT)),fn=q.prone?q.tor+90:q.tor-90,Hd=add(add(q.H,V(q.tor,RIG.LT+14)),[0,0]);let W,E;const a=q.arm||{};
+ let bar=null;if(q.bar)bar=add(add(S,V(q.tor+90,6)),V(q.tor,-2));
+ if(a.rel==='bar'){[E,W]=ik(S,add(bar,V(q.tor-90,3)),RIG.UA,RIG.FA,a.hint)}
+ else if(a.rel==='head'){const T=add(add(S,V(q.tor,9)),V(fn,9));[E,W]=ik(S,T,RIG.UA,RIG.FA,a.hint)}
+ else if(a.E){E=add(S,a.E);W=add(S,a.Wd)}else if(a.W){[E,W]=ik(S,a.W,RIG.UA,RIG.FA,a.hint)}else{E=add(S,V(a.ua,RIG.UA));W=add(E,V(a.fa,RIG.FA))}
+ const lg=l=>{let K,A;if(l.A){[K,A]=ik(q.H,l.A,RIG.TH,RIG.SH,l.hint)}else{K=add(q.H,V(l.th,RIG.TH));A=add(K,V(l.sh,RIG.SH))}return{K,A,fm:l.foot,toe:l.toe}};
+ return{S,Hd,fn,E,W,bar,l1:lg(q.leg),l2:q.leg2?lg(q.leg2):null}}
+function drawSide(g,q){const j=solve(q),o=[-2.5,-1.5];
+ if(q.cable){L(g,q.cable,j.W,C.metal,1.6)}
+ // côté éloigné
+ const l2=j.l2||{K:add(j.l1.K,o),A:add(j.l1.A,o),fm:j.l1.fm,toe:j.l1.toe&&add(j.l1.toe,o)};leg(g,j.l2?q.H:add(q.H,o),l2.K,l2.A,1,l2.fm,l2.toe);
+ arm(g,add(j.S,o),add(j.E,o),add(j.W,o),1);
+ if(q.pad||q.lever){if(q.lever)L(g,j.l1.K,add(j.l1.A,V(q.leg.sh+90,6)),'#2c2c34',5)}
+ // corps
+ L(g,j.S,lp(j.S,j.Hd,.55),C.skin,7);L(g,q.H,j.S,C.shirt,23);L(g,q.H,lp(q.H,j.S,.08),C.short,21);
+ leg(g,q.H,j.l1.K,j.l1.A,0,j.l1.fm,j.l1.toe);head(g,j.Hd,j.fn,q.tor);
+ if(q.pad){const pp=add(j.l1.A,V((q.leg.sh??0)+(q.prone?-90:90),6));el('circle',{cx:pp[0],cy:pp[1],r:6,fill:'#55556a'},g)}
+ if(q.sled){const A=j.l1.A;L(g,add(A,[-10,-10]),add(A,[10,10]),'#55556a',6)}
+ const W2=q.hold==='bar'&&q.bar?j.bar:j.W;if(q.hold)held(g,W2,q.hold);
+ arm(g,j.S,j.E,j.W,0)}
+function drawFront(g,q){const cx=100,seat=q.seat,hipY=seat?140:103,shY=hipY-RIG.LT,hdY=shY-15;
+ if(seat){el('rect',{x:cx-26,y:shY-12,width:52,height:hipY-shY+16,rx:6,fill:'#3a3a44'},g);el('rect',{x:cx-24,y:hipY+4,width:48,height:7,rx:3,fill:'#3a3a44'},g);el('rect',{x:cx-3,y:hipY+11,width:6,height:176-hipY-11,fill:'#2c2c34'},g)}
+ [-1,1].forEach(s=>{const H=[cx+s*8,hipY+2];if(seat){const K=[cx+s*14,hipY+12];const A=[cx+s*15,172];L(g,K,A,C.skin,9.5);L(g,H,K,C.short,14);L(g,A,add(A,[s*3,1]),C.shoe,8)}
+  else{const A=[cx+s*11,172];L(g,H,A,C.skin,10.5);L(g,H,lp(H,A,.4),C.short,14.5);L(g,A,add(A,[s*3,1]),C.shoe,8)}});
+ L(g,[cx,shY],[cx,hdY],C.skin,7);
+ el('path',{d:`M${cx-15} ${shY-2} L${cx+15} ${shY-2} L${cx+11} ${hipY} L${cx-11} ${hipY} Z`,fill:C.shirt,stroke:C.shirt,'stroke-width':6,'stroke-linejoin':'round'},g);
+ el('rect',{x:cx-12,y:hipY-6,width:24,height:9,rx:3,fill:C.short},g);
+ el('circle',{cx,cy:hdY,r:RIG.HR,fill:C.skin},g);el('path',{d:`M${cx-11} ${hdY-1} A11 11 0 0 1 ${cx+11} ${hdY-1} Z`,fill:C.hair},g);L(g,[cx-10.5,hdY-2],[cx+10.5,hdY-2],C.band,3.5);
+ el('circle',{cx:cx-4,cy:hdY+3,r:1.5,fill:'#141416'},g);el('circle',{cx:cx+4,cy:hdY+3,r:1.5,fill:'#141416'},g);
+ [-1,1].forEach(s=>{const S=[cx+s*15,shY+1];let E,W;
+  if(q.fly!==undefined){const t=q.fly*Math.PI/180;E=[S[0]+s*RIG.UA*Math.cos(t),S[1]+2];W=[S[0]+s*(RIG.UA+RIG.FA-4)*Math.cos(t),S[1]+3]}
+  else{const a=q.a;E=add(S,V(s*a,RIG.UA));W=add(E,V(s*(a+q.b),RIG.FA))}
+  L(g,E,W,C.skin,7.5);L(g,S,E,C.skin,8.5);L(g,S,lp(S,E,.45),C.shirt,11);el('circle',{cx:W[0],cy:W[1],r:q.fly!==undefined?4.6+Math.sin(q.fly*Math.PI/180)*1.4:4.6,fill:C.skin},g);
+  if(q.hold)held(g,W,q.hold,1)})}
+function pose(svg,k){const p=svg._p;if(!p)return;const g=svg._dyn;g.innerHTML='';const q=p.f(k);if(p.front)drawFront(g,q);else drawSide(g,q)}
+
+const exSvgs=$$('svg[data-ex]');exSvgs.forEach(setupEx);
+function loop(t){exSvgs.forEach(svg=>{if(!svg._p)return;const sp=svg.dataset.ex==='pl'?1.2:0.75;const k=reduce?0.5:(1-Math.cos((t/1000*sp+svg._phase)*Math.PI))/2;pose(svg,k)});requestAnimationFrame(loop)}
+requestAnimationFrame(loop);
+</script>
+
+</body>
+</html>
