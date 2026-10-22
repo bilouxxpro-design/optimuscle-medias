@@ -248,6 +248,23 @@
   .book b{font-family:Anton,sans-serif;font-size:1.35rem;line-height:1;text-transform:uppercase}
   .book small{font-size:.6rem;letter-spacing:2px;color:var(--fire);font-weight:800}
   .dl{display:none;margin-top:16px}
+  /* POUR LES FILLES */
+  #filles{--fire:#ff4fa3;--fire2:#ffa8d2;background:#150b12;border-top:1px solid #3a1a2e;border-bottom:1px solid #3a1a2e}
+  #filles .pillars{background:#3a1a2e}
+  #filles .pillar{background:#1c0f18}
+  #filles .pillar:hover{background:#26121f}
+  #filles .btn-fire{color:#2a0717;animation-name:pulse-pink}
+  @keyframes pulse-pink{0%{box-shadow:0 0 0 0 rgba(255,79,163,.55)}70%{box-shadow:0 0 0 18px rgba(255,79,163,0)}100%{box-shadow:0 0 0 0 rgba(255,79,163,0)}}
+  #filles .intro{color:var(--muted);max-width:640px;margin:18px 0 40px;font-size:1.05rem}
+  .girl-duo{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:22px}
+  @media (max-width:860px){.girl-duo{grid-template-columns:1fr}}
+  .girl-tip{border:1px solid #3a1a2e;border-radius:18px;padding:32px;background:#1c0f18}
+  .girl-tip h3{font-family:Anton,sans-serif;text-transform:uppercase;font-weight:400;font-size:1.5rem;margin-bottom:10px}
+  .girl-tip p{color:var(--muted);margin-bottom:12px}
+  .girl-tip .btns{display:flex;flex-wrap:wrap;gap:12px;margin-top:18px}
+  #filles form{background:#1c0f18;border-color:#3a1a2e;margin:0}
+  #filles input:focus{border-color:var(--fire)}
+
   .dl.show{display:flex}
 
   /* À L'UNITÉ */
@@ -319,6 +336,7 @@
     <div class="nav-links">
       <a href="#histoire">Mon histoire</a>
       <a href="#kit">Kit gratuit</a>
+      <a href="#filles">Pour les filles</a>
       <a href="#academy">Academy</a>
       <a href="#faq">FAQ</a>
       <a class="nav-cta" href="#produits">Les programmes</a>
@@ -528,6 +546,40 @@
           <a class="btn btn-ghost dl" data-link="kit" href="#" target="_blank" rel="noopener">Ouvrir mon kit →</a>
         </form>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- POUR LES FILLES -->
+<section id="filles">
+  <div class="wrap">
+    <div class="kicker reveal">Optimuscle · Version filles</div>
+    <h2 class="display reveal">La salle,<br><span class="fire">c'est aussi ton terrain.</span></h2>
+    <p class="intro reveal">Tu veux te muscler, prendre des fessiers, te sentir forte et à l'aise à la salle ? Les règles qui font progresser sont les mêmes pour tout le monde. Ce qui change, ce sont tes priorités.</p>
+    <div class="pillars reveal d1">
+      <div class="pillar"><div class="num">01</div><h3>Fessiers &amp; jambes</h3><p>Squat, fentes, soulevé de terre roumain, hip thrust : les exercices qui construisent le bas du corps sont dans mes programmes, animés et expliqués.</p></div>
+      <div class="pillar"><div class="num">02</div><h3>Forte, pas « fine »</h3><p>On vise la force et la confiance, pas un chiffre sur la balance. Tu progresses quand tu soulèves plus, pas quand tu manges moins.</p></div>
+      <div class="pillar"><div class="num">03</div><h3>Zéro stress</h3><p>Le kit 7 jours te dit exactement quoi faire dès ta première séance. Tu arrives, tu sais, tu enchaînes.</p></div>
+      <div class="pillar"><div class="num">04</div><h3>De l'énergie</h3><p>L'Assiette du Guerrier : manger simple pour avoir de l'énergie et progresser, sans régime.</p></div>
+    </div>
+    <div class="girl-duo">
+      <div class="girl-tip reveal d1">
+        <h3>Mon conseil si tu prends <span class="fire">Le Déclic</span></h3>
+        <p>Remplace une des séances haut du corps par une 2e séance jambes et fessiers. Même méthode, même progression, plus de bas du corps.</p>
+        <div class="btns">
+          <a class="btn btn-fire" href="#produits">Voir les programmes</a>
+          <a class="btn btn-ghost" href="#kit">Kit gratuit</a>
+        </div>
+      </div>
+      <form class="js-lead reveal d2" data-besoin="Liste d'attente programme filles" data-ok="C'est noté 💗 Tu seras prévenue en premier." novalidate>
+        <div class="kicker" style="margin-bottom:6px">Bientôt</div>
+        <h3 style="font-family:Anton,sans-serif;text-transform:uppercase;font-weight:400;font-size:1.5rem;margin-bottom:14px">Un programme 100 % filles</h3>
+        <label for="girlEmail">Ton e-mail</label>
+        <input type="email" id="girlEmail" name="email" required placeholder="toi@exemple.fr" autocomplete="email">
+        <p class="consent">Ton e-mail sert uniquement à te prévenir de la sortie. Jamais revendu, suppression sur simple demande.</p>
+        <button class="btn btn-fire" type="submit">Je veux être prévenue →</button>
+        <p class="msg"></p>
+      </form>
     </div>
   </div>
 </section>
@@ -928,7 +980,7 @@ function pose(svg,k){const p=svg._p;if(!p)return;const g=svg._dyn;g.innerHTML=''
         if (!res.ok) throw new Error(res.status);
         f.email.value = "";
         m.style.color = "#4ade80";
-        m.textContent = dl ? "C'est bon 💪 Ton kit est prêt :" : "C'est noté 💪 Tu seras prévenu en premier.";
+        m.textContent = f.dataset.ok || (dl ? "C'est bon 💪 Ton kit est prêt :" : "C'est noté 💪 Tu seras prévenu en premier.");
         if (dl) dl.classList.add("show");
       } catch { m.style.color = "#f87171"; m.textContent = "L'envoi a échoué, réessaie dans un instant."; }
       finally { b.disabled = false; b.textContent = txt; }
