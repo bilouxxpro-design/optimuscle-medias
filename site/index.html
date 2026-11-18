@@ -269,6 +269,24 @@
   #nav .wrap>.left{display:flex;align-items:center}
   @media (max-width:420px){.mode button{padding:7px 10px}.mode{margin-left:8px}}
   .only-f{display:none}
+  /* MODE ATELIERS (écoles, structures) */
+  html:not(.pro) .only-a{display:none}
+  html.pro .b2c{display:none}
+  html.pro{--fire:#3b82f6;--fire2:#22d3ee;--bg2:#0a1220;--card:#0f1828;--line:#1e2a40}
+  html.pro body{background:#070b14}
+  html.pro .btn-fire,html.pro .mode button[aria-pressed="true"]{color:#03101f;animation-name:none}
+  html.pro .hero{background:radial-gradient(ellipse at 78% 35%,rgba(59,130,246,.25),transparent 55%),radial-gradient(ellipse at 5% 95%,rgba(34,211,238,.10),transparent 50%)}
+  .mode button[data-mode="a"]{position:relative}
+  .mode button[data-mode="a"]:not([aria-pressed="true"]){color:var(--text);box-shadow:inset 0 0 0 1px #3b82f6}
+  .pro-trust{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+  .pro-trust span{border:1px solid var(--line);border-radius:999px;padding:7px 14px;font-size:.82rem;color:var(--muted)}
+  .pro-trust b{color:var(--text)}
+  .hero p.lead,html.girl .hero p.lead{padding:0;border:0;border-radius:0;background:none;box-shadow:none}
+  .hero p.lead:not(.only-f):not(.only-g),html:not(.girl) .hero p.lead.only-g,html.girl .hero p.lead.only-f{display:block}
+  html:not(.girl) .hero p.lead.only-f,html.girl .hero p.lead.only-g{display:none}
+  html.pro .hero h1{font-size:clamp(2.8rem,8vw,6.6rem)}
+  @media (max-width:520px){.nav-links .nav-cta{display:none}.logo{font-size:1.25rem}.mode{margin-left:8px}.mode button{padding:6px 8px;font-size:.68rem;letter-spacing:.5px}}
+  .cta-ateliers{display:inline-flex;align-items:center;gap:8px;margin-top:22px;font-weight:700;color:var(--text);border-bottom:2px solid var(--fire);padding-bottom:2px}
   html.girl .only-f{display:revert}
   html.girl .only-g{display:none}
   html.girl{--fire:#ff4fa3;--fire2:#ffa8d2;--bg2:#150b12;--card:#1c0f18;--line:#3a1a2e}
@@ -357,20 +375,43 @@
 <nav id="nav">
   <div class="wrap">
     <div class="left"><a class="logo" href="#">OPTI<span>MUSCLE</span></a>
-    <div class="mode" role="group" aria-label="Version du site"><button type="button" data-mode="g" aria-pressed="true">Gars</button><button type="button" data-mode="f" aria-pressed="false">Filles</button></div></div>
+    <div class="mode" role="group" aria-label="Version du site"><button type="button" data-mode="g" aria-pressed="true">Gars</button><button type="button" data-mode="f" aria-pressed="false">Filles</button><button type="button" data-mode="a" aria-pressed="false">Ateliers</button></div></div>
     <div class="nav-links">
-      <a href="#histoire">Mon histoire</a>
-      <a href="#kit">Kit gratuit</a>
-      <a href="#ateliers">Ateliers</a>
-      <a href="#academy">Academy</a>
-      <a href="#faq">FAQ</a>
-      <a class="nav-cta" href="#produits">Les programmes</a>
+      <a class="b2c" href="#histoire">Mon histoire</a>
+      <a class="b2c" href="#kit">Kit gratuit</a>
+      <a href="#ateliers" data-goto-a>Ateliers</a>
+      <a class="b2c" href="#academy">Academy</a>
+      <a class="b2c" href="#faq">FAQ</a>
+      <a class="nav-cta b2c" href="#produits">Les programmes</a>
+      <a class="nav-cta only-a" href="#atelierForm">Réserver un atelier</a>
     </div>
   </div>
 </nav>
 
 <!-- HERO -->
-<header class="hero">
+<header class="hero only-a">
+  <div class="bigword" aria-hidden="true">Ateliers</div>
+  <div class="wrap">
+    <div class="eyebrow">Écoles · collèges · MJC · salles · EHPAD</div>
+    <h1 class="display">
+      <span class="line"><span>Ateliers</span></span>
+      <span class="line"><span class="outline">sport &amp; santé</span></span>
+      <span class="line"><span class="fire">pour vos jeunes.</span></span>
+    </h1>
+    <p class="lead">Je m'appelle Bilal. J'ai commencé le sport à 15 ans, en surpoids. Aujourd'hui, j'interviens dans vos établissements avec des ateliers interactifs sur <strong>le sport, le sommeil, l'alimentation et la confiance en soi</strong>.</p>
+    <div class="ctas">
+      <a class="btn btn-fire" href="#atelierForm">Réserver un atelier →</a>
+      <a class="btn btn-ghost" href="#ateliers">Voir les formats</a>
+    </div>
+    <div class="pro-trust">
+      <span>🤝 Projet accompagné par <b>LALK Académie</b></span>
+      <span>🎯 Quiz, défis, mises en situation</span>
+      <span>🏫 Dans vos locaux</span>
+    </div>
+  </div>
+</header>
+
+<header class="hero b2c">
   <div class="bigword" aria-hidden="true" data-f="Forte">Forgé</div>
   <div class="wrap">
     <div class="eyebrow">@optimuscle</div>
@@ -386,6 +427,7 @@
       <a class="btn btn-fire" href="#produits">Je commence ma transformation →</a>
       <a class="btn btn-ghost" href="#kit">🎁 Kit gratuit 7 jours</a>
     </div>
+    <a class="cta-ateliers" href="#ateliers" data-goto-a>🏫 École, collège, MJC ou salle ? Réservez un atelier →</a>
   </div>
   <svg class="barbell" viewBox="0 0 400 140" aria-hidden="true">
     <defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#ff4d1a"/><stop offset="1" stop-color="#ffb21a"/></linearGradient></defs>
@@ -408,7 +450,7 @@
 </div>
 
 <!-- HISTOIRE -->
-<section id="histoire">
+<section class="b2c" id="histoire">
   <div class="wrap story">
 
     <div class="age reveal" aria-hidden="true">
@@ -442,7 +484,7 @@
 </section>
 
 <!-- VITRINE : PAS UN PDF -->
-<section id="vitrine">
+<section class="b2c" id="vitrine">
   <div class="wrap showcase">
     <div class="phone reveal" aria-label="Aperçu d'un exercice animé dans l'e-book">
       <div class="screen">
@@ -468,7 +510,7 @@
 </section>
 
 <!-- PRODUITS -->
-<section id="produits" style="background:var(--bg2)">
+<section class="b2c" id="produits" style="background:var(--bg2)">
   <div class="wrap">
     <div style="text-align:center">
       <div class="kicker reveal">Les programmes</div>
@@ -548,7 +590,7 @@
 </section>
 
 <!-- KIT GRATUIT -->
-<section id="kit">
+<section class="b2c" id="kit">
   <div class="wrap">
     <div class="lead reveal">
       <div>
@@ -578,7 +620,7 @@
 </section>
 
 <!-- POUR QUI -->
-<section>
+<section class="b2c">
   <div class="wrap">
     <div class="kicker reveal">Pour qui ?</div>
     <h2 class="display reveal">C'est pour toi si…</h2>
@@ -605,7 +647,7 @@
 </section>
 
 <!-- MÉTHODE -->
-<section id="methode" style="background:var(--bg2)">
+<section class="b2c" id="methode" style="background:var(--bg2)">
   <div class="wrap">
     <div class="kicker reveal">La méthode Optimuscle</div>
     <h2 class="display reveal">Pas de magie.<br><span class="outline">Du travail bien fait.</span></h2>
@@ -658,7 +700,7 @@
 </section>
 
 <!-- ACADEMY -->
-<section id="academy">
+<section class="b2c" id="academy">
   <div class="wrap">
     <div class="academy reveal">
       <div class="l">
@@ -690,7 +732,7 @@
 </section>
 
 <!-- FAQ -->
-<section id="faq">
+<section class="b2c" id="faq">
   <div class="wrap">
     <div class="kicker reveal">Questions</div>
     <h2 class="display reveal">FAQ</h2>
@@ -710,7 +752,7 @@
 </section>
 
 <!-- CONTACT -->
-<section id="contact" style="background:var(--bg2)">
+<section class="b2c" id="contact" style="background:var(--bg2)">
   <div class="wrap contact">
     <div class="reveal">
       <div class="kicker">Une question ?</div>
@@ -730,11 +772,19 @@
 </section>
 
 <!-- CTA FINAL -->
-<section class="final">
+<section class="final b2c">
   <div class="wrap">
     <h2 class="display reveal">Dans 12 semaines,<br><span class="fire" data-f="tu seras fière de toi.">tu me remercieras.</span></h2>
     <p class="reveal">Le meilleur moment pour commencer, c'était hier. Le deuxième meilleur, c'est maintenant.</p>
     <a class="btn btn-fire reveal" href="#produits">Je commence maintenant →</a>
+  </div>
+</section>
+
+<section class="final only-a">
+  <div class="wrap">
+    <h2 class="display reveal">Un atelier,<br><span class="fire">des jeunes qui bougent.</span></h2>
+    <p class="reveal">Parlez-moi de votre public et de vos dates : je vous propose un format adapté.</p>
+    <a class="btn btn-fire reveal" href="#atelierForm">Réserver un atelier →</a>
   </div>
 </section>
 
@@ -745,7 +795,7 @@
   </div>
 </footer>
 
-<div class="sticky-buy" id="stickyBuy"><a class="btn btn-fire" href="#produits">Voir le Pack Optimus · 29,90 €</a></div>
+<div class="sticky-buy b2c" id="stickyBuy"><a class="btn btn-fire" href="#produits">Voir le Pack Optimus · 29,90 €</a></div>
 
 <dialog id="mentions"><button class="x" aria-label="Fermer">✕</button><h3>Mentions légales</h3>
 <p><b>Éditeur du site :</b> <span data-cfg="editeur"></span>, <span data-cfg="adresse"></span>. <span data-cfg="identifiant"></span>.</p>
@@ -966,17 +1016,19 @@ function pose(svg,k){const p=svg._p;if(!p)return;const g=svg._dyn;g.innerHTML=''
   if (!reduce) setInterval(() => { wi = (wi + 1) % words.length; [[rot,words],[rotF,wordsF]].forEach(([r,w]) => { r.textContent = w[wi]; r.classList.remove("swap"); void r.offsetWidth; r.classList.add("swap"); }); }, 2200);
   // Bascule Gars / Filles (mémorisée ; lien direct : ?v=filles ou #filles)
   function setMode(m, save) {
-    const girl = m === "f"; document.documentElement.classList.toggle("girl", girl);
+    const girl = m === "f"; document.documentElement.classList.toggle("girl", girl); document.documentElement.classList.toggle("pro", m === "a");
     document.querySelectorAll("[data-f]").forEach(el => { if (el.dataset.m === undefined) el.dataset.m = el.innerHTML; el.innerHTML = girl ? el.dataset.f : el.dataset.m; });
     document.querySelectorAll(".mode button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.mode === m)));
     document.querySelectorAll("#g stop").forEach((s, i) => s.setAttribute("stop-color", girl ? ["#ff4fa3","#ffa8d2"][i] : ["#ff4d1a","#ffb21a"][i]));
     if (typeof C === "object") { C.shirt = girl ? "#ff4fa3" : "#ff4d1a"; C.shirt2 = girl ? "#b8306f" : "#b33a12"; }
-    const tc = document.querySelector('meta[name="theme-color"]'); if (tc) tc.content = girl ? "#150b12" : "#0b0b0c";
+    const tc = document.querySelector('meta[name="theme-color"]'); if (tc) tc.content = girl ? "#150b12" : (m === "a" ? "#070b14" : "#0b0b0c");
     if (save) { try { localStorage.setItem("opti-mode", m); } catch (e) {} }
   }
-  document.querySelectorAll(".mode button").forEach(b => b.addEventListener("click", () => setMode(b.dataset.mode, true)));
+  document.querySelectorAll(".mode button").forEach(b => b.addEventListener("click", () => { setMode(b.dataset.mode, true); window.scrollTo({ top: 0, behavior: "smooth" }); }));
+  // Liens « Ateliers » : basculent en mode Ateliers puis vont à la section
+  document.querySelectorAll("[data-goto-a]").forEach(a => a.addEventListener("click", e => { if (!document.documentElement.classList.contains("pro")) { e.preventDefault(); setMode("a", true); window.scrollTo({ top: 0, behavior: "smooth" }); } }));
   { let m = "g"; try { m = localStorage.getItem("opti-mode") || "g"; } catch (e) {}
-    const q = new URLSearchParams(location.search).get("v"); if (q === "filles" || location.hash === "#filles") m = "f"; if (q === "gars") m = "g";
+    const q = new URLSearchParams(location.search).get("v"); if (q === "filles" || location.hash === "#filles") m = "f"; if (q === "gars") m = "g"; if (q === "ateliers" || location.hash === "#ateliers") m = "a";
     setMode(m, false); }
 
   // Apparition au scroll
