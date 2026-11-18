@@ -212,6 +212,20 @@
   #msg.ok{display:block;color:#4ade80}
   #msg.err{display:block;color:#f87171}
 
+  /* ATELIERS */
+  .at-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:34px 0 46px}
+  @media (max-width:980px){.at-grid{grid-template-columns:1fr 1fr}}
+  @media (max-width:560px){.at-grid{grid-template-columns:1fr}}
+  .at-card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px}
+  .at-card .tag{font-size:.72rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--fire)}
+  .at-card h3{margin:8px 0 8px;font-size:1.15rem}
+  .at-card p{color:var(--muted);font-size:.92rem}
+  .lalk{display:inline-flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:999px;padding:8px 16px;font-size:.85rem;color:var(--muted);margin-top:18px}
+  .lalk b{color:var(--text)}
+  .lalk a{color:var(--text);text-decoration:underline}
+  input[type=text],select{width:100%;padding:15px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--text);font:inherit;margin-bottom:20px}
+  select:focus,input[type=text]:focus{outline:none;border-color:var(--fire)}
+
   /* CTA FINAL */
   .final{text-align:center;background:radial-gradient(ellipse at 50% 100%,rgba(255,77,26,.25),transparent 60%)}
   .final h2{font-size:clamp(2.6rem,9vw,6.5rem)}
@@ -347,6 +361,7 @@
     <div class="nav-links">
       <a href="#histoire">Mon histoire</a>
       <a href="#kit">Kit gratuit</a>
+      <a href="#ateliers">Ateliers</a>
       <a href="#academy">Academy</a>
       <a href="#faq">FAQ</a>
       <a class="nav-cta" href="#produits">Les programmes</a>
@@ -603,6 +618,45 @@
   </div>
 </section>
 
+<!-- ATELIERS -->
+<section id="ateliers" style="background:var(--bg2)">
+  <div class="wrap">
+    <div class="kicker reveal">Écoles · collèges · structures jeunesse</div>
+    <h2 class="display reveal">Réserver<br><span class="fire">un atelier.</span></h2>
+    <p class="reveal" style="color:var(--muted);max-width:640px">J'interviens dans les établissements et les structures pour parler sport, sommeil, alimentation et confiance en soi. Des ateliers interactifs : quiz, défis en équipe, mises en situation. Pas de cours magistral, pas de régime.</p>
+    <div class="lalk reveal">🤝 Projet accompagné par <b><a href="https://lalkacademie.com/" target="_blank" rel="noopener">LALK Académie</a></b></div>
+    <div class="at-grid reveal d1">
+      <div class="at-card"><div class="tag">Écoles primaires</div><h3>Bouger, bien manger, bien dormir</h3><p>Jeux et défis adaptés à l'âge des enfants, en lien avec le projet d'école ou le parcours éducatif de santé.</p></div>
+      <div class="at-card"><div class="tag">Collèges · MFR</div><h3>Sport, sommeil, confiance en soi</h3><p>Quiz et mises en situation, adaptables à une heure de vie de classe, au CESCE ou au projet d'établissement.</p></div>
+      <div class="at-card"><div class="tag">MJC · centres sociaux · salles</div><h3>Bien débuter le sport</h3><p>Pour les jeunes et les débutants : bien démarrer, récupérer, tenir dans la durée. Pendant vos temps d'animation ou vos vacances.</p></div>
+      <div class="at-card"><div class="tag">EHPAD · résidences</div><h3>Bien vieillir</h3><p>Mobilité douce, équilibre et alimentation, adaptés aux capacités de chacun, dans une ambiance conviviale.</p></div>
+    </div>
+    <div class="contact">
+      <div class="reveal">
+        <h3 style="font-size:1.4rem;margin-bottom:10px">Comment ça se passe</h3>
+        <p style="color:var(--muted)">1. Vous remplissez le formulaire.<br>2. Je vous rappelle pour caler le public, la durée et la date.<br>3. Je vous envoie une proposition écrite.<br>4. J'anime l'atelier dans vos locaux.</p>
+        <p style="color:var(--muted);margin-top:14px">Demande sans engagement.</p>
+      </div>
+      <form id="atelierForm" class="reveal d1" novalidate>
+        <label for="atStructure">Votre structure</label>
+        <input type="text" id="atStructure" name="structure" required placeholder="Ex. : Collège Victor Hugo, Besançon" autocomplete="organization">
+        <label for="atType">Type de structure</label>
+        <select id="atType" name="type" required>
+          <option value="">Choisir…</option>
+          <option>École primaire</option><option>Collège</option><option>MFR / formation</option><option>MJC / centre social / structure jeunesse</option><option>Salle de sport / club</option><option>EHPAD / résidence seniors</option><option>Autre</option>
+        </select>
+        <label for="atEmail">Votre e-mail</label>
+        <input type="email" id="atEmail" name="email" required placeholder="vous@etablissement.fr" autocomplete="email">
+        <label for="atMsg">Public, nombre de participants, période souhaitée</label>
+        <textarea id="atMsg" name="message" required placeholder="Ex. : deux classes de 5e, environ 50 élèves, en février"></textarea>
+        <p class="consent">Votre e-mail sert uniquement à vous répondre. Jamais revendu.</p>
+        <button class="btn btn-fire" type="submit">Demander un atelier →</button>
+        <p class="msg"></p>
+      </form>
+    </div>
+  </div>
+</section>
+
 <!-- ACADEMY -->
 <section id="academy">
   <div class="wrap">
@@ -686,7 +740,7 @@
 
 <footer>
   <div class="wrap">
-    <span>© <span id="y"></span> OPTIMUSCLE<span data-social="instagram" hidden> · <a target="_blank" rel="noopener">Instagram</a></span><span data-social="tiktok" hidden> · <a target="_blank" rel="noopener">TikTok</a></span></span>
+    <span>© <span id="y"></span> OPTIMUSCLE · Projet accompagné par <a href="https://lalkacademie.com/" target="_blank" rel="noopener">LALK Académie</a><span data-social="instagram" hidden> · <a target="_blank" rel="noopener">Instagram</a></span><span data-social="tiktok" hidden> · <a target="_blank" rel="noopener">TikTok</a></span></span>
     <span><a href="#" data-dialog="mentions">Mentions légales</a> · <a href="#" data-dialog="cgv">CGV</a> · <a href="#" data-dialog="rgpd">Confidentialité</a></span>
   </div>
 </footer>
@@ -978,6 +1032,26 @@ function pose(svg,k){const p=svg._p;if(!p)return;const g=svg._dyn;g.innerHTML=''
       } catch { m.style.color = "#f87171"; m.textContent = "L'envoi a échoué, réessaie dans un instant."; }
       finally { b.disabled = false; b.textContent = txt; }
     });
+  });
+  // Réservation d'atelier → n8n (même webhook, source dédiée)
+  const at = document.getElementById("atelierForm");
+  if (at) at.addEventListener("submit", async e => {
+    e.preventDefault();
+    const m = at.querySelector(".msg"), b = at.querySelector("button"), txt = b.textContent;
+    const email = at.email.value.trim(), structure = at.structure.value.trim(), type = at.type.value, message = at.message.value.trim();
+    const err = t => { m.style.color = "#f87171"; m.textContent = t; };
+    if (structure.length < 2) return err("Indiquez le nom de votre structure.");
+    if (!type) return err("Choisissez le type de structure.");
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return err("Indiquez un e-mail valide.");
+    if (message.length < 5) return err("Précisez le public et la période souhaitée.");
+    b.disabled = true; b.textContent = "Envoi…";
+    try {
+      const res = await fetch(WEBHOOK_URL, { method:"POST", headers:{"Content-Type":"application/json"},
+        body: JSON.stringify({ email, besoin: "Réservation atelier – " + type + " – " + structure + " – " + message, source: "Réservation atelier", page: location.href }) });
+      if (!res.ok) throw new Error(res.status);
+      at.reset(); m.style.color = "#4ade80"; m.textContent = "Demande bien reçue. Je vous recontacte rapidement.";
+    } catch { err("L'envoi a échoué, réessayez dans un instant."); }
+    finally { b.disabled = false; b.textContent = txt; }
   });
 </script>
 </body>
